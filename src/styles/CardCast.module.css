@@ -1,0 +1,53 @@
+.actor {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    flex-flow: column;
+    color: #222;
+    transition: all .2s;
+}
+
+.actor__img {
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all .2s;
+}
+
+.actor__img img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.actor span {
+    white-space: nowrap;
+
+}
+
+.actor:hover {
+    transform: translateY(-6px);
+    color: var(--orange-color) !important;
+}
+
+.actor:hover .actor__img {
+    box-shadow: 0 3px 3px 5px rgba(0, 0, 0, 0.35);
+}
+
+@media screen and (max-width:992px) {
+    .actor__img img {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+@media screen and (max-width:768px) {
+    .actor__img img {
+        width: 130px;
+        height: 130px;
+    }
+}

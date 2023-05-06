@@ -1,0 +1,38 @@
+@media screen and (max-width:768px) {
+
+    .slick-prev:focus::before,
+    .slick-next:focus::before,
+    .slick-prev:before,
+    .slick-next:before {
+        font-size: 20px !important;
+    }
+
+    .slick-next {
+        right: -15px !important;
+    }
+
+    .slick-prev {
+        left: -15px !important;
+    }
+
+    .slick-prev,
+    .slick-next {
+        z-index: 2;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+
+}
+
+@media screen and (max-width:992px) {
+    .wrap__genres {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .wrap__form {
+        padding-inline: 24px;
+    }
+}

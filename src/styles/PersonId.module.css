@@ -1,0 +1,33 @@
+.wrap {
+    margin-right: 8px;
+    background: #222;
+    padding-inline: 16px;
+}
+
+.movie__participated {
+    background: #222;
+    padding: 32px 16px;
+}
+
+.movie__participated h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.movie__participated h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-block: 24px 12px;
+}
+
+.bio p {
+    color: #737373;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width:768px) {
+    .wrap {
+        margin-right: 0;
+    }
+}

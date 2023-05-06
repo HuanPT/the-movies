@@ -1,0 +1,57 @@
+.card__movie {
+    gap: 12px;
+    color: #fff;
+    display: flex;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+    transition: all .2s;
+    margin-bottom: 12px;
+    background: #000;
+}
+
+.img {
+    max-width: 77px;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 15px;
+    line-height: 1.4;
+    padding-right: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* số dòng hiển thị */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card__movie:hover {
+    box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.2);
+    background: #333;
+}
+
+.wrap__des {
+    flex: 1;
+    padding-block: 12px;
+}
+
+.wrap__option {
+    flex: 1;
+    align-self: flex-end;
+}
+
+
+.iconHeart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px !important;
+    color: var(--orange-color);
+}
+
+.date {
+    font-size: 14px;
+    color: #888;
+}

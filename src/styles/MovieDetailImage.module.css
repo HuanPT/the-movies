@@ -1,0 +1,83 @@
+.imgBig {
+    position: relative;
+}
+
+.imgBig img {
+    max-height: 450px;
+    object-fit: cover;
+}
+
+.imgBig::before {
+    content: "";
+    inset: 0;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.info__wrap {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    gap: 16px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.img__small {
+    overflow: hidden;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.film__infoText h1 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.film__infoText h2 {
+    font-size: 20px;
+    margin-block: 10px;
+    line-height: 1.2;
+}
+
+.listButton {
+    display: flex;
+    gap: 8px;
+}
+
+.wrap__button {
+    gap: 4px;
+    padding-inline: 12px;
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+}
+
+.buttonCollection {
+    font-size: 24px !important;
+    display: flex;
+    color: var(--orange-color);
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width:768px) {
+    .info__wrap {
+        gap: 0;
+    }
+
+    .film__infoText h1 {
+        font-size: 22px;
+    }
+
+    .film__infoText h2 {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width:576px) {
+    .listButton {
+        flex-wrap: wrap;
+    }
+}

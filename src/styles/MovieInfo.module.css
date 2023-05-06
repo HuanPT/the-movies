@@ -1,0 +1,59 @@
+.info dt {
+    font-weight: bold;
+}
+
+.info dd {
+    color: #777;
+    padding-left: 4px;
+    margin-bottom: 8px;
+}
+
+.info dd a {
+    color: #777;
+}
+
+.score {
+    color: #222;
+    font-weight: bold;
+    border-radius: 4px;
+    padding-inline: 5px;
+}
+
+.info dd a:hover {
+    color: var(--orange-color);
+}
+
+.listCast {
+    display: grid;
+    gap: 20px;
+    list-style: none;
+    justify-items: center;
+    grid-template-columns: repeat(6, 1fr);
+    margin-top: 24px;
+}
+
+@media screen and (max-width:1100px) {
+    .listCast {
+        grid-template-columns: repeat(5, 1fr);
+    }
+}
+
+@media screen and (max-width:950px) {
+    .listCast {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media screen and (max-width:768px) {
+    .listCast {
+        gap: 12px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width:576px) {
+    .listCast {
+        gap: 12px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
