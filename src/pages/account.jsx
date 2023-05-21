@@ -33,8 +33,8 @@ const listRent = async (rentMovies) => {
           title={item.data.title}
           link={`/movie/${item.data.id}`}
           imdbPoint={item.data.vote_average}
-          dropPath={item.data.backdrop_path || item.data.poster_path}
-          posterPath={item.data.poster_path || item.data.backdrop_path}
+          dropPath={item.data.backdrop_path}
+          posterPath={item.data.poster_path}
         />
         <div></div>
       </Col>

@@ -13,7 +13,6 @@ export default function CustomAvatar({ size = 38 }) {
 
   const vip = useMemo(() => userData?.vipStatus.isVip, [userData]);
 
-  console.log(userData);
 
   const calc = ((12 * size) / 45).toFixed(1);
   const avatarStyle = {

@@ -28,25 +28,9 @@ export function formatNumberToDateTime(dateTime) {
 }
 
 export const cost = {
-  "VipMovie": 1000,
-  "VipMonth": 40000,
+  VipMovie: 1000,
+  VipMonth: 40000,
 };
-
-// export function CryptoUtil(secretKey) {
-//   this.secretKey = secretKey;
-
-//   this.encryptData = function (data) {
-//     const encryptedData = CryptoJS.AES.encrypt(data, this.secretKey).toString();
-//     return encryptedData;
-//   };
-
-//   this.decryptData = function (data) {
-//     const decryptedData = CryptoJS.AES.decrypt(data, this.secretKey).toString(
-//       CryptoJS.enc.Utf8
-//     );
-//     return decryptedData;
-//   };
-// }
 
 // Mã hóa
 export const encryptData = (data) => {
@@ -58,7 +42,6 @@ export const encryptData = (data) => {
 // Giải mã
 export const decryptData = (data) => {
   const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY;
-
   const decryptedData = CryptoJS.AES.decrypt(data, secretKey).toString(
     CryptoJS.enc.Utf8
   );
@@ -75,13 +58,19 @@ export const formatString = (currentIndex, maxIndex) => {
   return currentIndex == maxIndex - 1 ? "" : ", ";
 };
 
-// export function getCurrentTimePlusTenDays() {
-//   // Tạo một đối tượng Date đại diện cho thời gian hiện tại
-//   const now = new Date();
+// Xử lý params thành URL params
+export const handleParams = (params) => {
+  let urlParams = "";
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      if (urlParams !== "") {
+        urlParams += "&";
+      }
+      urlParams += `${encodeURIComponent(key)}=${encodeURIComponent(
+        params[key]
+      )}`;
+    }
+  }
 
-//   // Thêm 10 ngày vào giá trị của đối tượng Date
-//   now.setDate(now.getDate() + 10);
-
-//   // Chuyển đổi thời gian hiện tại + 10 ngày thành số nguyên và trả về kết quả
-//   return Math.floor(now.getTime() / 1000);
-// }
+  return urlParams;
+};

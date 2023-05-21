@@ -23,8 +23,8 @@ export default function PersonId({ person, movies, images }) {
           title={item.title}
           link={`/movie/${item.id}`}
           imdbPoint={item.vote_average}
-          dropPath={item.backdrop_path || item.poster_path}
-          posterPath={item.poster_path || item.backdrop_path}
+          dropPath={item.backdrop_path}
+          posterPath={item.poster_path}
         />
       </Col>
     ));

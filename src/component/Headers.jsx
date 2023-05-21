@@ -17,9 +17,10 @@ import {
 } from "react-icons/fa";
 import styles from "@/styles/Headers.module.css";
 import { useAuthContext } from "@/context/Auth.context";
-import { Button, Input, Dropdown, Row, Col } from "antd";
+import { Button, Input, Dropdown, Row, Col, message } from "antd";
 import { logout } from "@/lib/auth";
 import CustomAvatar from "./CustomAvatar";
+import { useRouter } from "next/router";
 
 const items = [
   {
@@ -46,7 +47,7 @@ const items = [
     key: "3",
     label: (
       <Link rel="noopener noreferrer" href="/donate">
-        donate
+        Nạp coin
       </Link>
     ),
     icon: <FaDonate style={{ fontSize: 16 }} />,
@@ -66,7 +67,7 @@ const items = [
 
 export default function Headers() {
   const { user } = useAuthContext();
-
+  const router = useRouter();
   const { Search } = Input;
   const [headerStyle, setHeaderStyle] = useState({});
 
@@ -100,9 +101,14 @@ export default function Headers() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  });
+  }, [heightRef]);
 
-  const onSearch = (value) => console.log(value);
+  const onSearch = (value) => {
+    if (!value) return;
+    else {
+      router.push(`/search?q=${value}`);
+    }
+  };
 
   return (
     <>
@@ -141,6 +147,7 @@ export default function Headers() {
           <Row
             justify="space-between"
             align="middle"
+            wrap={false}
             style={{ marginInline: "5vw" }}
           >
             <Col>
@@ -173,7 +180,7 @@ export default function Headers() {
                 className={styles.menu__list}
               >
                 <div>
-                  <CustomAvatar  />
+                  <CustomAvatar />
                 </div>
               </Dropdown>
             </Col>

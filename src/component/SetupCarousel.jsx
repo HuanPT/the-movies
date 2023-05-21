@@ -15,6 +15,7 @@ export default function SetupCarousel({ children }) {
     initialSlide: 0,
     slidesToShow: 5,
     slidesToScroll: 5,
+    adaptiveHeight: true,
     responsive: [
       {
         breakpoint: 992,

@@ -6,7 +6,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "image.tmdb.org",
-        // pathname: "t/p/w220_and_h330_face/",
+      },
+      {
+        protocol: "https",
+        hostname: "img.vietqr.io",
       },
     ],
   },

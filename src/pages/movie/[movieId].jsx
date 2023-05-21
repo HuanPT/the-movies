@@ -12,7 +12,6 @@ import Link from "next/link";
 import React, { Children } from "react";
 
 export default function movieId({ movie, credits, similar, trailer }) {
-  console.log(movie, credits, similar, trailer);
   const { results } = trailer;
   const { cast, crew } = credits;
   const { results: similarResults } = similar;
@@ -35,8 +34,8 @@ export default function movieId({ movie, credits, similar, trailer }) {
             title={item.title}
             link={`/movie/${item.id}`}
             imdbPoint={item.vote_average}
-            dropPath={item.backdrop_path || item.poster_path}
-            posterPath={item.poster_path || item.backdrop_path}
+            dropPath={item.backdrop_path}
+            posterPath={item.poster_path}
           />
         );
       });
@@ -87,8 +86,8 @@ export default function movieId({ movie, credits, similar, trailer }) {
       </Head>
       <div>
         <MovieDetailImage
-          pathImg={movie.backdrop_path || movie.poster_path}
-          posterImg={movie.poster_path || movie.backdrop_path}
+          pathImg={movie.backdrop_path}
+          posterImg={movie.poster_path}
           id={movie.id}
           title={movie.title}
           subtitle={movie.original_title}

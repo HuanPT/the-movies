@@ -55,3 +55,5 @@ export const fetchGenres = async (genres) => {
   return listGenres;
 };
 
+
+

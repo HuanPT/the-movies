@@ -9,9 +9,36 @@ import Cookies from "js-cookie";
 import { decryptData, encryptData } from "@/lib/common";
 import Head from "next/head";
 
-export default function SignIn({ email, password, remember }) {
+export default function SignIn() {
   const router = useRouter();
-  console.log(email, password, remember);
+  const [initialValues, setInitialValues] = useState({});
+  const [form] = Form.useForm();
+
+  useEffect(() => {
+    const encryptedEmail = localStorage.email || "";
+    const encryptedPassword = localStorage.password || "";
+    const encryptedRemember = localStorage.remember || "false";
+
+    const email = encryptedEmail === "" ? "" : decryptData(encryptedEmail);
+
+    const password =
+      encryptedPassword === "" ? "" : decryptData(encryptedPassword);
+
+    const remember =
+      encryptedRemember === ""
+        ? false
+        : decryptData(encryptedRemember) === "true";
+
+    setInitialValues({
+      email,
+      password,
+      remember,
+    });
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [initialValues]);
 
   const onSignIn = async (values) => {
     const email = values.email;
@@ -29,18 +56,18 @@ export default function SignIn({ email, password, remember }) {
     } else {
       if (isRemember) {
         console.log(encryptedRemember);
-        Cookies.set("email", encryptedEmail, { expires: 7 });
-        Cookies.set("password", encryptedPassword, { expires: 7 });
-        Cookies.set("remember", encryptedRemember, { expires: 7 });
+        localStorage.setItem("email", encryptedEmail, { expires: 7 });
+        localStorage.setItem("password", encryptedPassword, { expires: 7 });
+        localStorage.setItem("remember", encryptedRemember, { expires: 7 });
       } else {
-        Cookies.set("email", encryptData(""), { expires: 7 });
-        Cookies.set("password", encryptData(""), { expires: 7 });
-        Cookies.set("remember", false, { expires: 7 });
+        localStorage.setItem("email", encryptData(""), { expires: 7 });
+        localStorage.setItem("password", encryptData(""), { expires: 7 });
+        localStorage.setItem("remember", false, { expires: 7 });
       }
+      router.push("/home");
 
       console.log(user);
-      message.success(`Chào mừng chở lại,${user.user.displayName}`);
-      router.push("/home");
+      message.success(`Chào mừng chở lại, ${user.user.displayName}`);
     }
   };
 
@@ -55,11 +82,7 @@ export default function SignIn({ email, password, remember }) {
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{
-            email: email,
-            remember: remember,
-            password: password,
-          }}
+          form={form}
           size="large"
           onFinish={onSignIn}
         >
@@ -131,20 +154,21 @@ export default function SignIn({ email, password, remember }) {
   );
 }
 
-export const getServerSideProps = async (context) => {
-  console.log("getServerSideProps");
+// export const getServerSideProps = async (context) => {
+//   console.log("getServerSideProps");
 
-  const encryptedEmail = context.req.cookies.email;
-  const encryptedPassword = context.req.cookies.password;
-  const encryptedRemember = context.req.cookies.remember;
+//   const encryptedEmail = context.req.cookies.email;
+//   const encryptedPassword = context.req.cookies.password;
+//   const encryptedRemember = context.req.cookies.remember;
 
-  const email = encryptedEmail === "" ? "" : decryptData(encryptedEmail);
-  const password =
-    encryptedPassword === "" ? "" : decryptData(encryptedPassword);
-  const remember =
-    encryptedRemember === ""
-      ? false
-      : decryptData(encryptedRemember) === "true";
+//   const email = encryptedEmail === "" ? "" : decryptData(encryptedEmail);
 
-  return { props: { email, password, remember } };
-};
+//   const password =
+//     encryptedPassword === "" ? "" : decryptData(encryptedPassword);
+//   const remember =
+//     encryptedRemember === ""
+//       ? false
+//       : decryptData(encryptedRemember) === "true";
+
+//   return { props: { email, password, remember } };
+// };

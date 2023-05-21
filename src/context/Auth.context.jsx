@@ -8,8 +8,8 @@ const AuthContext = createContext({});
 const useAuthContext = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  const [userData, setUserData] = useState();
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, setUser);
@@ -27,6 +27,8 @@ const AuthProvider = ({ children }) => {
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      setUserData(null);
     }
 
     return () => unsubcribe();

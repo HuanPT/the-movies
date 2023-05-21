@@ -1,0 +1,15 @@
+.container {
+    padding-block: 32px;
+}
+
+.wrap__input {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-block: 12px;
+}
+
+.qrImg {
+    width: fit-content;
+    margin: 0 auto;
+}

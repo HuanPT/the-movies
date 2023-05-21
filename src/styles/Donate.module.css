@@ -1,0 +1,19 @@
+.container {
+    text-align: center;
+    background-color: #333;
+}
+
+.main {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 500;
+    margin-block: 16px;
+}
+
+.main ol {
+    text-align: start;
+}

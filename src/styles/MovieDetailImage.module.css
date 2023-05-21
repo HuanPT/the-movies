@@ -1,16 +1,18 @@
 .imgBig {
     position: relative;
+    padding-top: 41.67%;
 }
 
 .imgBig img {
-    max-height: 450px;
-    object-fit: cover;
+    position: absolute;
+    inset: 0;
 }
 
 .imgBig::before {
     content: "";
     inset: 0;
     position: absolute;
+    z-index: 1;
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -18,12 +20,13 @@
     position: absolute;
     bottom: 16px;
     left: 16px;
-    gap: 16px;
-    display: flex;
-    align-items: flex-end;
+    right: 16px;
+    z-index: 2;
 }
 
 .img__small {
+    position: relative;
+    padding-top: 130%;
     overflow: hidden;
     border-radius: 5px;
     border: 1px solid #ccc;

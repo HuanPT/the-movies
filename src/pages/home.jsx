@@ -59,8 +59,8 @@ export default function Home({
       title={item.title}
       link={`/movie/${item.id}`}
       imdbPoint={item.vote_average}
-      dropPath={item.backdrop_path || item.poster_path}
-      posterPath={item.poster_path || item.backdrop_path}
+      dropPath={item.backdrop_path}
+      posterPath={item.poster_path}
     />
   ));
 
@@ -73,8 +73,8 @@ export default function Home({
           title={item.title}
           link={`/movie/${item.id}`}
           imdbPoint={item.vote_average}
-          dropPath={item.backdrop_path || item.poster_path}
-          posterPath={item.poster_path || item.backdrop_path}
+          dropPath={item.backdrop_path}
+          posterPath={item.poster_path}
         />
       </Col>
     ));
@@ -111,9 +111,11 @@ export default function Home({
           </Col>
         </Row>
         <Row>
-          <Col md={24} lg={18}>
+          <Col span={24} lg={18}>
             <div className="wrap__section">
-              <Row>{GenreCategory}</Row>
+              <Row>
+                <Col span={24}>{GenreCategory}</Col>
+              </Row>
             </div>
           </Col>
           <Col span={0} lg={6}>
@@ -155,7 +157,7 @@ export const getStaticProps = async () => {
     name: "Tuần",
     data: trendingWeekData,
   };
-  
+
   const upcoming = {
     id: "upcoming",
     name: "Phim sắp chiếu",
@@ -168,39 +170,3 @@ export const getStaticProps = async () => {
     props: { popular, listGenres, trendingDay, trendingWeek, upcoming },
   };
 };
-
-
-
-// export const getStaticProps = async () => {
-//   function randomNum() {
-//     return Math.floor(Math.random() * 3) + 1;
-//   }
-
-//   const promises = genres.map(async (genre) => {
-//     const res = await fetch(
-//       `https://api.themoviedb.org/3/discover/movie?api_key=${
-//         process.env.NEXT_PUBLIC_API_KEY_MOVIE
-//       }&with_genres=${genre.id}&language=vi&page=${randomNum()}`
-//     );
-//     const data = await res.json();
-//     return {
-//       id: genre.id,
-//       name: genre.name,
-//       data: data.results,
-//     };
-//   });
-
-//   const results = await Promise.allSettled(promises);
-//   const listGenres = results
-//     .filter((result) => {
-//       console.log(result.status);
-//       result.status === "fulfilled";
-//     })
-//     .map((result) => result.value);
-
-//   return {
-//     props: {
-//       listGenres,
-//     },
-//   };
-// };
