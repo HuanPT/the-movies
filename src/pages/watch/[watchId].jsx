@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Rate, Row } from "antd";
 import React from "react";
 import styles from "@/styles/WatchId.module.css";
 import Head from "next/head";
@@ -50,13 +50,20 @@ export default function WatchId({ movie, recommend }) {
             </div>
           </Col>
           <Col span={24}>
-            <Row>
-              <Col span={24} sm={12}>
-                12
+            <Row gutter={[12, 12]}>
+              <Col span={24}>
+                <div className={styles.wrapInfoMovie}>
+                  <h1 className={styles.title}>{movie.title}</h1>
+                  <h2 className={styles.subTitle}>{movie.original_title}</h2>
+                  <div>
+                    <h3>Điểm đánh giá</h3>{" "}
+                    <span>
+                      <Rate allowHalf disabled defaultValue={2.5} />
+                    </span>
+                  </div>
+                </div>
               </Col>
-              <Col span={24} sm={12}>
-                12
-              </Col>
+              <Col span={24}>12</Col>
             </Row>
           </Col>
         </Row>
