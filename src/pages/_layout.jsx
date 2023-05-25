@@ -9,9 +9,7 @@ export default function LayOut({ children }) {
   const { Content } = Layout;
   const { user, userData } = useAuthContext();
 
-
   console.log("user: ", user, "userData: ", userData);
-
 
   return (
     <Space
@@ -22,7 +20,7 @@ export default function LayOut({ children }) {
       }}
       size={[0, 48]}
     >
-      <Layout style={{ background: "#000" }}>
+      <Layout style={{ background: "#000", minHeight: "100vh" }}>
         <Headers />
         <Layout id="main__layout">
           <Content>{children}</Content>

@@ -8,7 +8,6 @@ import QrCode from "@/component/QrCode";
 
 export default function Donate() {
   const { user } = useAuthContext();
-  console.log(user?.uid);
 
   return (
     <>
@@ -20,7 +19,7 @@ export default function Donate() {
           <div>
             <h3 className={styles.title}>Nạp coin</h3>
             <p>
-              Để ủng hộ website & ; xem phim, hãy nạp coin theo cách bên dưới
+              Để ủng hộ website & xem phim, hãy nạp coin theo cách bên dưới
             </p>
           </div>
 

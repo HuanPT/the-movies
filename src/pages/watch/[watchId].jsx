@@ -5,6 +5,8 @@ import Head from "next/head";
 import CardFilm from "@/component/CardFilm";
 import MovieList from "@/component/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
+import { getOverview } from "@/lib/common";
+import Comments from "@/component/comments/Comments";
 
 export default function WatchId({ movie, recommend }) {
   const { results: recommendResults } = recommend;
@@ -50,21 +52,40 @@ export default function WatchId({ movie, recommend }) {
             </div>
           </Col>
           <Col span={24}>
-            <Row gutter={[12, 12]}>
-              <Col span={24}>
-                <div className={styles.wrapInfoMovie}>
+            <div className={styles.wrapInfoMovie}>
+              <Row gutter={[12, 12]}>
+                <Col span={24} md={12}>
                   <h1 className={styles.title}>{movie.title}</h1>
                   <h2 className={styles.subTitle}>{movie.original_title}</h2>
                   <div>
-                    <h3>Điểm đánh giá</h3>{" "}
-                    <span>
-                      <Rate allowHalf disabled defaultValue={2.5} />
-                    </span>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        marginBlock: 10,
+                      }}
+                    >
+                      <h1>Điểm đánh giá</h1>{" "}
+                      <Rate
+                        count={10}
+                        allowHalf
+                        disabled
+                        defaultValue={movie.vote_average}
+                      />
+                    </div>
                   </div>
-                </div>
-              </Col>
-              <Col span={24}>12</Col>
-            </Row>
+
+                  <div>
+                    <span style={{ fontWeight: 700 }}>{movie.title}.</span>{" "}
+                    {getOverview(movie.overview)}
+                  </div>
+                </Col>
+                <Col span={24} md={12}>
+                  <Comments />
+                </Col>
+              </Row>
+            </div>
           </Col>
         </Row>
 
