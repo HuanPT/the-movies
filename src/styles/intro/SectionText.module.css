@@ -1,0 +1,47 @@
+.section__text {
+    display: flex;
+    z-index: 2;
+    position: relative;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
+
+.title {
+    line-height: 1.2;
+    font-size: 48px;
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+.sub__title {
+    font-size: 26px;
+    margin: 12px auto;
+    max-width: 640px;
+    font-weight: 400;
+    line-height: 1.2;
+}
+
+@media screen and (max-width: 768px) {
+
+    .section__text {
+        text-align: center;
+    }
+
+    .title {
+        font-size: 40px;
+    }
+
+}
+
+@media screen and (max-width: 578px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .sub__title {
+        font-size: 20px;
+    }
+
+}

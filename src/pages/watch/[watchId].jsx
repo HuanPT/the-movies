@@ -34,6 +34,8 @@ export default function WatchId({ movie, recommend }) {
     return <SetupCarousel>{list}</SetupCarousel>;
   };
 
+  const rate = movie.vote_average;
+
   return (
     <>
       <Head>
@@ -53,8 +55,8 @@ export default function WatchId({ movie, recommend }) {
           </Col>
           <Col span={24}>
             <div className={styles.wrapInfoMovie}>
-              <Row gutter={[12, 12]}>
-                <Col span={24} md={12}>
+              <Row gutter={[12, 24]}>
+                <Col span={24}>
                   <h1 className={styles.title}>{movie.title}</h1>
                   <h2 className={styles.subTitle}>{movie.original_title}</h2>
                   <div>
@@ -67,12 +69,16 @@ export default function WatchId({ movie, recommend }) {
                       }}
                     >
                       <h1>Điểm đánh giá</h1>{" "}
-                      <Rate
-                        count={10}
-                        allowHalf
-                        disabled
-                        defaultValue={movie.vote_average}
-                      />
+                      <Rate count={10} allowHalf disabled defaultValue={rate} />
+                      <p>
+                        (
+                        {rate > 0
+                          ? `${rate.toFixed(1)} điểm / ${
+                              movie.vote_count
+                            } lượt}`
+                          : "Chưa có đánh giá"}{" "}
+                        )
+                      </p>
                     </div>
                   </div>
 
@@ -81,7 +87,7 @@ export default function WatchId({ movie, recommend }) {
                     {getOverview(movie.overview)}
                   </div>
                 </Col>
-                <Col span={24} md={12}>
+                <Col span={24}>
                   <Comments />
                 </Col>
               </Row>

@@ -2,19 +2,9 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import logoMin from "../../public/logo-min.png";
 import logo from "../../public/logo.png";
-import crown from "../../public/crown.svg";
 
 import Link from "next/link";
-import {
-  FaHistory,
-  FaInfoCircle,
-  FaSearch,
-  FaSignOutAlt,
-  FaUser,
-  FaHeart,
-  FaFilm,
-  FaDonate,
-} from "react-icons/fa";
+import { FaInfoCircle, FaSignOutAlt, FaFilm, FaDonate } from "react-icons/fa";
 import styles from "@/styles/Headers.module.css";
 import { useAuthContext } from "@/context/Auth.context";
 import { Button, Input, Dropdown, Row, Col, message } from "antd";

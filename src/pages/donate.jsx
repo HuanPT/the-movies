@@ -2,7 +2,6 @@ import Head from "next/head";
 import React from "react";
 import styles from "@/styles/Donate.module.css";
 import { Col, Row } from "antd";
-import Image from "next/image";
 import { useAuthContext } from "@/context/Auth.context";
 import QrCode from "@/component/QrCode";
 

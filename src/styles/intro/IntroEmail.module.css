@@ -1,0 +1,32 @@
+.wrapForm {
+    text-align: center;
+}
+
+.title {
+    font-size: 18px;
+    margin: 0 auto 12px;
+    max-width: 450px;
+}
+
+.formEmail {
+    display: flex;
+    max-width: 450px;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (max-width:768px) {
+    .formEmail {
+        flex-direction: row;
+    }
+
+    .input {
+        border-radius: 8px 0 0 8px;
+    }
+
+    .button {
+
+        border-radius: 0 8px 8px 0 !important;
+    }
+}

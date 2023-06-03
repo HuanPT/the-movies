@@ -45,7 +45,11 @@ export default function MovieInfo({
       <dl className={styles.info}>
         <dt>Năm phát hành</dt>
         <dd>
-          <Link href={"/search"}>{year.split("-")[0]}</Link>
+          {year ? (
+            <Link href={"/search"}>{year.split("-")[0]}</Link>
+          ) : (
+            "Đang xác minh"
+          )}
         </dd>
         <dt>Thể loại</dt>
         <dd>{list(genres)}</dd>

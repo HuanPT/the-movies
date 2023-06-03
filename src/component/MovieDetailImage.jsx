@@ -3,7 +3,7 @@ import { Button, Col, Row } from "antd";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styles from "@/styles/MovieDetailImage.module.css";
-import { FaPlayCircle, FaRegPlayCircle } from "react-icons/fa";
+import { FaRegPlayCircle } from "react-icons/fa";
 import Link from "next/link";
 import ButtonVipMode from "./ButtonVipMode";
 import ButtonAddToCollection from "./ButtonAddToCollection";

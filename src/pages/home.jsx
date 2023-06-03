@@ -2,7 +2,7 @@ import CardFilm from "@/component/CardFilm";
 import MovieList from "@/component/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
 import { Col, Row, Space } from "antd";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { fetchGenres, fetchMovies, genres } from "../lib/api.service";
 import Head from "next/head";
 import TabsRight from "@/component/TabsRight";
@@ -15,6 +15,80 @@ export default function Home({
   trendingWeek,
   upcoming,
 }) {
+  const [isStickToTop, setIsStickToTop] = useState(false);
+  const [isStickToBottom, setIsStickToBottom] = useState(false);
+
+  useEffect(() => {
+    let lastScrollPosition = 0;
+    function handleScroll() {
+      let currentScrollPosition = window.scrollY;
+      let isScrollingDown = currentScrollPosition > lastScrollPosition;
+      let isScrollingUp = currentScrollPosition < lastScrollPosition;
+
+      let scrollBottom = currentScrollPosition + window.innerHeight;
+      const sidebar = document.querySelector(".sidebar"); // Lấy sidebar bằng className
+      if (!sidebar) return;
+
+      let sidebarTop = sidebar.offsetTop;
+      let sidebarBottom = sidebarTop + sidebar.offsetHeight;
+      let isAlwaysSticky = sidebar.offsetHeight <= window.innerHeight;
+
+      if (isStickToTop && isAlwaysSticky) {
+        return;
+      }
+
+      if (
+        (!isStickToTop &&
+          currentScrollPosition <= sidebarTop &&
+          isAlwaysSticky) ||
+        (!isStickToTop &&
+          currentScrollPosition <= sidebarTop &&
+          !isAlwaysSticky)
+      ) {
+        sidebar.style.position = "sticky";
+        sidebar.style.marginTop = "0px";
+        sidebar.style.top = "0px";
+        setIsStickToTop(true);
+        setIsStickToBottom(false);
+      } else if (
+        isStickToTop &&
+        (currentScrollPosition > sidebarTop || isAlwaysSticky)
+      ) {
+        sidebar.style.position = "relative";
+        sidebar.style.top = "0px";
+        sidebar.style.marginTop = `${currentScrollPosition}px`;
+        setIsStickToTop(false);
+        setIsStickToBottom(false);
+      } else if (
+        !isStickToBottom &&
+        isScrollingDown &&
+        scrollBottom >= sidebarBottom
+      ) {
+        sidebar.style.position = "sticky";
+        sidebar.style.marginTop = "0px";
+        sidebar.style.top = `${window.innerHeight - sidebar.offsetHeight}px`;
+        setIsStickToTop(false);
+        setIsStickToBottom(true);
+      } else if (
+        isStickToBottom &&
+        (isScrollingUp || scrollBottom < sidebarBottom)
+      ) {
+        sidebar.style.position = "relative";
+        sidebar.style.marginTop = `${scrollBottom - sidebar.offsetHeight}px`;
+        sidebar.style.top = "0px";
+        setIsStickToTop(false);
+        setIsStickToBottom(false);
+      }
+
+      lastScrollPosition = currentScrollPosition;
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const styleH1 = {
     fontStyle: "normal",
     fontWeight: 400,
@@ -119,13 +193,15 @@ export default function Home({
             </div>
           </Col>
           <Col span={0} lg={6}>
-            <MovieList category={"Trending"} style={styleH1}>
-              <TabsRight items={items} />
-            </MovieList>
+            <div className="sidebar">
+              <MovieList category={"Trending"} style={styleH1}>
+                <TabsRight items={items} />
+              </MovieList>
 
-            <MovieList category={upcoming.name} style={styleH1}>
-              {comingMovies}
-            </MovieList>
+              <MovieList category={upcoming.name} style={styleH1}>
+                {comingMovies}
+              </MovieList>
+            </div>
           </Col>
         </Row>
       </Space>

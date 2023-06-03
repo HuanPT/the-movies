@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuthContext } from "@/context/Auth.context";
 
 import { Layout, Space, FloatButton } from "antd";

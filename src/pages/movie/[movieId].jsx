@@ -79,6 +79,7 @@ export default function movieId({ movie, credits, similar, trailer }) {
     }
   });
 
+  console.log(movie);
   return (
     <>
       <Head>

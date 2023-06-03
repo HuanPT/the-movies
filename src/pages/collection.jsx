@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useMemo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Tabs, Col } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
 import MovieList from "@/component/MovieList";

@@ -1,0 +1,14 @@
+.section__card {
+    padding: 70px 45px;
+    position: relative;
+    background: transparent;
+    border-bottom: 8px solid #222;
+    color: #fff;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width:768px) {
+    .section__card {
+        padding: 50px 5%;
+    }
+}

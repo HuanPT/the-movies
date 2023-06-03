@@ -294,3 +294,14 @@ video {
   transition: all 0.2s;
   user-select: none;
 }
+
+/* Collapse */
+:where(.css-dev-only-do-not-override-10oz5o4).ant-collapse>.ant-collapse-item>.ant-collapse-header {
+  color: #fff;
+  align-items: center;
+}
+
+:where(.css-dev-only-do-not-override-10oz5o4).ant-collapse .ant-collapse-content {
+  color: #fff;
+  background: transparent;
+}

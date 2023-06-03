@@ -3,7 +3,6 @@ import { Avatar } from "antd";
 
 import Image from "next/image";
 import logoMin from "../../public/logo-min.png";
-import logo from "../../public/logo.png";
 import crown from "../../public/crown.svg";
 import { useAuthContext } from "@/context/Auth.context";
 // import { useUserContext } from "@/context/User.context";

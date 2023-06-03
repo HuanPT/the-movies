@@ -1,0 +1,36 @@
+.section__img {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex: 0 1 auto;
+    height: 100%;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.section__wrapImg {
+    position: relative;
+    padding-top: 75%;
+    flex: 1;
+}
+
+.section__wrapImg>img {
+    z-index: 1;
+}
+
+.card__animation {
+    top: 48%;
+    left: 49.5%;
+    width: 100%;
+    height: 100%;
+    max-width: 73%;
+    max-height: 54%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.card__animation video {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}

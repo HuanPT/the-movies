@@ -6,6 +6,7 @@
 .imgBig img {
     position: absolute;
     inset: 0;
+    object-fit: cover;
 }
 
 .imgBig::before {
