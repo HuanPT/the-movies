@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Col, Pagination, Row } from "antd";
 import { useRouter } from "next/router";
-import MovieList from "@/component/MovieList";
-import CardFilm from "@/component/CardFilm";
+import MovieList from "@/component/movies/MovieList";
+import CardFilm from "@/component/cardFilm/CardFilm";
 import FilterFilm from "@/component/FilterFilm";
 
 import styles from "@/styles/Search.module.css";

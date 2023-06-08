@@ -6,8 +6,7 @@
     max-width: 1920px;
     padding-block: 10px;
     background: transparent;
-    transition: all ease-out .2s;
-    border-bottom: thin solid #555;
+    transition: all ease-out .3s;
 }
 
 .header__topLogo img {
@@ -16,25 +15,13 @@
     max-width: 138px;
 }
 
-.header__topWrap {
-    /* gap: 10px; */
-    margin: 0 5vw;
-    /* display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: space-between; */
-}
-
 /* Search */
-.header__search button,
-.header__search input {
-    border: none;
-    font-size: 16px;
-    height: 36px !important;
-}
-
-.header__search button {
-    width: 36px;
+.header__search {
+    border-radius: 20px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 350px;
+    flex: 1;
 }
 
 .menu__list:hover {

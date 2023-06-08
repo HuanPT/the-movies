@@ -2,8 +2,9 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Row, Tabs, Col } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
-import MovieList from "@/component/MovieList";
-import CardFilm from "@/component/CardFilm";
+import MovieList from "@/component/movies/MovieList";
+import CardFilm from "@/component/cardFilm/CardFilm";
+import EmptyData from "@/component/EmptyData";
 
 const dataMovies = async (arr) => {
   if (!Array.isArray(arr)) return [];
@@ -51,18 +52,17 @@ export default function Collection() {
     fetchData(histories, setMoviesHistories);
   }, [collections, histories]);
 
-  console.log(moviesHistories);
   const items = [
     {
       key: "1",
       label: "Bộ sưu tập",
       children: (
         <MovieList category="Bộ sưu tập">
-          <Row gutter={[12, 12]}>
-            {moviesCollection.length > 0
-              ? moviesCollection
-              : "Bộ sưu tập trống!"}
-          </Row>
+          {moviesCollection.length > 0 ? (
+            <Row gutter={[12, 12]}> moviesCollection </Row>
+          ) : (
+            <EmptyData />
+          )}
         </MovieList>
       ),
     },
@@ -71,11 +71,11 @@ export default function Collection() {
       label: "Lịch sử xem",
       children: (
         <MovieList category="Lịch sử xem">
-          <Row gutter={[12, 12]}>
-            {moviesHistories.length > 0
-              ? moviesHistories
-              : "Lịch sử xem trống!"}
-          </Row>
+          {moviesHistories.length > 0 ? (
+            <Row gutter={[12, 12]}>{moviesHistories}</Row>
+          ) : (
+            <EmptyData />
+          )}
         </MovieList>
       ),
     },

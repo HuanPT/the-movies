@@ -1,12 +1,12 @@
-import CardFilm from "@/component/CardFilm";
-import MovieList from "@/component/MovieList";
+import CardFilm from "@/component/cardFilm/CardFilm";
+import MovieList from "@/component/movies/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
 import { Col, Row, Space } from "antd";
 import React, { useState, useEffect } from "react";
 import { fetchGenres, fetchMovies, genres } from "../lib/api.service";
 import Head from "next/head";
 import TabsRight from "@/component/TabsRight";
-import CardFilmSmall from "@/component/CardFilmSmall";
+import CardFilmSmall from "@/component/cardFilm/CardFilmSmall";
 
 export default function Home({
   listGenres,

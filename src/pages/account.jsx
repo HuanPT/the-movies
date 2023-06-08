@@ -7,8 +7,8 @@ import { formatNumberToDateTime, numberWithCommas } from "@/lib/common";
 import ChangePassword from "@/component/ChangePassword";
 import ButtonVipMode from "@/component/ButtonVipMode";
 import ChooseToBuy from "@/component/ChooseToBuy";
-import MovieList from "@/component/MovieList";
-import CardFilm from "@/component/CardFilm";
+import MovieList from "@/component/movies/MovieList";
+import CardFilm from "@/component/cardFilm/CardFilm";
 import { useAuthContext } from "@/context/Auth.context";
 
 const listRent = async (rentMovies) => {

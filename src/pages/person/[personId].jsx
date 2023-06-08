@@ -1,10 +1,10 @@
-import PersonInfo from "@/component/PersonInfo";
+import PersonInfo from "@/component/movies/PersonInfo";
 import { getOverview } from "@/lib/common";
 import { Col, Row } from "antd";
 import Head from "next/head";
 import React from "react";
 import styles from "@/styles/PersonId.module.css";
-import CardFilm from "@/component/CardFilm";
+import CardFilm from "@/component/cardFilm/CardFilm";
 import Image from "next/image";
 import { srcH632 } from "@/lib/api.service";
 

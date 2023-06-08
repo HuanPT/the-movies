@@ -5,9 +5,12 @@ import {
   sendPasswordResetEmail,
   updateProfile,
   signOut,
+  updatePassword,
+  EmailAuthProvider,
+  reauthenticateWithCredential,
 } from "firebase/auth";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import {  formatNumberToDateTime } from "./common";
+import { formatNumberToDateTime } from "./common";
 
 export const login = async (email, password) => {
   let user = null;
@@ -35,7 +38,6 @@ export const register = async (email, password, username) => {
       displayName: username,
     });
 
-
     const userRef = collection(db, "users");
 
     const date = user.metadata.createdAt;
@@ -61,7 +63,6 @@ export const register = async (email, password, username) => {
       { merge: true }
     );
 
-    
     user.reload();
   } catch (err) {
     error = err;
@@ -76,4 +77,28 @@ export const logout = async () => {
     console.log(err);
     throw new Error("Đăng xuất thất bại!");
   }
+};
+
+export const changePassword = async (oldPass, newPass) => {
+  const user = auth.currentUser;
+  let error = null;
+
+  if (user) {
+    const email = user.email;
+    const credentials = EmailAuthProvider.credential(email, oldPass);
+
+    try {
+      // Xác thực người dùng bằng mật khẩu cũ
+      await reauthenticateWithCredential(user, credentials);
+
+      // Thay đổi mật khẩu mới
+      await updatePassword(user, newPass);
+
+      console.log("Thay đổi mật khẩu thành công");
+    } catch (err) {
+      console.log("Thay đổi mật khẩu thất bại", err);
+      error = err;
+    }
+  }
+  return { error };
 };

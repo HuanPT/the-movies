@@ -1,8 +1,8 @@
-import CardCast from "@/component/CardCast";
-import CardFilm from "@/component/CardFilm";
-import MovieDetailImage from "@/component/MovieDetailImage";
-import MovieInfo from "@/component/MovieInfo";
-import MovieList from "@/component/MovieList";
+import CardCast from "@/component/cardFilm/CardCast";
+import CardFilm from "@/component/cardFilm/CardFilm";
+import MovieDetailImage from "@/component/movies/MovieDetailImage";
+import MovieInfo from "@/component/movies/MovieInfo";
+import MovieList from "@/component/movies/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
 import TrailerIframe from "@/component/TrailerIframe";
 import { getOverview } from "@/lib/common";

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import logoMin from "../../public/logo-min.png";
 import logo from "../../public/logo.png";
@@ -11,6 +11,7 @@ import { Button, Input, Dropdown, Row, Col, message } from "antd";
 import { logout } from "@/lib/auth";
 import CustomAvatar from "./CustomAvatar";
 import { useRouter } from "next/router";
+import SearchBox from "./SearchBox";
 
 const items = [
   {
@@ -58,7 +59,6 @@ const items = [
 export default function Headers() {
   const { user } = useAuthContext();
   const router = useRouter();
-  const { Search } = Input;
   const [headerStyle, setHeaderStyle] = useState({});
 
   const heightRef = useRef(0);
@@ -76,6 +76,7 @@ export default function Headers() {
         setHeaderStyle({
           top: 0,
           background: currentHeight == 80 ? "transparent" : "#131313",
+          borderBottom: "thin solid #555",
         });
         heightRef.current = currentHeight;
       }
@@ -108,6 +109,7 @@ export default function Headers() {
             justify="space-between"
             align="middle"
             style={{ marginInline: "5vw" }}
+            gutter={[12, 12]}
           >
             <Col>
               <div className={styles.header__topLogo}>
@@ -138,7 +140,7 @@ export default function Headers() {
             justify="space-between"
             align="middle"
             wrap={false}
-            style={{ marginInline: "5vw" }}
+            style={{ marginInline: "5vw", gap: 12 }}
           >
             <Col>
               <div className={styles.header__topLogo}>
@@ -154,10 +156,13 @@ export default function Headers() {
                 </Link>
               </div>
             </Col>
-            <Col>
-              <div className={styles.header__search}>
-                <Search onSearch={onSearch} placeholder="Tìm kiếm" />
-              </div>
+            <Col className={styles.header__search}>
+              {/* <Search
+                  onSearch={onSearch}
+                  style={{ width: 350 }}
+                  placeholder="Tìm kiếm ..."
+                /> */}
+              <SearchBox />
             </Col>
             <Col>
               <Dropdown
