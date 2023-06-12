@@ -77,6 +77,7 @@ export default function Account() {
   }, [rentMovies]);
 
   const date = new Date();
+  
   const dateToNumber = date.getTime();
 
   let length = rentMovies ? rentMovies.length : 0;

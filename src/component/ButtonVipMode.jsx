@@ -18,10 +18,10 @@ export default function ButtonVipMode({ children }) {
           margin: "0 auto",
         }}
       >
-        Kích hoạt VIP mode
+        Kích hoạt phim
       </Button>
       <Modal
-        title="Với chế độ VIP mode, bạn có 2 lựa chọn: kích hoạt VIP cho riêng từng tập phim lẻ, hoặc cho toàn bộ phim trên web:"
+        title="Khi kích hoạt phim, bạn có 2 lựa chọn: kích hoạt phim cho riêng từng tập phim lẻ, hoặc cho toàn bộ phim trên web:"
         centered
         open={open}
         onOk={() => setOpen(false)}

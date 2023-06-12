@@ -5,7 +5,6 @@ import Link from "next/link";
 import { login } from "@/lib/auth";
 import { useRouter } from "next/router";
 import { authErrors } from "@/lib/firebase";
-import Cookies from "js-cookie";
 import { decryptData, encryptData } from "@/lib/common";
 import Head from "next/head";
 
@@ -66,7 +65,6 @@ export default function SignIn() {
       }
       router.push("/home");
 
-      console.log(user);
       message.success(`Chào mừng chở lại, ${user.user.displayName}`);
     }
   };

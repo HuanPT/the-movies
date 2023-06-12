@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, Card, Col, Row } from "antd";
+import { cost, numberWithCommas } from "@/lib/common";
 
 import styles from "@/styles/ChooseToBuy.module.css";
 export default function ChooseToBuy({ handleBuyOption, id = false }) {
+  const { vipMovie, vipMonth } = cost;
+
   return (
     <Row gutter={16}>
       <Col span={12}>
@@ -11,7 +14,9 @@ export default function ChooseToBuy({ handleBuyOption, id = false }) {
           headStyle={{ textAlign: "center" }}
           style={{ height: "100%" }}
         >
-          <div className={styles.price}> 1.000 coin/phim/10 ngày</div>
+          <div className={styles.price}>
+            {numberWithCommas(vipMovie)} coin/phim/10 ngày
+          </div>
           <ul className={styles.desc}>
             <li>Bạn có thể xem phim đó trong 10 ngày 10 ngày.</li>
             <li>Phù hợp nếu bạn ít thời gian xem phim.</li>
@@ -34,7 +39,9 @@ export default function ChooseToBuy({ handleBuyOption, id = false }) {
           headStyle={{ textAlign: "center" }}
           style={{ height: "100%" }}
         >
-          <div className={styles.price}>30.000 coin/tháng</div>
+          <div className={styles.price}>
+            {numberWithCommas(vipMonth)} coin/30 ngày
+          </div>
           <ul className={styles.desc}>
             <li>Xem toàn bộ phim trên web trong 30 ngày.</li>
             <li>Phù hợp nếu bạn hay xem phim.</li>

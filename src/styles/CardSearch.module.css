@@ -1,0 +1,43 @@
+.card__movie {
+    gap: 12px;
+    color: #fff;
+    display: flex;
+    overflow: hidden;
+    border-radius: 5px;
+    position: relative;
+    transition: all .2s;
+    background: #000;
+}
+
+.img {
+    width: 50px;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.title {
+    font-size: 15px;
+    line-height: 1.4;
+    padding-right: 12px;
+    -webkit-line-clamp: 1;
+    /* số dòng hiển thị */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.card__movie:hover {
+    box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.2);
+    background: #333;
+}
+
+.wrap__des {
+    flex: 1;
+    text-align: start;
+    padding-block: 6px;
+}
+
+.wrap__option {
+    flex: 1;
+    align-self: flex-end;
+}

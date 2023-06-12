@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo,  } from "react";
 import Image from "next/image";
 import styles from "@/styles/CardFilmSmall.module.css";
 
 import Link from "next/link";
-import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
-import { Space, Button, message, Row, Col } from "antd";
+import {  FaStar } from "react-icons/fa";
+import { Space, Row, Col } from "antd";
 import { srcCardSmall } from "@/lib/api.service";
 import { numberTofixed } from "@/lib/common";
 import ButtonAddToCollection from "../ButtonAddToCollection";

@@ -15,12 +15,12 @@ export default function Home({
   trendingWeek,
   upcoming,
 }) {
-  const [isStickToTop, setIsStickToTop] = useState(false);
-  const [isStickToBottom, setIsStickToBottom] = useState(false);
+  const [isStickToTop, setIsStickToTop] = useState(null);
+  const [isStickToBottom, setIsStickToBottom] = useState(null);
 
   useEffect(() => {
     let lastScrollPosition = 0;
-    function handleScroll() {
+    const handleScroll = () => {
       let currentScrollPosition = window.scrollY;
       let isScrollingDown = currentScrollPosition > lastScrollPosition;
       let isScrollingUp = currentScrollPosition < lastScrollPosition;
@@ -57,8 +57,8 @@ export default function Home({
         sidebar.style.position = "relative";
         sidebar.style.top = "0px";
         sidebar.style.marginTop = `${currentScrollPosition}px`;
-        setIsStickToTop(false);
-        setIsStickToBottom(false);
+        setIsStickToTop(null);
+        setIsStickToBottom(null);
       } else if (
         !isStickToBottom &&
         isScrollingDown &&
@@ -76,18 +76,18 @@ export default function Home({
         sidebar.style.position = "relative";
         sidebar.style.marginTop = `${scrollBottom - sidebar.offsetHeight}px`;
         sidebar.style.top = "0px";
-        setIsStickToTop(false);
-        setIsStickToBottom(false);
+        setIsStickToTop(null);
+        setIsStickToBottom(null);
       }
 
       lastScrollPosition = currentScrollPosition;
-    }
+    };
 
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isStickToTop, isStickToBottom]);
 
   const styleH1 = {
     fontStyle: "normal",

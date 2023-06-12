@@ -15,20 +15,20 @@ export default function IntroEmail() {
   const onStart = async (values) => {
     setIsLoading(true);
     const email = values.email;
-    const password = values.password;
-    const username = values.username;
-    const { user, error } = await register(email, password, username);
 
-    if (error) {
-      console.log(error);
-      message.error(authErrors[error.code]);
+    if (email) {
       setIsLoading(false);
-    } else {
-      router.push("/home");
+      router.push("/signup");
+      sessionStorage.setItem("registerEmail", email);
       form.resetFields();
-      setIsLoading(false);
-      message.success("Đăng ký thành công");
     }
+    // if (error) {
+    //   console.log(error);
+    //   message.error(authErrors[error.code]);
+    // } else {
+    //   setIsLoading(false);
+    //   message.success("Đăng ký thành công");
+    // }
   };
 
   return (

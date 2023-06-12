@@ -30,6 +30,7 @@ const CommentList = ({ comments }) => {
                   minWidth: 220,
                   background: "#eee",
                   fontSize: 16,
+                  color: "#000",
                 }}
               >
                 <p>
@@ -42,6 +43,7 @@ const CommentList = ({ comments }) => {
                   style={{
                     textAlign: "end",
                     fontSize: 14,
+                    color: "#999",
                   }}
                 >
                   {comment.timestamp}

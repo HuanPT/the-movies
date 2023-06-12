@@ -59,7 +59,7 @@ export default function Collection() {
       children: (
         <MovieList category="Bộ sưu tập">
           {moviesCollection.length > 0 ? (
-            <Row gutter={[12, 12]}> moviesCollection </Row>
+            <Row gutter={[12, 12]}> {moviesCollection} </Row>
           ) : (
             <EmptyData />
           )}

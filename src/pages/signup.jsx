@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, message } from "antd";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import Link from "next/link";
@@ -9,9 +9,20 @@ import Head from "next/head";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
+  const [initialValue, setInitialValue] = useState({});
 
   const router = useRouter();
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    const email = sessionStorage.registerEmail || "";
+    console.log(email);
+    setInitialValue({ email });
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue(initialValue);
+  }, [initialValue]);
 
   const onSignUp = async (values) => {
     setIsLoading(true);
@@ -28,7 +39,9 @@ export default function SignUp() {
       router.push("/home");
       form.resetFields();
       setIsLoading(false);
-      message.success("Đăng ký thành công");
+      setTimeout(() => {
+        message.success("Đăng ký thành công");
+      }, 1000);
     }
   };
 

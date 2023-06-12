@@ -11,7 +11,7 @@ import { Button, Input, Dropdown, Row, Col, message } from "antd";
 import { logout } from "@/lib/auth";
 import CustomAvatar from "./CustomAvatar";
 import { useRouter } from "next/router";
-import SearchBox from "./SearchBox";
+import SearchBox from "./search/SearchBox";
 
 const items = [
   {
@@ -108,8 +108,7 @@ export default function Headers() {
           <Row
             justify="space-between"
             align="middle"
-            style={{ marginInline: "5vw" }}
-            gutter={[12, 12]}
+            style={{ marginInline: "5vw", gap: 12 }}
           >
             <Col>
               <div className={styles.header__topLogo}>

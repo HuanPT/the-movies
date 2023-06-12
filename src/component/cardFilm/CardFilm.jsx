@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { FaHeart, FaPlay, FaRegHeart, FaStar } from "react-icons/fa";
-import { Space, Button, message, Row, Col } from "antd";
+import { FaPlay, FaStar } from "react-icons/fa";
+import { Space, Row, Col } from "antd";
 import styles from "@/styles/CardFilm.module.css";
 import Image from "next/image";
 import { srcCardImg, srcW533 } from "@/lib/api.service";

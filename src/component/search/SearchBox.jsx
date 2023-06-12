@@ -2,7 +2,8 @@ import { Select } from "antd";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import EmptyData from "./EmptyData";
+import EmptyData from "../EmptyData";
+import CardSearch from "../cardFilm/CardSearch";
 
 let timeout;
 let currentValue;
@@ -20,27 +21,17 @@ const fetchData = (value, callback) => {
       .then((response) => response.json())
       .then((d) => {
         if (currentValue === value) {
-          console.log(d);
           const { results } = d;
-          console.log(results);
           if (results.length !== 0) {
-            const data = results.map(
-              (item) => (
-                console.log(item),
-                {
-                  value: item.id,
-                  text: item.title,
-                }
-              )
-            );
+            const data = results.map((item) => item);
             callback(data);
-            console.log("callback: ", callback(data));
           } else {
-            return <EmptyData />;
+            return <EmptyData color="#fff" />;
           }
         }
       });
   };
+
   if (value) {
     timeout = setTimeout(fake, 300);
   } else {
@@ -50,35 +41,54 @@ const fetchData = (value, callback) => {
 export default function SearchBox(props) {
   const [data, setData] = useState([]);
   const [value, setValue] = useState();
+
   const router = useRouter();
   const handleSearch = (newValue) => {
     fetchData(newValue, setData);
-    // if (!newValue) return;
-    // else {
-    //   router.push(`/search?q=${newValue}`);
-    // }
   };
-  const handleChange = (newValue) => {
-    setValue(newValue);
+
+  const handleEnter = (e) => {
+    if (e.keyCode === 13) {
+      if (e.target.value === "") return;
+      else router.push(`/search?q=${e.target.value}`);
+    }
   };
+
+  const handleChange = () => {
+    setData([]);
+    setValue(null);
+  };
+
   return (
     <Select
       showSearch
+      onInputKeyDown={handleEnter}
       value={value}
       placeholder={"Tìm kiếm..."}
       style={props.style}
       defaultActiveFirstOption={false}
+      autoClearSearchValue
       showArrow={true}
       filterOption={false}
       onSearch={handleSearch}
       onChange={handleChange}
-      notFoundContent={<EmptyData />}
+      notFoundContent={<EmptyData color={"#fff"} />}
       suffixIcon={<FaSearch style={{ fontSize: 18 }} />}
       options={(data || []).map((d) => ({
-        value: d.value,
-        label: d.text,
+        value: d.id,
+        label: (
+          <CardSearch
+            key={d.id}
+            id={d.id}
+            title={d.title}
+            link={`/movie/${d.id}`}
+            imdbPoint={d.vote_average}
+            pathImg={d.poster_path}
+          />
+        ),
       }))}
       size="large"
+      dropdownStyle={{ background: "#444" }}
     />
   );
 }

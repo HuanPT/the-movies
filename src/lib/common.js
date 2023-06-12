@@ -28,8 +28,8 @@ export function formatNumberToDateTime(dateTime) {
 }
 
 export const cost = {
-  VipMovie: 1000,
-  VipMonth: 40000,
+  vipMovie: 1000,
+  vipMonth: 40000,
 };
 
 // Mã hóa
