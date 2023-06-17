@@ -54,6 +54,3 @@ export const fetchGenres = async (genres) => {
   const listGenres = await Promise.all(promises);
   return listGenres;
 };
-
-
-

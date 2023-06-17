@@ -179,7 +179,7 @@ video {
 .footer {
   color: var(--white-color);
   background: #000;
-  margin-top: 40px;
+  padding-top: 50px;
   border-top: thin solid #555;
 }
 

@@ -19,12 +19,12 @@ export default function WatchId({ movie, recommend }) {
       addMovieToField(userId, movieId, "histories");
       setUserData((prevUserData) => ({
         ...prevUserData,
-        histories: prevUserData.histories.find((item) => item === movieId)
+        histories: prevUserData.histories.find((item) => item == movieId)
           ? [...prevUserData.histories]
           : [...prevUserData.histories, movieId],
       }));
     }
-  }, [movieId, user]);
+  }, []);
 
   const { results: recommendResults } = recommend;
   // const id = movie.id;
@@ -125,6 +125,7 @@ export const getServerSideProps = async ({ query }) => {
   const apiKey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
   const movieUrl = `https://api.themoviedb.org/3/movie/${watchId}?api_key=${apiKey}&language=vi`;
   const recommendUrl = `https://api.themoviedb.org/3/movie/${watchId}/recommendations?api_key=${apiKey}&language=vi`;
+
   const [movieRes, recommendRes] = await Promise.all([
     fetch(movieUrl),
     fetch(recommendUrl),

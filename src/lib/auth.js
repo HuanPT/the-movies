@@ -124,13 +124,24 @@ export const forgotPassword = async (email) => {
 };
 
 const updateMovieField = (operation) => async (userId, movieId, fieldDoc) => {
-  const userRef = doc(db, "users", userId);
-  const updateObjField = {
-    [fieldDoc]: operation(movieId),
-  };
-  await updateDoc(userRef, updateObjField);
+  try {
+    const userRef = doc(db, "users", userId);
+    const updateObjField = {
+      [fieldDoc]: operation(movieId),
+    };
+    await updateDoc(userRef, updateObjField);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const addMovieToField = updateMovieField(arrayUnion);
 export const removeMovieFromField = updateMovieField(arrayRemove);
-export const removeAllMovieFromField = updateMovieField(() => []);
+
+export const removeAllMovieFromField = async (userId, fieldDoc) => {
+  const userRef = doc(db, "users", userId);
+  const updateObjField = {
+    [fieldDoc]: [],
+  };
+  await updateDoc(userRef, updateObjField);
+};

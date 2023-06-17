@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { useEffect, useMemo, useState } from "react";
-import { Row, Tabs, Col, Button } from "antd";
+import { Row, Tabs, Col, Button, message } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
 import MovieList from "@/component/movies/MovieList";
 import CardFilm from "@/component/cardFilm/CardFilm";
@@ -23,19 +23,16 @@ const dataMovies = async (arr) => {
   return list;
 };
 
-export default function Collection() {
-  const { user, userData, setUserData } = useAuthContext();
-  const [moviesHistories, setMoviesHistories] = useState([]);
+const FetchMoviesData = (
+  collections,
+  histories,
+  pageCollection,
+  pageHistory
+) => {
+  const [moviesHistory, setMoviesHistory] = useState([]);
   const [moviesCollection, setMoviesCollection] = useState([]);
-  const [pageCollection, setPageCollection] = useState(1);
-  const [pageHistory, setPageHistory] = useState(1);
-
-  const [collections, histories, userId] = useMemo(() => {
-    const collections = userData?.collections || [];
-    const histories = userData?.histories || [];
-    const userId = user?.uid || null;
-    return [collections, histories, userId];
-  }, [userData, user]);
+  const [totalPageCollection, setTotalPageCollection] = useState(0);
+  const [totalPageHistory, setTotalPageHistory] = useState(0);
 
   useEffect(() => {
     const collection = collections.slice(
@@ -44,7 +41,7 @@ export default function Collection() {
     );
     const history = histories.slice((pageHistory - 1) * 24, pageHistory * 24);
 
-    const fetchData = async (option, setState) => {
+    const fetchData = async (option, setState, isBtnX = false) => {
       const datas = await dataMovies(option);
       const list = datas.map((data) => (
         <Col key={data.id} xs={12} sm={8} md={6} lg={4}>
@@ -56,6 +53,7 @@ export default function Collection() {
             imdbPoint={data.vote_average}
             dropPath={data.backdrop_path}
             posterPath={data.poster_path}
+            isClose={isBtnX}
           />
         </Col>
       ));
@@ -63,20 +61,98 @@ export default function Collection() {
     };
 
     fetchData(collection, setMoviesCollection);
-    fetchData(history, setMoviesHistories);
-  }, [userData, pageCollection, pageHistory]);
+    fetchData(history, setMoviesHistory, true);
 
-  const totalPageCollection = Math.ceil(collections.length / 24);
-  const totalPageHistory = Math.ceil(histories.length / 24);
+    setTotalPageCollection(Math.ceil(collections.length / 24));
+    setTotalPageHistory(Math.ceil(histories.length / 24));
+  }, [collections, histories, pageCollection, pageHistory]);
 
-  // const handleRemoveAll = (e) => {
+  return {
+    moviesHistory,
+    moviesCollection,
+    totalPageCollection,
+    totalPageHistory,
+  };
+};
+
+export default function Collection() {
+  const { user, userData, setUserData } = useAuthContext();
+  const [pageCollection, setPageCollection] = useState(1);
+  const [pageHistory, setPageHistory] = useState(1);
+
+  const [collections, histories, userId] = useMemo(() => {
+    const collections = userData?.collections || [];
+    const histories = userData?.histories || [];
+    const userId = user?.uid || null;
+    return [collections, histories, userId];
+  }, [userData, user]);
+
+  const {
+    moviesHistory,
+    moviesCollection,
+    totalPageCollection,
+    totalPageHistory,
+  } = FetchMoviesData(collections, histories, pageCollection, pageHistory);
+
+  // useEffect(() => {
+  //   const collection = collections.slice(
+  //     (pageCollection - 1) * 24,
+  //     pageCollection * 24
+  //   );
+  //   const history = histories.slice((pageHistory - 1) * 24, pageHistory * 24);
+
+  //   const fetchData = async (option, setState, isBtnX = false) => {
+  //     const datas = await dataMovies(option);
+  //     const list = datas.map((data) => (
+  //       <Col key={data.id} xs={12} sm={8} md={6} lg={4}>
+  //         <CardFilm
+  //           key={data.id}
+  //           id={data.id}
+  //           title={data.title}
+  //           link={`/movie/${data.id}`}
+  //           imdbPoint={data.vote_average}
+  //           dropPath={data.backdrop_path}
+  //           posterPath={data.poster_path}
+  //           isClose={isBtnX}
+  //         />
+  //       </Col>
+  //     ));
+  //     setState(list);
+  //   };
+
+  //   fetchData(collection, setMoviesCollection);
+  //   fetchData(history, setMoviesHistory, true);
+  // }, [userData, pageCollection, pageHistory]);
+
+  // const totalPageCollection = Math.ceil(collections.length / 24);
+  // const totalPageHistory = Math.ceil(histories.length / 24);
+
+  // const handleRemoveAllCollections = (e) => {
   //   e.preventDefault();
   //   removeAllMovieFromField(userId, "collections");
   //   setUserData((prevUserData) => ({
   //     ...prevUserData,
-  //     [filed]: [],
+  //     collections: [],
   //   }));
   // };
+
+  // const handleRemoveAllHistories = (e) => {
+  //   e.preventDefault();
+  //   removeAllMovieFromField(userId, "histories");
+  //   setUserData((prevUserData) => ({
+  //     ...prevUserData,
+  //     histories: [],
+  //   }));
+  // };
+
+  const handleRemoveAll = (e, field) => {
+    e.preventDefault();
+    removeAllMovieFromField(userId, field);
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [field]: [],
+    }));
+  };
 
   const items = [
     {
@@ -86,7 +162,7 @@ export default function Collection() {
         <MovieList
           category="Bộ sưu tập"
           deleteAll={moviesCollection.length > 1 ? true : false}
-          // handleClickRemoveAll={handleRemoveAll}
+          handleClickRemoveAll={(e) => handleRemoveAll(e, "collections")}
         >
           {moviesCollection.length > 0 ? (
             <>
@@ -132,10 +208,14 @@ export default function Collection() {
       key: "2",
       label: "Lịch sử xem",
       children: (
-        <MovieList category="Lịch sử xem">
-          {moviesHistories.length > 0 ? (
+        <MovieList
+          category="Lịch sử xem"
+          deleteAll={moviesHistory.length > 1 ? true : false}
+          handleClickRemoveAll={(e) => handleRemoveAll(e, "histories")}
+        >
+          {moviesHistory.length > 0 ? (
             <>
-              <Row gutter={[12, 12]}>{moviesHistories}</Row>
+              <Row gutter={[12, 12]}>{moviesHistory}</Row>
               {totalPageHistory > 1 && (
                 <div
                   style={{

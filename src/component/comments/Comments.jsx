@@ -4,12 +4,8 @@ import CommentList from "./CommentList";
 import { Divider } from "antd";
 import { getCommentsById, postCommentById } from "@/lib/comments";
 
-const Comments = ({ id }) => {
+export default function Comments({ id }) {
   const [comments, setComments] = useState([]);
-
-  // useEffect(() => {
-  //   getCommentsById(id).then((data) => setComments(data.data));
-  // }, []);
 
   useEffect(() => {
     getComments();
@@ -20,7 +16,6 @@ const Comments = ({ id }) => {
     setComments(data);
   };
 
-  console.log(comments);
   const handleCommentSubmit = async (newComment) => {
     setComments([...comments, newComment]);
     await postCommentById(newComment, id);
@@ -33,6 +28,4 @@ const Comments = ({ id }) => {
       <CommentForm onCommentSubmit={handleCommentSubmit} />
     </div>
   );
-};
-
-export default Comments;
+}

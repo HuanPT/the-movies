@@ -76,7 +76,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
         <MovieDetailImage
           pathImg={movie.backdrop_path}
           posterImg={movie.poster_path}
-          id={movieId}
+          id={movie.id}
           title={movie.title}
           subtitle={movie.original_title}
         ></MovieDetailImage>

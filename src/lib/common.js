@@ -60,6 +60,7 @@ export const formatString = (currentIndex, maxIndex) => {
 
 // Xử lý params thành URL params
 export const handleParams = (params) => {
+  console.log(params);
   let urlParams = "";
   for (const key in params) {
     if (params.hasOwnProperty(key)) {
@@ -74,3 +75,4 @@ export const handleParams = (params) => {
 
   return urlParams;
 };
+
