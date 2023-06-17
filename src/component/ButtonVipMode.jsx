@@ -30,8 +30,7 @@ export default function ButtonVipMode({ children }) {
         footer={null}
       >
         {children}
-
-        <p style={{ marginTop: 12, fontSize: 16 }}>
+        <p style={{ marginTop: 12, fontSize: 16, color: "#fff" }}>
           Sau khi chọn một gói, tài khoản bạn sẽ bị trừ số coin tương ứng. Coin
           còn lại trong tài khoản bạn vẫn được duy trì vĩnh viễn (cho những lần
           kích hoạt sau).

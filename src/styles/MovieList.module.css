@@ -29,18 +29,34 @@
 }
 
 .view__all * {
-    margin-top: 3px;
     transition: transform .5s;
 }
 
-.view__all:hover {
-    color: var(--orange-color);
+.view__all:hover,
+.btnRemove:hover {
+    color: var(--orange-color) !important;
 }
 
 .view__all:hover>* {
     transform: translateX(10px);
 }
 
+.btnRemove {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+    color: #fff;
+    border: none;
+    background: transparent;
+}
+
 .movie__container {
     padding-inline: 8px;
+}
+
+@media screen and(max-width:768px) {
+    .btnRemove {
+        font-size: 16px;
+    }
 }

@@ -37,12 +37,18 @@ export default function CardFilm({
         <Row>
           <Col span={0} md={24}>
             <div className={styles.customImg}>
-              <Image src={posterSrc} fill alt={title} className={styles.img} />
+              <Image
+                src={posterSrc}
+                fill
+                alt={title}
+                sizes="auto"
+                className={styles.img}
+              />
             </div>
           </Col>
           <Col span={24} md={0}>
             <div className={styles.customImg}>
-              <Image src={dropSrc} fill alt={title} />
+              <Image src={dropSrc} fill sizes="auto" alt={title} />
             </div>
           </Col>
         </Row>
@@ -52,13 +58,13 @@ export default function CardFilm({
         </div>
         <div className={styles.actions}>
           <div className={styles.imdb}>
-            <Space>
+            <Space style={{ fontSize: 18 }}>
               <FaStar style={{ color: "yellow" }} />
               <span>{numberTofixed(imdbPoint)}</span>
             </Space>
           </div>
           <div className={styles.collection}>
-            <ButtonAddToCollection className={styles.iconHeart} />
+            <ButtonAddToCollection className={styles.iconHeart} id={id} />
           </div>
         </div>
       </div>

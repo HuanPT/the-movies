@@ -35,13 +35,19 @@ export default function MovieDetailImage({
     <Row>
       <Col span={24}>
         <div className={styles.imgBig}>
-          <Image src={dropSrc} fill title={title} alt={title} />
+          <Image src={dropSrc} fill sizes="auto" title={title} alt={title} />
         </div>
         <div className={styles.info__wrap}>
           <Row wrap={false} gutter={16} align="bottom">
             <Col span={0} lg={6}>
               <div className={styles.img__small}>
-                <Image src={posterSrc} fill title={title} alt={title} />
+                <Image
+                  src={posterSrc}
+                  fill
+                  sizes="auto"
+                  title={title}
+                  alt={title}
+                />
               </div>
             </Col>
             <Col span={24} lg={18}>
@@ -71,6 +77,7 @@ export default function MovieDetailImage({
                     <ButtonAddToCollection
                       size="large"
                       className={styles.buttonCollection}
+                      id={id}
                     />
                   </li>
                 </ul>

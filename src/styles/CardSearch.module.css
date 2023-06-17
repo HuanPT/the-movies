@@ -10,8 +10,9 @@
 }
 
 .img {
-    width: 50px;
-    height: 100%;
+    position: relative;
+    padding: 10%;
+    overflow: hidden;
     border-radius: 5px;
 }
 

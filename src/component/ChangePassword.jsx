@@ -19,7 +19,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         handleChangePassword(values);
       })
       .catch((info) => {
-        message.warning("Cập nhật mật khẩu thất bạt");
+        message.warning("Cập nhật mật khẩu thất bại!");
         console.log("Validate Failed:", info);
       });
   };
@@ -131,7 +131,6 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
 export default function ChangePassword() {
   const [open, setOpen] = useState(false);
   const onChange = (values) => {
-    console.log("Received values of form: ", values?.oldPassword);
     setOpen(false);
   };
 

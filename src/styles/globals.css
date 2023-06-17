@@ -1,9 +1,10 @@
 :root {
-  --orange-color: #ffa001
+  --orange-color: #ffa001;
+  --white-color: #fff
 }
 
 html {
-  color: #fff;
+  color: var(--white-color);
   line-height: 1.5;
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -152,7 +153,7 @@ video {
 
 .title__form {
   font-size: 26px;
-  color: #fff;
+  color: var(--white-color);
   margin-bottom: 36px;
 }
 
@@ -162,6 +163,7 @@ video {
 
 .wrap__help {
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -170,12 +172,12 @@ video {
 :where(.css-10oz5o4).ant-result .ant-result-subtitle,
 :where(.css-10oz5o4).ant-checkbox-wrapper,
 :where(.css-10oz5o4).ant-form-item {
-  color: #fff;
+  color: var(--white-color);
 }
 
 /* Footer */
 .footer {
-  color: #fff;
+  color: var(--white-color);
   background: #000;
   margin-top: 40px;
   border-top: thin solid #555;
@@ -200,15 +202,29 @@ video {
 }
 
 /* Modal */
+
 :where(.css-10oz5o4).ant-modal .ant-modal-content,
 :where(.css-10oz5o4).ant-modal .ant-modal-header {
-  background: #ddd;
+  background: #272727;
+}
+
+:where(.css-10oz5o4).ant-btn-link,
+:where(.css-10oz5o4).ant-modal .ant-modal-title,
+:where(.css-10oz5o4).ant-form-item .ant-form-item-label>label {
+  color: var(--white-color);
 }
 
 :where(.css-10oz5o4).ant-modal .ant-modal-close {
   top: 10px;
-
+  color: var(--white-color);
   inset-inline-end: 10px;
+  transition: all .3s;
+}
+
+:where(.css-10oz5o4).ant-btn-link:hover,
+:where(.css-10oz5o4).ant-btn-link:not(:disabled):hover,
+:where(.css-10oz5o4).ant-modal .ant-modal-close:hover {
+  color: #ffbe00;
 }
 
 @media screen and (max-width:992px) {
@@ -219,7 +235,7 @@ video {
 
 /* Tabs Collection */
 :where(.css-10oz5o4).ant-tabs {
-  color: #fff;
+  color: var(--white-color);
 }
 
 :where(.css-10oz5o4).ant-tabs .ant-tabs-ink-bar {
@@ -235,13 +251,13 @@ video {
 
 /* pagination */
 :where(.css-10oz5o4).ant-pagination {
-  color: #fff;
+  color: var(--white-color);
   margin-top: 10px;
   text-align: center;
 }
 
 :where(.css-10oz5o4).ant-pagination .ant-pagination-item a {
-  color: #fff;
+  color: var(--white-color);
 }
 
 :where(.css-10oz5o4).ant-pagination .ant-pagination-item-active {
@@ -262,11 +278,11 @@ video {
 
 :where(.css-10oz5o4).ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis,
 :where(.css-10oz5o4).ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
-  color: #fff;
+  color: var(--white-color);
 }
 
 :where(.css-10oz5o4) a {
-  color: #fff;
+  color: var(--white-color);
 }
 
 :where(.css-10oz5o4) a:hover:not(a[disabled]) {
@@ -301,11 +317,11 @@ video {
 
 /* Collapse */
 :where(.css-10oz5o4).ant-collapse>.ant-collapse-item>.ant-collapse-header {
-  color: #fff;
+  color: var(--white-color);
   align-items: center;
 }
 
 :where(.css-10oz5o4).ant-collapse .ant-collapse-content {
-  color: #fff;
+  color: var(--white-color);
   background: transparent;
 }

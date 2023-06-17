@@ -1,42 +1,52 @@
 import React, { useMemo, useState } from "react";
 import { Form, Input, Button } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
+import { nanoid } from "nanoid";
 
 const { TextArea } = Input;
 
 const CommentForm = ({ onCommentSubmit }) => {
-  const [comment, setComment] = useState("");
+  const [overview, setOverview] = useState("");
 
   const { user } = useAuthContext();
 
-  const name = useMemo(() => user?.displayName, [user]);
+  const username = useMemo(() => user?.displayName, [user]);
+  const userId = useMemo(() => user?.uid, [user]);
+  const id = nanoid();
 
+  const timestamp = new Date().toLocaleString("vi-VN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
   const handleSubmit = () => {
-    if (comment !== "") {
-      const newComment = {
-        name,
-        comment,
-        timestamp: new Date().toLocaleString("vi-VN", {
-          hour: "2-digit",
-          minute: "2-digit",
-          day: "2-digit",
-          month: "2-digit",
-          year: "numeric",
-        }),
+    if (overview !== "") {
+      const newOverview = {
+        id,
+        userId,
+        username,
+        overview,
+        timestamp,
       };
 
-      onCommentSubmit(newComment);
-      setComment("");
+      onCommentSubmit(newOverview);
+      setOverview("");
     }
   };
 
   return (
-    <Form layout="vertical" onFinish={handleSubmit}>
-      <Form.Item style={{ marginBottom: 4 }}>
+    <Form
+      layout="inline"
+      onFinish={handleSubmit}
+      style={{ alignItems: "center" }}
+    >
+      <Form.Item style={{ flex: 1 }}>
         <TextArea
           rows={4}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          value={overview}
+          onChange={(e) => setOverview(e.target.value)}
           required
           style={{ borderRadius: 0 }}
         />

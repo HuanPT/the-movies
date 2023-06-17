@@ -57,8 +57,8 @@ export default function Home({
         sidebar.style.position = "relative";
         sidebar.style.top = "0px";
         sidebar.style.marginTop = `${currentScrollPosition}px`;
-        setIsStickToTop(null);
-        setIsStickToBottom(null);
+        setIsStickToTop(false);
+        setIsStickToBottom(false);
       } else if (
         !isStickToBottom &&
         isScrollingDown &&
@@ -76,8 +76,8 @@ export default function Home({
         sidebar.style.position = "relative";
         sidebar.style.marginTop = `${scrollBottom - sidebar.offsetHeight}px`;
         sidebar.style.top = "0px";
-        setIsStickToTop(null);
-        setIsStickToBottom(null);
+        setIsStickToTop(false);
+        setIsStickToBottom(false);
       }
 
       lastScrollPosition = currentScrollPosition;

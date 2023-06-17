@@ -76,21 +76,13 @@ export default function Account() {
     fetchData();
   }, [rentMovies]);
 
-  const date = new Date();
-  
-  const dateToNumber = date.getTime();
-
   let length = rentMovies ? rentMovies.length : 0;
 
   // listRent(rentMovies);
   return (
     <>
       <div id={styles.account}>
-        <Row justify={"center"}>
-          <Col>
-            <CustomAvatar size={150} />
-          </Col>
-        </Row>
+        <CustomAvatar size={150} isChange={true} />
 
         <div className={styles.wrap__user}>
           <h1>{displayName}</h1>

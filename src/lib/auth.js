@@ -9,7 +9,16 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
 } from "firebase/auth";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { formatNumberToDateTime } from "./common";
 
 export const login = async (email, password) => {
@@ -57,7 +66,7 @@ export const register = async (email, password, username) => {
           isVip: false,
         },
         rentMovies: [],
-        collection: [],
+        collections: [],
         createOnTime,
       },
       { merge: true }
@@ -102,3 +111,26 @@ export const changePassword = async (oldPass, newPass) => {
   }
   return { error };
 };
+
+export const forgotPassword = async (email) => {
+  let error = null;
+  try {
+    await sendPasswordResetEmail(auth, email);
+  } catch (err) {
+    console.log(err);
+    error = err;
+  }
+  return { error };
+};
+
+const updateMovieField = (operation) => async (userId, movieId, fieldDoc) => {
+  const userRef = doc(db, "users", userId);
+  const updateObjField = {
+    [fieldDoc]: operation(movieId),
+  };
+  await updateDoc(userRef, updateObjField);
+};
+
+export const addMovieToField = updateMovieField(arrayUnion);
+export const removeMovieFromField = updateMovieField(arrayRemove);
+export const removeAllMovieFromField = updateMovieField(() => []);

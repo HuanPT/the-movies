@@ -15,9 +15,10 @@ export default function SignUp() {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    const email = sessionStorage.registerEmail || "";
-    console.log(email);
-    setInitialValue({ email });
+    const email = sessionStorage.registerEmail || null;
+    if (email) {
+      setInitialValue({ email });
+    }
   }, []);
 
   useEffect(() => {

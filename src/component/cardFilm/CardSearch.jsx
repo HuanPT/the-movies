@@ -22,13 +22,9 @@ export default function CardSearch({ link = "/", title, pathImg, imdbPoint }) {
   return (
     <Link href={link} title={title}>
       <div className={styles.card__movie}>
-        <Image
-          src={img}
-          width={35}
-          height={70}
-          alt={title}
-          className={styles.img}
-        />
+        <div className={styles.img}>
+          <Image src={img} fill sizes="auto" alt={"title"} />
+        </div>
         <Row className={styles.wrap__des}>
           <Col span={24}>
             <p className={styles.title}>{title}</p>

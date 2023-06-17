@@ -1,9 +1,9 @@
-import React, { useMemo,  } from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import styles from "@/styles/CardFilmSmall.module.css";
 
 import Link from "next/link";
-import {  FaStar } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { Space, Row, Col } from "antd";
 import { srcCardSmall } from "@/lib/api.service";
 import { numberTofixed } from "@/lib/common";
@@ -15,6 +15,7 @@ export default function CardFilmSmall({
   pathImg,
   imdbPoint,
   date,
+  id,
 }) {
   const dateLocal = useMemo(() => {
     return new Date(date).toLocaleString("vi-VN", { dateStyle: "short" });
@@ -51,7 +52,7 @@ export default function CardFilmSmall({
                 </Space>
               </Col>
               <Col span={7}>
-                <ButtonAddToCollection className={styles.iconHeart} />
+                <ButtonAddToCollection className={styles.iconHeart} id={id} />
               </Col>
             </Row>
           </Col>

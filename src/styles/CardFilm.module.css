@@ -29,30 +29,25 @@
     padding: 12px;
     text-overflow: ellipsis;
     color: #fff;
-    background: linear-gradient(0deg, rgba(0, 0, 0, .8) 25%, rgba(0, 0, 0, .7) 50%, rgba(0, 0, 0, 0));
+    background: linear-gradient(0deg, rgba(0, 0, 0, .8) 25%, rgba(0, 0, 0, .9) 50%, rgba(0, 0, 0, 0));
 }
 
 .actions {
+    display: flex;
+    padding-inline: 12px;
+    justify-content: space-between;
+    align-items: center;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     opacity: 0;
     height: 40px;
-    background: linear-gradient(180deg, rgba(0, 0, 0, .8) 25%, rgba(0, 0, 0, .7) 50%, rgba(0, 0, 0, 0));
+    background: linear-gradient(180deg, rgba(0, 0, 0, .9) 30%, rgba(0, 0, 0, .8) 60%, rgba(0, 0, 0, 0));
     transition: all 0.2s ease-in-out;
 }
 
-.collection {
-    position: absolute;
-    top: 8px;
-    right: 10px;
-}
-
 .imdb {
-    position: absolute;
-    top: 8px;
-    left: 10px;
     color: #fff;
 }
 
@@ -97,7 +92,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px !important;
+    font-size: 20px !important;
     color: var(--orange-color);
 }
 

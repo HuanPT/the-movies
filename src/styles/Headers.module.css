@@ -6,7 +6,7 @@
     max-width: 1920px;
     padding-block: 10px;
     background: transparent;
-    transition: all ease-out .3s;
+    transition: all .3s;
 }
 
 .header__topLogo img {

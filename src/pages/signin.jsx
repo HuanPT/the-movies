@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { authErrors } from "@/lib/firebase";
 import { decryptData, encryptData } from "@/lib/common";
 import Head from "next/head";
+import ForgotPassword from "@/component/ForgotPassword";
 
 export default function SignIn() {
   const router = useRouter();
@@ -65,7 +66,7 @@ export default function SignIn() {
       }
       router.push("/home");
 
-      message.success(`Chào mừng chở lại, ${user.user.displayName}`);
+      message.success(`Chào mừng trở lại, ${user.user.displayName}`);
     }
   };
 
@@ -138,7 +139,9 @@ export default function SignIn() {
                 <Checkbox>Ghi nhớ tôi</Checkbox>
               </Form.Item>
 
-              <Link href="/forgot">Quên mật khẩu?</Link>
+              {/* <Link href="/forgot">Quên mật khẩu?</Link>
+               */}
+              <ForgotPassword />
             </div>
           </Form.Item>
 

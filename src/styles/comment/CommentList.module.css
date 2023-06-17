@@ -1,0 +1,39 @@
+.list {
+    background-color: #fff;
+    padding-inline: 12px;
+}
+
+.list ul {
+    max-height: 400px;
+    overflow: auto;
+}
+
+.list ul li {
+    padding-right: 12px !important;
+}
+
+.title {
+    margin-left: 12px;
+}
+
+.list__item {
+    padding: 6px 12px;
+    border-radius: 12px;
+    min-width: 180px;
+    font-size: 16px;
+    color: #000;
+    border: 1px solid #ccc;
+    background-color: #eee;
+}
+
+.overview {
+    padding-inline: 6px;
+    overflow-wrap: anywhere;
+}
+
+.timestamp {
+    text-align: end;
+    font-size: 14px;
+    color: #999;
+    line-height: 1;
+}

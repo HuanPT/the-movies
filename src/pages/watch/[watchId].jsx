@@ -1,5 +1,7 @@
 import { Col, Rate, Row } from "antd";
-import React from "react";
+import { useAuthContext } from "@/context/Auth.context";
+import { addMovieToField } from "@/lib/auth";
+import React, { useEffect, useMemo } from "react";
 import styles from "@/styles/WatchId.module.css";
 import Head from "next/head";
 import CardFilm from "@/component/cardFilm/CardFilm";
@@ -9,9 +11,24 @@ import { getOverview } from "@/lib/common";
 import Comments from "@/component/comments/Comments";
 
 export default function WatchId({ movie, recommend }) {
-  const { results: recommendResults } = recommend;
+  const { user, setUserData } = useAuthContext();
+  const userId = useMemo(() => user?.uid, [user]);
+  const movieId = movie.id;
+  useEffect(() => {
+    if (user) {
+      addMovieToField(userId, movieId, "histories");
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        histories: prevUserData.histories.find((item) => item === movieId)
+          ? [...prevUserData.histories]
+          : [...prevUserData.histories, movieId],
+      }));
+    }
+  }, [movieId, user]);
 
-  console.log(movie);
+  const { results: recommendResults } = recommend;
+  // const id = movie.id;
+  // console.log(useGetCommentsByIdQuery(id));
 
   const listRecommend = (results) => {
     if (results.length === 0) return <p>Chưa có đề xuất cho bạn.</p>;
@@ -88,7 +105,7 @@ export default function WatchId({ movie, recommend }) {
                   </div>
                 </Col>
                 <Col span={24}>
-                  <Comments />
+                  <Comments id={movie.id} />
                 </Col>
               </Row>
             </div>
@@ -104,13 +121,13 @@ export default function WatchId({ movie, recommend }) {
 }
 
 export const getServerSideProps = async ({ query }) => {
+  const { watchId } = query;
+  const apiKey = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
+  const movieUrl = `https://api.themoviedb.org/3/movie/${watchId}?api_key=${apiKey}&language=vi`;
+  const recommendUrl = `https://api.themoviedb.org/3/movie/${watchId}/recommendations?api_key=${apiKey}&language=vi`;
   const [movieRes, recommendRes] = await Promise.all([
-    fetch(
-      `https://api.themoviedb.org/3/movie/${query.watchId}?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`
-    ),
-    fetch(
-      `https://api.themoviedb.org/3/movie/${query.watchId}/recommendations?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`
-    ),
+    fetch(movieUrl),
+    fetch(recommendUrl),
   ]);
 
   if (!movieRes.ok) {

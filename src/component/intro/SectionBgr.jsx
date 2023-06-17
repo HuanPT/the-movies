@@ -18,7 +18,7 @@ export default function SectionBgr() {
     <>
       <div className={styles.section__bgr}>
         <div className={styles.bgr}></div>
-        <Image src={srcImg} fill />
+        <Image src={srcImg} fill alt="bgr" />
       </div>
       <SectionText title={tittle} subTitle={subTittle} customStyle={customCss}>
         <IntroEmail />

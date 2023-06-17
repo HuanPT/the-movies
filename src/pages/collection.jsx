@@ -1,10 +1,11 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
-import { Row, Tabs, Col } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import { Row, Tabs, Col, Button } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
 import MovieList from "@/component/movies/MovieList";
 import CardFilm from "@/component/cardFilm/CardFilm";
 import EmptyData from "@/component/EmptyData";
+import { removeAllMovieFromField } from "@/lib/auth";
 
 const dataMovies = async (arr) => {
   if (!Array.isArray(arr)) return [];
@@ -23,14 +24,26 @@ const dataMovies = async (arr) => {
 };
 
 export default function Collection() {
-  const { userData } = useAuthContext();
+  const { user, userData, setUserData } = useAuthContext();
   const [moviesHistories, setMoviesHistories] = useState([]);
   const [moviesCollection, setMoviesCollection] = useState([]);
+  const [pageCollection, setPageCollection] = useState(1);
+  const [pageHistory, setPageHistory] = useState(1);
 
-  const collections = userData?.collection || [];
-  const histories = userData?.histories || [];
+  const [collections, histories, userId] = useMemo(() => {
+    const collections = userData?.collections || [];
+    const histories = userData?.histories || [];
+    const userId = user?.uid || null;
+    return [collections, histories, userId];
+  }, [userData, user]);
 
   useEffect(() => {
+    const collection = collections.slice(
+      (pageCollection - 1) * 24,
+      pageCollection * 24
+    );
+    const history = histories.slice((pageHistory - 1) * 24, pageHistory * 24);
+
     const fetchData = async (option, setState) => {
       const datas = await dataMovies(option);
       const list = datas.map((data) => (
@@ -48,20 +61,69 @@ export default function Collection() {
       ));
       setState(list);
     };
-    fetchData(collections, setMoviesCollection);
-    fetchData(histories, setMoviesHistories);
-  }, [collections, histories]);
+
+    fetchData(collection, setMoviesCollection);
+    fetchData(history, setMoviesHistories);
+  }, [userData, pageCollection, pageHistory]);
+
+  const totalPageCollection = Math.ceil(collections.length / 24);
+  const totalPageHistory = Math.ceil(histories.length / 24);
+
+  // const handleRemoveAll = (e) => {
+  //   e.preventDefault();
+  //   removeAllMovieFromField(userId, "collections");
+  //   setUserData((prevUserData) => ({
+  //     ...prevUserData,
+  //     [filed]: [],
+  //   }));
+  // };
 
   const items = [
     {
       key: "1",
       label: "Bộ sưu tập",
       children: (
-        <MovieList category="Bộ sưu tập">
+        <MovieList
+          category="Bộ sưu tập"
+          deleteAll={moviesCollection.length > 1 ? true : false}
+          // handleClickRemoveAll={handleRemoveAll}
+        >
           {moviesCollection.length > 0 ? (
-            <Row gutter={[12, 12]}> {moviesCollection} </Row>
+            <>
+              <Row gutter={[12, 12]}> {moviesCollection} </Row>
+              {totalPageCollection > 1 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 6,
+                    justifyContent: "center",
+                    marginTop: 24,
+                  }}
+                >
+                  {Array(totalPageCollection)
+                    .fill(null)
+                    .map((value, index) => (
+                      <Button
+                        htmlType="button"
+                        key={index}
+                        style={{
+                          background:
+                            pageCollection === index + 1
+                              ? "var(--orange-color)"
+                              : "",
+                          color: pageCollection === index + 1 ? "#fff" : "",
+                          border: "none",
+                        }}
+                        onClick={() => setPageCollection(index + 1)}
+                      >
+                        {index + 1}
+                      </Button>
+                    ))}
+                </div>
+              )}
+            </>
           ) : (
-            <EmptyData />
+            <EmptyData color={"#fff"} />
           )}
         </MovieList>
       ),
@@ -72,9 +134,41 @@ export default function Collection() {
       children: (
         <MovieList category="Lịch sử xem">
           {moviesHistories.length > 0 ? (
-            <Row gutter={[12, 12]}>{moviesHistories}</Row>
+            <>
+              <Row gutter={[12, 12]}>{moviesHistories}</Row>
+              {totalPageHistory > 1 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 6,
+                    justifyContent: "center",
+                    marginTop: 24,
+                  }}
+                >
+                  {Array(totalPageHistory)
+                    .fill(null)
+                    .map((value, index) => (
+                      <Button
+                        htmlType="button"
+                        key={index}
+                        style={{
+                          background:
+                            pageHistory === index + 1
+                              ? "var(--orange-color)"
+                              : "",
+                          color: pageHistory === index + 1 ? "#fff" : "",
+                          border: "none",
+                        }}
+                        onClick={() => setPageHistory(index + 1)}
+                      >
+                        {index + 1}
+                      </Button>
+                    ))}
+                </div>
+              )}
+            </>
           ) : (
-            <EmptyData />
+            <EmptyData color={"#fff"} />
           )}
         </MovieList>
       ),
@@ -84,7 +178,7 @@ export default function Collection() {
   return (
     <>
       <Head>
-        <title>Bộ sựu tập phim</title>
+        <title>Bộ sưu tập phim</title>
       </Head>
       <div className="container">
         <Tabs defaultActiveKey="1" centered items={items} />
