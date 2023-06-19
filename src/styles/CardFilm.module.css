@@ -34,17 +34,17 @@
 
 .actions {
     display: flex;
-    padding-inline: 12px;
+    padding-inline: 8px;
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    top: 0;
+    top: -40px;
     left: 0;
     width: 100%;
     opacity: 0;
     height: 40px;
     background: linear-gradient(180deg, rgba(0, 0, 0, .9) 30%, rgba(0, 0, 0, .8) 60%, rgba(0, 0, 0, 0));
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s;
 }
 
 .imdb {
@@ -80,6 +80,7 @@
 
 .card__movie:hover .actions {
     opacity: 1;
+    top: 0;
 }
 
 
@@ -97,18 +98,32 @@
 }
 
 .btnRemove {
-    top: -10px;
-    right: -4px;
     position: absolute;
+    top: 0px;
+    right: 4px;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
     background: transparent;
-    color: var(--white-color);
-    font-size: 20px !important;
+    color: var(--888-color);
+    font-size: 16px !important;
     border-radius: 50% !important;
+    transition: all .3s;
+}
+
+.card__movie:hover+.btnRemove {
+    top: -10px;
+    right: -4px;
+    color: var(--white-color);
+    font-size: 22px !important;
 }
 
 .btnRemove:hover {
+    top: -10px;
+    right: -4px;
+    font-size: 22px !important;
     color: var(--orange-color) !important;
 }
 

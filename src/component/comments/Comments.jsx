@@ -22,7 +22,7 @@ export default function Comments({ id }) {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: 800, margin: "0 auto" }}>
       <CommentList comments={comments} />
       <Divider style={{ margin: 0 }} />
       <CommentForm onCommentSubmit={handleCommentSubmit} />

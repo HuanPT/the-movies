@@ -39,7 +39,7 @@ export default function QrCode({ uid = "" }) {
         <>
           <div className={styles.qrImg}>
             <Image
-              src={`https://img.vietqr.io/image/BIDV-22010007332901-compact2.png?amount=${amount}&addInfo=${uid} ${amount}`}
+              src={`https://img.vietqr.io/image/BIDV-12410003672251-compact2.png?amount=${amount}&addInfo=${uid} ${amount}`}
               fill
               alt="qr code"
             />

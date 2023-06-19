@@ -2,7 +2,6 @@ import { changePassword } from "@/lib/auth";
 import { authErrors } from "@/lib/firebase";
 import { Button, Form, Input, Modal, message } from "antd";
 import React, { useState } from "react";
-// import Link from "next/link";
 
 const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -43,20 +42,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
       okText="OK"
       cancelText="Cancel"
       onCancel={handleCancel}
-      onOk={
-        handleForSubmit
-        //   () => {
-        //   form
-        //     .validateFields()
-        //     .then((values) => {
-        //       form.resetFields();
-        //       onCreate(values);
-        //     })
-        //     .catch((info) => {
-        //       console.log("Validate Failed:", info);
-        //     });
-        // }
-      }
+      onOk={handleForSubmit}
     >
       <Form form={form} layout="vertical" name="form_change_password">
         <Form.Item
@@ -141,6 +127,7 @@ export default function ChangePassword() {
         onClick={() => {
           setOpen(true);
         }}
+        style={{ paddingInline: 0 }}
       >
         Đổi mật khẩu
       </Button>

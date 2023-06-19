@@ -7,7 +7,7 @@ import { FaStar } from "react-icons/fa";
 import { Space, Row, Col } from "antd";
 import { srcCardSmall } from "@/lib/api.service";
 import { numberTofixed } from "@/lib/common";
-import ButtonAddToCollection from "../ButtonAddToCollection";
+import ButtonAddToCollection from "../button/ButtonAddToCollection";
 
 export default function CardFilmSmall({
   link = "/",

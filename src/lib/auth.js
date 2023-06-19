@@ -145,3 +145,55 @@ export const removeAllMovieFromField = async (userId, fieldDoc) => {
   };
   await updateDoc(userRef, updateObjField);
 };
+
+export const updateRentMovie = async (
+  operation,
+  userId,
+  movieId,
+  fieldDoc,
+  number
+) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    if (number) {
+      const start = Date.now(); // Lấy thời gian hiện tại là số nguyên
+      const end = new Date(currentDate + number * 24 * 60 * 60 * 1000); // Thêm số ngày vào số nguyên thời gian hiện tại
+      const timeStart = formatNumberToDateTime(start);
+      const expirationTime = formatNumberToDateTime(end);
+
+      const updateObjField = {
+        [fieldDoc]: operation({
+          id: movieId,
+          start,
+          end,
+          timeStart,
+          expirationTime,
+        }),
+      };
+      await updateDoc(userRef, updateObjField);
+    } else {
+      const updateObjField = {
+        [fieldDoc]: operation(movieId),
+      };
+      await updateDoc(userRef, updateObjField);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const addMovieRent = async(userId, movie, fieldDoc) => {
+  
+}
+
+export const autoRemoveMovieRent = async (userId, movie, fieldDoc) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    const updateObjField = {
+      [fieldDoc]: arrayRemove(movie),
+    };
+    await updateDoc(userRef, updateObjField);
+  } catch (err) {
+    console.log(err);
+  }
+};

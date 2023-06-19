@@ -6,8 +6,8 @@ import styles from "@/styles/CardFilm.module.css";
 import Image from "next/image";
 import { srcCardImg, srcW533 } from "@/lib/api.service";
 import { numberTofixed } from "@/lib/common";
-import ButtonAddToCollection from "../ButtonAddToCollection";
-import ButtonRemove from "../ButtonRemove";
+import ButtonAddToCollection from "../button/ButtonAddToCollection";
+import ButtonRemove from "../button/ButtonRemove";
 
 export default function CardFilm({
   title,
@@ -34,7 +34,7 @@ export default function CardFilm({
   }, [posterPath, dropPath]);
 
   return (
-    <Link href={link} title={title}>
+    <Link href={link} title={title} style={{ display: "block" }}>
       <div className={styles.card__movie} id={id}>
         <Row>
           <Col span={0} md={24}>

@@ -1,10 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { List } from "antd";
-import { FaComments } from "react-icons/fa";
-import Comments from "./Comments";
-import { useSelector } from "react-redux";
-import { selectComment } from "@/stores/comment.slice";
-import { getCommentsById } from "@/lib/comments";
+import { Button, List } from "antd";
+import { FaComments, FaEllipsisH } from "react-icons/fa";
 import { useAuthContext } from "@/context/Auth.context";
 import styles from "@/styles/comment/CommentList.module.css";
 
@@ -44,6 +40,13 @@ const CommentList = ({ comments }) => {
                 {comment.overview}
               </p>
               <p className={styles.timestamp}>{comment.timestamp}</p>
+              {userId === comment.userId && (
+                <Button
+                  size="small"
+                  icon={<FaEllipsisH />}
+                  className={styles.btnMore}
+                ></Button>
+              )}
             </div>
           </List.Item>
         )}

@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import { FaAngleDoubleRight, FaTrashAlt } from "react-icons/fa";
+import { FaAngleDoubleRight } from "react-icons/fa";
 import Styles from "@/styles/MovieList.module.css";
 import { Button, Col, Row } from "antd";
+import ButtonRemoveAll from "../button/ButtonRemoveAll";
 
 export default function MovieList({
   children,
@@ -11,6 +12,7 @@ export default function MovieList({
   style,
   deleteAll = false,
   handleClickRemoveAll,
+  desc,
 }) {
   return (
     <section className={Styles.section__movieList}>
@@ -25,13 +27,11 @@ export default function MovieList({
               </Link>
             )}
             {deleteAll && (
-              <Button
-                icon={<FaTrashAlt />}
+              <ButtonRemoveAll
+                description={desc}
                 className={Styles.btnRemove}
-                onClick={handleClickRemoveAll}
-              >
-                Xóa tất cả
-              </Button>
+                handleClickRemoveAll={handleClickRemoveAll}
+              />
             )}
           </div>
           <div className={Styles.movie__container}>{children}</div>

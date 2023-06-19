@@ -1,6 +1,13 @@
+import CardFilm from "@/component/cardFilm/CardFilm";
+import { Col } from "antd";
 import CryptoJS from "crypto-js";
 
-export function numberWithCommas(number, separator = ".") {
+export const cost = {
+  vipMovie: 1000,
+  vipMonth: 40000,
+};
+
+export function numberWithCommas(number, separator = ",") {
   if (!number) return;
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, separator);
 }
@@ -26,11 +33,6 @@ export function formatNumberToDateTime(dateTime) {
 
   return formattedDate;
 }
-
-export const cost = {
-  vipMovie: 1000,
-  vipMonth: 40000,
-};
 
 // Mã hóa
 export const encryptData = (data) => {
@@ -76,3 +78,60 @@ export const handleParams = (params) => {
   return urlParams;
 };
 
+export const dataMovies = async (arr) => {
+  if (!Array.isArray(arr)) return [];
+
+  // Hàm trung gian chuẩn hóa các tham số đầu vào thành 1 mảng duy nhất
+  const normalizeIds = (input) => {
+    return Array.isArray(input)
+      ? input.map((item) => (typeof item === "number" ? item : item.id))
+      : [input];
+  };
+
+  const ids = normalizeIds(arr);
+
+  const promises = ids.map(async (id, index) => {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`
+    );
+    if (!res.ok) {
+      throw new Error(`Failed to fetch movie with ID ${id}`);
+    }
+    const data = await res.json();
+    return { data, ...arr[index] };
+  });
+
+  const list = await Promise.all(promises);
+  return list;
+};
+
+export const fetchData = async (option, setState, isBtnX = false) => {
+  const datas = await dataMovies(option);
+  const list = datas.map((data) => (
+    <Col key={data.data.id} xs={12} sm={8} md={6} lg={4}>
+      <CardFilm
+        key={data.data.id}
+        id={data.data.id}
+        title={data.data.title}
+        link={`/movie/${data.data.id}`}
+        imdbPoint={data.data.vote_average}
+        dropPath={data.data.backdrop_path}
+        posterPath={data.data.poster_path}
+        isClose={isBtnX}
+      />
+      {data.expirationTime && (
+        <div>
+          <p>Ngày thuê: {data.timeStart}</p>
+          <p>Ngày hết hạn: {data.expirationTime}</p>
+        </div>
+      )}
+    </Col>
+  ));
+  setState(list);
+};
+
+// export const handleTime = () => {
+//   const start = Date.now();
+//   const timeStart = formatNumberToDateTime(start)
+//   const end = 
+// };

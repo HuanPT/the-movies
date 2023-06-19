@@ -17,6 +17,7 @@
 }
 
 .list__item {
+    position: relative;
     padding: 6px 12px;
     border-radius: 12px;
     min-width: 180px;
@@ -36,4 +37,15 @@
     font-size: 14px;
     color: #999;
     line-height: 1;
+}
+
+.btnMore {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: fit-content !important;
+    border-radius: 10px !important;
 }
