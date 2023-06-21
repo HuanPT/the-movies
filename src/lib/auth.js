@@ -139,11 +139,15 @@ export const addMovieToField = updateMovieField(arrayUnion);
 export const removeMovieFromField = updateMovieField(arrayRemove);
 
 export const removeAllMovieFromField = async (userId, fieldDoc) => {
-  const userRef = doc(db, "users", userId);
-  const updateObjField = {
-    [fieldDoc]: [],
-  };
-  await updateDoc(userRef, updateObjField);
+  try {
+    const userRef = doc(db, "users", userId);
+    const updateObjField = {
+      [fieldDoc]: [],
+    };
+    await updateDoc(userRef, updateObjField);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const updateRentMovie = async (
@@ -182,9 +186,17 @@ export const updateRentMovie = async (
   }
 };
 
-export const addMovieRent = async(userId, movie, fieldDoc) => {
-  
-}
+export const updateField = async (userId, coins, fieldDoc) => {
+  try {
+    const userRef = doc(db, "users", userId);
+    const updateObjField = {
+      [fieldDoc]: coins,
+    };
+    await updateDoc(userRef, updateObjField);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const autoRemoveMovieRent = async (userId, movie, fieldDoc) => {
   try {

@@ -121,7 +121,7 @@ export const fetchData = async (option, setState, isBtnX = false) => {
       />
       {data.expirationTime && (
         <div>
-          <p>Ngày thuê: {data.timeStart}</p>
+          <p>Ngày thuê: {data.startTime}</p>
           <p>Ngày hết hạn: {data.expirationTime}</p>
         </div>
       )}
@@ -130,8 +130,29 @@ export const fetchData = async (option, setState, isBtnX = false) => {
   setState(list);
 };
 
-// export const handleTime = () => {
-//   const start = Date.now();
-//   const timeStart = formatNumberToDateTime(start)
-//   const end = 
-// };
+export const handleTime = (number, id) => {
+  const start = Date.now();
+  const startTime = formatNumberToDateTime(start);
+  const end = start + number * 24 * 60 * 60 * 1000;
+  const expirationTime = formatNumberToDateTime(end);
+
+  if (id) {
+    return {
+      id,
+      start,
+      end,
+      startTime,
+      expirationTime,
+    };
+  } else {
+    const isVip = true;
+    return {
+      isVip,
+      start,
+      end,
+      startTime,
+      expirationTime,
+    };
+  }
+};
+

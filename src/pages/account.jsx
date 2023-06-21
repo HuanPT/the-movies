@@ -10,38 +10,49 @@ import {
 } from "@/lib/common";
 import ChangePassword from "@/component/ChangePassword";
 import ButtonVipMode from "@/component/button/ButtonVipMode";
-import ChooseToBuy from "@/component/ChooseToBuy";
 import MovieList from "@/component/movies/MovieList";
 import { useAuthContext } from "@/context/Auth.context";
+import RemainderTime from "@/component/remainderTime";
 
 export default function Account() {
   const { userData, user } = useAuthContext();
   const [rentList, setRentList] = useState([]);
   const [isRent, setIsRent] = useState(false);
+  const [countDown, setCountDown] = useState(0);
 
-  const [vipMode, endVipMode, displayName, email, createAt, coins, rentMovies] =
-    useMemo(() => {
-      const vipMode = userData?.vipStatus?.isVip;
-      const endVipMode = userData?.vipStatus?.end;
-      const displayName = userData?.username;
-      const email = userData?.email;
-      const createAt = userData?.createOnTime;
-      const coins = numberWithCommas(userData?.coins);
-      const rentMovies = userData?.rentMovies;
+  const [
+    vipMode,
+    startTime,
+    endVipMode,
+    end,
+    displayName,
+    email,
+    createAt,
+    coins,
+    rentMovies,
+  ] = useMemo(() => {
+    const vipMode = userData?.vipStatus?.isVip;
+    const startTime = userData?.vipStatus?.startTime;
+    const endVipMode = userData?.vipStatus?.expirationTime;
+    const end = userData?.vipStatus.end;
+    const displayName = userData?.username;
+    const email = userData?.email;
+    const createAt = userData?.createOnTime;
+    const coins = numberWithCommas(userData?.coins);
+    const rentMovies = userData?.rentMovies;
 
-      return [
-        vipMode,
-        endVipMode,
-        displayName,
-        email,
-        createAt,
-        coins,
-        rentMovies,
-      ];
-    }, [userData]);
-
-  const currentDate = Date.now();
-  console.log(currentDate);
+    return [
+      vipMode,
+      startTime,
+      endVipMode,
+      end,
+      displayName,
+      email,
+      createAt,
+      coins,
+      rentMovies,
+    ];
+  }, [userData]);
 
   useEffect(() => {
     fetchData(rentMovies, setRentList);
@@ -64,22 +75,24 @@ export default function Account() {
           <p>
             Ngày gia nhập: <span>{createAt}</span>
           </p>
-
-          <ChangePassword />
-          <div>
-            {vipMode ? (
+          {vipMode ? (
+            <>
               <div>
-                Ngày hết hạn Vip Mode:{" "}
-                <span className={styles.date}>
-                  {formatNumberToDateTime(endVipMode)}
-                </span>
+                Ngày kích hoạt: <span>{startTime}</span>
               </div>
-            ) : (
-              <ButtonVipMode>
-                <ChooseToBuy />
-              </ButtonVipMode>
-            )}
-          </div>
+              <div>
+                {/* Thời hạn còn: <span className={styles.date}>{endVipMode}</span> */}
+                Thời hạn còn:{" "}
+                <RemainderTime end={end} className={styles.date} />
+              </div>
+              <ChangePassword />
+            </>
+          ) : (
+            <>
+              <ChangePassword />
+              <ButtonVipMode />
+            </>
+          )}
         </div>
       </div>
 

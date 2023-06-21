@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
+import ChooseToBuy from "../ChooseToBuy";
 
-export default function ButtonVipMode({ children }) {
+export default function ButtonVipMode({ id }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -29,7 +30,7 @@ export default function ButtonVipMode({ children }) {
         width={992}
         footer={null}
       >
-        {children}
+        <ChooseToBuy id={id} setOpen={setOpen} />
         <p style={{ marginTop: 12, fontSize: 16, color: "#fff" }}>
           Sau khi chọn một gói, tài khoản bạn sẽ bị trừ số coin tương ứng. Coin
           còn lại trong tài khoản bạn vẫn được duy trì vĩnh viễn (cho những lần

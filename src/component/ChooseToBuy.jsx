@@ -1,35 +1,74 @@
 import React, { useMemo } from "react";
-import { Button, Card, Col, Row, message } from "antd";
-import { cost, numberWithCommas } from "@/lib/common";
+import { Button, Card, Col, Popconfirm, Row, message } from "antd";
+import { cost, handleTime, numberWithCommas } from "@/lib/common";
 
 import styles from "@/styles/ChooseToBuy.module.css";
 import { useAuthContext } from "@/context/Auth.context";
-export default function ChooseToBuy({ id }) {
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "ChooseToBuy";
+import { addMovieToField, updateField } from "@/lib/auth";
+
+export default function ChooseToBuy({ id, setOpen }) {
   const { vipMovie, vipMonth } = cost;
   const { user, userData, setUserData } = useAuthContext();
-  console.log(userData);
-
   const userCoin = useMemo(() => userData?.coins, [userData]);
 
-  console.log(userCoin);
+  const [messageApi, contextHolder] = message.useMessage();
+  const key = "ChooseToBuy";
 
-  const handleRentFilm = (id, vipMovie, vipMonth) => {
-    if (id) {
-      if (vipMonth < userCoin) {
-        const start = Date.now();
-        // const timeStart = 
-      } else {
-        messageApi.error(
+  const handleRentFilm = async (e, price, id) => {
+    e.preventDefault();
+    if (price <= userCoin) {
+      const newCoin = userCoin - price;
+      const userId = user.uid;
+      if (id) {
+        const rent = handleTime(10, id);
+        await addMovieToField(userId, rent, "rentMovies");
+        await updateField(userId, newCoin, "coins");
+        setOpen(false);
+        setTimeout(() => {
+          setUserData((prevData) => ({
+            ...prevData,
+            coins: newCoin,
+            rentMovies: [...prevData.rentMovies, rent],
+          }));
+        }, 1000);
+        messageApi.success(
           {
             key,
-            content: "Số coin của bạn không đủ để thực hiện giao dịch",
+            content: "kích hoạt thành công!",
+            duration: 2,
+          },
+          1000
+        );
+      } else {
+        const rent = handleTime(30);
+        await updateField(userId, rent, "vipStatus");
+        await updateField(userId, newCoin, "coins");
+        setOpen(false);
+        setTimeout(() => {
+          setUserData((prevData) => ({
+            ...prevData,
+            coins: newCoin,
+            vipStatus: rent,
+          }));
+        }, 1000);
+        messageApi.success(
+          {
+            key,
+            content: "kích hoạt thành công!",
             duration: 2,
           },
           1000
         );
       }
+    } else {
+      messageApi.error(
+        {
+          key,
+          content: "Số coin của bạn không đủ để thực hiện giao dịch",
+          duration: 2,
+        },
+        1000
+      );
     }
   };
 
@@ -52,9 +91,18 @@ export default function ChooseToBuy({ id }) {
               <li>Phù hợp nếu bạn ít thời gian xem phim.</li>
             </ul>
             {id ? (
-              <Button type="primary" shape="round" size="large" block danger>
-                Chọn mua
-              </Button>
+              <Popconfirm
+                placement="top"
+                title="Xác nhận"
+                description={"Kích hoạt phim này"}
+                onConfirm={(e) => handleRentFilm(e, vipMovie, id)}
+                okText="Có"
+                cancelText="Không"
+              >
+                <Button type="primary" shape="round" size="large" block danger>
+                  Chọn mua
+                </Button>
+              </Popconfirm>
             ) : (
               <div className={styles.notButton}>
                 Kích hoạt tại phim bạn muốn xem
@@ -76,9 +124,18 @@ export default function ChooseToBuy({ id }) {
               <li>Xem toàn bộ phim trên web trong 30 ngày.</li>
               <li>Phù hợp nếu bạn hay xem phim.</li>
             </ul>
-            <Button type="primary" block shape="round" size="large" danger>
-              Chọn mua
-            </Button>
+            <Popconfirm
+              placement="top"
+              title="Xác nhận"
+              description={"Kích hoạt theo tháng"}
+              onConfirm={(e) => handleRentFilm(e, vipMonth)}
+              okText="Có"
+              cancelText="Không"
+            >
+              <Button type="primary" block shape="round" size="large" danger>
+                Chọn mua
+              </Button>
+            </Popconfirm>
           </Card>
         </Col>
       </Row>

@@ -36,7 +36,7 @@ export default function MovieDetailImage({
     const isRentMovie = rentMovies.some((movie) => movie.id == id);
     setIsRent(isRentMovie);
     setIsVip(userVip);
-  }, [rentMovies, id]);
+  }, [rentMovies, id, userData]);
 
   useEffect(() => {
     if (posterImg) {
@@ -52,7 +52,14 @@ export default function MovieDetailImage({
     <Row>
       <Col span={24}>
         <div className={styles.imgBig}>
-          <Image src={dropSrc} fill sizes="auto" title={title} alt={title} />
+          <Image
+            src={dropSrc}
+            fill
+            sizes="auto"
+            priority
+            title={title}
+            alt={title}
+          />
         </div>
         <div className={styles.info__wrap}>
           <Row wrap={false} gutter={16} align="bottom">
@@ -64,6 +71,7 @@ export default function MovieDetailImage({
                   sizes="auto"
                   title={title}
                   alt={title}
+                  priority
                 />
               </div>
             </Col>
@@ -88,9 +96,7 @@ export default function MovieDetailImage({
                     </li>
                   ) : (
                     <li>
-                      <ButtonVipMode>
-                        <ChooseToBuy id={id} />
-                      </ButtonVipMode>
+                      <ButtonVipMode id={id} />
                     </li>
                   )}
 
