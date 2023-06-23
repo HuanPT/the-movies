@@ -1,29 +1,23 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { Row } from "antd";
-import CustomAvatar from "@/component/CustomAvatar";
 
 import styles from "@/styles/Account.module.css";
-import {
-  fetchData,
-  formatNumberToDateTime,
-  numberWithCommas,
-} from "@/lib/common";
+import { fetchData, numberWithCommas } from "@/lib/common";
 import ChangePassword from "@/component/ChangePassword";
 import ButtonVipMode from "@/component/button/ButtonVipMode";
 import MovieList from "@/component/movies/MovieList";
 import { useAuthContext } from "@/context/Auth.context";
 import RemainderTime from "@/component/remainderTime";
+import UserAvatar from "@/component/UserAvatar";
 
 export default function Account() {
-  const { userData, user } = useAuthContext();
+  const { userData, user, setUserData } = useAuthContext();
   const [rentList, setRentList] = useState([]);
   const [isRent, setIsRent] = useState(false);
-  const [countDown, setCountDown] = useState(0);
 
   const [
     vipMode,
     startTime,
-    endVipMode,
     end,
     displayName,
     email,
@@ -33,7 +27,6 @@ export default function Account() {
   ] = useMemo(() => {
     const vipMode = userData?.vipStatus?.isVip;
     const startTime = userData?.vipStatus?.startTime;
-    const endVipMode = userData?.vipStatus?.expirationTime;
     const end = userData?.vipStatus.end;
     const displayName = userData?.username;
     const email = userData?.email;
@@ -44,7 +37,6 @@ export default function Account() {
     return [
       vipMode,
       startTime,
-      endVipMode,
       end,
       displayName,
       email,
@@ -55,6 +47,15 @@ export default function Account() {
   }, [userData]);
 
   useEffect(() => {
+    const currentTime = Date.now();
+    const remainderTime = end - currentTime;
+    if (remainderTime <= 0) {
+      setUserData((prevData) => ({
+        ...prevData,
+        vipStatus: { ...prevData.vipStatus, isVip: false },
+      }));
+    }
+
     fetchData(rentMovies, setRentList);
     setIsRent(rentMovies?.length > 0);
   }, [userData]);
@@ -62,8 +63,17 @@ export default function Account() {
   return (
     <>
       <div id={styles.account}>
-        <CustomAvatar size={150} isChange={true} />
-
+        <div className={styles.avatar}>
+          <UserAvatar
+            size={160}
+            width={28}
+            height={28}
+            bottom="76%"
+            left="93%"
+            borderSize="4px"
+            isChange={true}
+          />
+        </div>
         <div className={styles.wrap__user}>
           <h1>{displayName}</h1>
           <p>
@@ -81,7 +91,6 @@ export default function Account() {
                 Ngày kích hoạt: <span>{startTime}</span>
               </div>
               <div>
-                {/* Thời hạn còn: <span className={styles.date}>{endVipMode}</span> */}
                 Thời hạn còn:{" "}
                 <RemainderTime end={end} className={styles.date} />
               </div>

@@ -7,11 +7,10 @@ import Link from "next/link";
 import { FaInfoCircle, FaSignOutAlt, FaFilm, FaDonate } from "react-icons/fa";
 import styles from "@/styles/Headers.module.css";
 import { useAuthContext } from "@/context/Auth.context";
-import { Button, Input, Dropdown, Row, Col, message } from "antd";
+import { Button, Dropdown, Row, Col } from "antd";
 import { logout } from "@/lib/auth";
-import CustomAvatar from "./CustomAvatar";
-import { useRouter } from "next/router";
 import SearchBox from "./search/SearchBox";
+import UserAvatar from "./UserAvatar";
 
 const items = [
   {
@@ -58,7 +57,6 @@ const items = [
 
 export default function Headers() {
   const { user } = useAuthContext();
-  const router = useRouter();
   const [headerStyle, setHeaderStyle] = useState({});
 
   const heightRef = useRef(0);
@@ -93,13 +91,6 @@ export default function Headers() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [heightRef]);
-
-  const onSearch = (value) => {
-    if (!value) return;
-    else {
-      router.push(`/search?q=${value}`);
-    }
-  };
 
   return (
     <>
@@ -174,7 +165,8 @@ export default function Headers() {
                 className={styles.menu__list}
               >
                 <div>
-                  <CustomAvatar />
+                  {/* <CustomAvatar /> */}
+                  <UserAvatar />
                 </div>
               </Dropdown>
             </Col>

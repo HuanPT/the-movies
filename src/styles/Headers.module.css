@@ -24,24 +24,12 @@
     flex: 1;
 }
 
-.menu__list:hover {
-    color: transparent !important;
-    background: linear-gradient(270deg, #ffd900, #b45264 93.86%) !important;
+.menu__list {
+    cursor: pointer;
 }
 
-.menu__list {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    text-align: center;
-    transition: all .3s;
-    color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(180deg, #ffd900, #b45264 93.68%);
+.menu__list:hover>div {
+    background-image: linear-gradient(270deg, #ffd900, #b45264 93.68%) !important;
 }
 
 .menu__item:hover {

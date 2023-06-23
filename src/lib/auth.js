@@ -1,4 +1,4 @@
-import { auth, db } from "./firebase";
+import { auth, db, storage } from "./firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -20,6 +20,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { formatNumberToDateTime } from "./common";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const login = async (email, password) => {
   let user = null;
@@ -53,26 +54,23 @@ export const register = async (email, password, username) => {
 
     const createOnTime = formatNumberToDateTime(date);
 
-    await setDoc(
-      doc(userRef, user.uid),
-      {
-        email,
-        username,
-        coins: 50000,
-        histories: [],
-        vipStatus: {
-          end: 0,
-          start: 0,
-          isVip: false,
-        },
-        rentMovies: [],
-        collections: [],
-        createOnTime,
+    const createDataUser = {
+      email,
+      username,
+      coins: 50000,
+      histories: [],
+      vipStatus: {
+        end: 0,
+        start: 0,
+        isVip: false,
+        startTime: "",
+        expirationTime: "",
       },
-      { merge: true }
-    );
-
-    user.reload();
+      rentMovies: [],
+      collections: [],
+      createOnTime,
+    };
+    await setDoc(doc(userRef, user.uid), createDataUser, { merge: true });
   } catch (err) {
     error = err;
   }
@@ -207,5 +205,18 @@ export const autoRemoveMovieRent = async (userId, movie, fieldDoc) => {
     await updateDoc(userRef, updateObjField);
   } catch (err) {
     console.log(err);
+  }
+};
+
+export const updateAvatar = async (image, userId, setUrl) => {
+  try {
+    const imageRef = ref(storage, userId);
+    await uploadBytes(imageRef, image);
+
+    const url = await getDownloadURL(imageRef);
+    setUrl(url);
+    updateField(userId, url, "avatar");
+  } catch (error) {
+    console.log(error);
   }
 };

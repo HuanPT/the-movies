@@ -209,7 +209,45 @@ export default function Home({
   );
 }
 
-export const getStaticProps = async () => {
+// export const getStaticProps = async () => {
+//   const urls = [
+//     `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
+//     `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
+//     `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
+//     `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi&region=us`,
+//   ];
+
+//   const [popularData, trendingDayData, trendingWeekData, upcomingData] =
+//     await Promise.all(urls.map(fetchMovies));
+
+//   const popular = { id: "popular", name: "Phổ biến", data: popularData };
+
+//   const trendingDay = {
+//     id: "trending__day",
+//     name: "Ngày",
+//     data: trendingDayData,
+//   };
+
+//   const trendingWeek = {
+//     id: "trending__Week",
+//     name: "Tuần",
+//     data: trendingWeekData,
+//   };
+
+//   const upcoming = {
+//     id: "upcoming",
+//     name: "Phim sắp chiếu",
+//     data: upcomingData,
+//   };
+
+//   const listGenres = await fetchGenres(genres);
+
+//   return {
+//     props: { popular, listGenres, trendingDay, trendingWeek, upcoming },
+//   };
+// };
+
+export const getServerSideProps = async () => {
   const urls = [
     `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
     `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,

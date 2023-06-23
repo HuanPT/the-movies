@@ -1,0 +1,32 @@
+.avatar__edit {
+    position: absolute;
+    z-index: 1;
+    left: 75%;
+    top: 75%;
+}
+
+.avatar__edit input {
+    display: none;
+}
+
+.avatar__edit input+label {
+    display: flex;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 0;
+    border-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    background: var(--white-color);
+    color: var(--orange-color);
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.6);
+}
+
+.avatar__edit input+label:hover {
+    background: var(--orange-color);
+    color: var(--white-color);
+}
