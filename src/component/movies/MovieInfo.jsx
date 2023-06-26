@@ -20,7 +20,7 @@ export default function MovieInfo({
     else return (style = { background: "#21d07a" });
   };
 
-  const list = (data, useLink = true) => {
+  const list = (data, useLink, param) => {
     const length = data.length;
     let list;
     if (length === 0) {
@@ -29,7 +29,9 @@ export default function MovieInfo({
       list = data.map((item, i) => (
         <span key={item.name}>
           {useLink ? (
-            <Link href={`/search/${item.name}`}>{item.name}</Link>
+            <Link href={`/${useLink}?${param}=${item.id || item.iso_3166_1}`}>
+              {item.name}
+            </Link>
           ) : (
             <span>{item.name}</span>
           )}
@@ -46,17 +48,19 @@ export default function MovieInfo({
         <dt>Năm phát hành</dt>
         <dd>
           {year ? (
-            <Link href={"/search"}>{year.split("-")[0]}</Link>
+            <Link href={`/search?primary_release_year=${year.split("-")[0]}`}>
+              {year.split("-")[0]}
+            </Link>
           ) : (
             "Đang xác minh"
           )}
         </dd>
         <dt>Thể loại</dt>
-        <dd>{list(genres)}</dd>
+        <dd>{list(genres, "search", "with_genres")}</dd>
         <dt>Quốc gia</dt>
-        <dd>{list(country)}</dd>
+        <dd>{list(country, "search", "with_origin_country")}</dd>
         <dt>Đạo diễn</dt>
-        <dd>{list(editor, false)}</dd>
+        <dd>{list(editor)}</dd>
         <dt>Điểm đánh giá</dt>
         <dd>
           <span className={styles.score} style={styleColor(score)}>

@@ -16,6 +16,7 @@ import imgDevices from "/public/device.png";
 import imgKid from "/public/img-kid.png";
 import imgApp from "/public/downloadApp.jpg";
 import { FaAngleRight } from "react-icons/fa";
+
 const faqList = [
   {
     header: "TheMovies là gì?",

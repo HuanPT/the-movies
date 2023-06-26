@@ -2,11 +2,13 @@ import CardFilm from "@/component/cardFilm/CardFilm";
 import MovieList from "@/component/movies/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
 import { Col, Row, Space } from "antd";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { fetchGenres, fetchMovies, genres } from "../lib/api.service";
 import Head from "next/head";
 import TabsRight from "@/component/TabsRight";
 import CardFilmSmall from "@/component/cardFilm/CardFilmSmall";
+import { FaHotjar } from "react-icons/fa";
+import Spin from "@/component/Spin";
 
 export default function Home({
   listGenres,
@@ -15,79 +17,103 @@ export default function Home({
   trendingWeek,
   upcoming,
 }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [isStickToTop, setIsStickToTop] = useState(null);
   const [isStickToBottom, setIsStickToBottom] = useState(null);
+  const [styleSidebar, setStyleSidebar] = useState({});
+  const sidebarRef = useRef(null);
+
+  // useEffect(() => {
+  //   let lastScrollPosition = 0;
+  //   const handleScroll = () => {
+  //     let currentScrollPosition = window.scrollY;
+  //     let isScrollingDown = currentScrollPosition > lastScrollPosition;
+  //     let isScrollingUp = currentScrollPosition < lastScrollPosition;
+
+  //     let scrollBottom = currentScrollPosition + window.innerHeight;
+  //     const sidebar = sidebarRef.current; // Lấy sidebar bằng className
+  //     if (!sidebar) return;
+
+  //     let sidebarTop = sidebar.offsetTop;
+  //     let sidebarBottom = sidebarTop + sidebar.offsetHeight;
+  //     let isAlwaysSticky = sidebar.offsetHeight <= window.innerHeight;
+
+  //     if (isStickToTop && isAlwaysSticky) {
+  //       return;
+  //     }
+
+  //     if (
+  //       (!isStickToTop &&
+  //         currentScrollPosition <= sidebarTop &&
+  //         isAlwaysSticky) ||
+  //       (!isStickToTop &&
+  //         currentScrollPosition <= sidebarTop &&
+  //         !isAlwaysSticky)
+  //     ) {
+  //       setStyleSidebar({
+  //         position: "sticky",
+  //         top: "0px",
+  //       });
+
+  //       setIsStickToTop(true);
+  //       setIsStickToBottom(false);
+  //     } else if (
+  //       isStickToTop &&
+  //       (currentScrollPosition > sidebarTop || isAlwaysSticky)
+  //     ) {
+  //       // sidebar.style.position = "relative";
+  //       // sidebar.style.top = "0px";
+  //       // sidebar.style.marginTop = `${currentScrollPosition}px`;
+  //       setStyleSidebar({
+  //         position: "sticky",
+  //         top: `${currentScrollPosition}px`,
+  //       });
+  //       setIsStickToTop(false);
+  //       setIsStickToBottom(false);
+  //     } else if (
+  //       !isStickToBottom &&
+  //       isScrollingDown &&
+  //       scrollBottom >= sidebarBottom
+  //     ) {
+  //       // sidebar.style.position = "sticky";
+  //       // sidebar.style.marginTop = "0px";
+  //       // sidebar.style.top = `${window.innerHeight - sidebar.offsetHeight}px`;
+  //       setStyleSidebar({
+  //         position: "sticky",
+  //         top: `${window.innerHeight - sidebar.offsetHeight}px`,
+  //       });
+  //       setIsStickToTop(false);
+  //       setIsStickToBottom(true);
+  //     } else if (
+  //       isStickToBottom &&
+  //       (isScrollingUp || scrollBottom < sidebarBottom)
+  //     ) {
+  //       // sidebar.style.position = "relative";
+  //       // sidebar.style.marginTop = `${scrollBottom - sidebar.offsetHeight}px`;
+  //       // sidebar.style.top = "0px";
+  //       setStyleSidebar({
+  //         position: "sticky",
+  //         top: `0px`,
+  //       });
+  //       setIsStickToTop(false);
+  //       setIsStickToBottom(false);
+  //     }
+
+  //     lastScrollPosition = currentScrollPosition;
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [isStickToTop, isStickToBottom]);
 
   useEffect(() => {
-    let lastScrollPosition = 0;
-    const handleScroll = () => {
-      let currentScrollPosition = window.scrollY;
-      let isScrollingDown = currentScrollPosition > lastScrollPosition;
-      let isScrollingUp = currentScrollPosition < lastScrollPosition;
-
-      let scrollBottom = currentScrollPosition + window.innerHeight;
-      const sidebar = document.querySelector(".sidebar"); // Lấy sidebar bằng className
-      if (!sidebar) return;
-
-      let sidebarTop = sidebar.offsetTop;
-      let sidebarBottom = sidebarTop + sidebar.offsetHeight;
-      let isAlwaysSticky = sidebar.offsetHeight <= window.innerHeight;
-
-      if (isStickToTop && isAlwaysSticky) {
-        return;
-      }
-
-      if (
-        (!isStickToTop &&
-          currentScrollPosition <= sidebarTop &&
-          isAlwaysSticky) ||
-        (!isStickToTop &&
-          currentScrollPosition <= sidebarTop &&
-          !isAlwaysSticky)
-      ) {
-        sidebar.style.position = "sticky";
-        sidebar.style.marginTop = "0px";
-        sidebar.style.top = "0px";
-        setIsStickToTop(true);
-        setIsStickToBottom(false);
-      } else if (
-        isStickToTop &&
-        (currentScrollPosition > sidebarTop || isAlwaysSticky)
-      ) {
-        sidebar.style.position = "relative";
-        sidebar.style.top = "0px";
-        sidebar.style.marginTop = `${currentScrollPosition}px`;
-        setIsStickToTop(false);
-        setIsStickToBottom(false);
-      } else if (
-        !isStickToBottom &&
-        isScrollingDown &&
-        scrollBottom >= sidebarBottom
-      ) {
-        sidebar.style.position = "sticky";
-        sidebar.style.marginTop = "0px";
-        sidebar.style.top = `${window.innerHeight - sidebar.offsetHeight}px`;
-        setIsStickToTop(false);
-        setIsStickToBottom(true);
-      } else if (
-        isStickToBottom &&
-        (isScrollingUp || scrollBottom < sidebarBottom)
-      ) {
-        sidebar.style.position = "relative";
-        sidebar.style.marginTop = `${scrollBottom - sidebar.offsetHeight}px`;
-        sidebar.style.top = "0px";
-        setIsStickToTop(false);
-        setIsStickToBottom(false);
-      }
-
-      lastScrollPosition = currentScrollPosition;
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [isStickToTop, isStickToBottom]);
+    // Tạm dừng hiển thị trạng thái loading sau khi dữ liệu đã được tải
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, []); // Chỉ chạy một lần khi component được render
 
   const styleH1 = {
     fontStyle: "normal",
@@ -157,7 +183,7 @@ export default function Home({
       <MovieList
         key={genre.id}
         category={genre.name}
-        link={`/genres/${genre.id}`}
+        link={`/search?with_genres=${genre.id}`}
       >
         <Row gutter={[12, 16]} justify="space-evenly">
           {film}
@@ -176,45 +202,56 @@ export default function Home({
         />
       </Head>
 
-      <Space direction="vertical" size="small" style={{ display: "flex" }}>
-        <Row justify="center">
-          <Col>
-            <MovieList category={popular.name}>
-              <SetupCarousel>{listTopRate}</SetupCarousel>
-            </MovieList>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24} lg={18}>
-            <div className="wrap__section">
-              <Row>
-                <Col span={24}>{GenreCategory}</Col>
-              </Row>
-            </div>
-          </Col>
-          <Col span={0} lg={6}>
-            <div className="sidebar">
-              <MovieList category={"Trending"} style={styleH1}>
-                <TabsRight items={items} />
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <Space direction="vertical" size="small" style={{ display: "flex" }}>
+          <Row justify="center">
+            <Col>
+              <MovieList category={popular.name}>
+                <SetupCarousel>{listTopRate}</SetupCarousel>
               </MovieList>
+            </Col>
+          </Row>
+          <Row>
+            <Col span={24} lg={18}>
+              <div className="wrap__section">
+                <Row>
+                  <Col span={24}>{GenreCategory}</Col>
+                </Row>
+              </div>
+            </Col>
+            <Col span={0} lg={6}>
+              <div className="sidebar" ref={sidebarRef} style={styleSidebar}>
+                <MovieList
+                  category={
+                    <>
+                      <FaHotjar /> Trending
+                    </>
+                  }
+                  style={styleH1}
+                >
+                  <TabsRight items={items} />
+                </MovieList>
 
-              <MovieList category={upcoming.name} style={styleH1}>
-                {comingMovies}
-              </MovieList>
-            </div>
-          </Col>
-        </Row>
-      </Space>
+                <MovieList category={upcoming.name} style={styleH1}>
+                  {comingMovies}
+                </MovieList>
+              </div>
+            </Col>
+          </Row>
+        </Space>
+      )}
     </>
   );
 }
 
 // export const getStaticProps = async () => {
 //   const urls = [
-//     `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-//     `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-//     `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-//     `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi&region=us`,
+//     `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=vi`,
+//     `https://api.themoviedb.org/3/trending/movie/day?api_key=${key}&language=vi`,
+//     `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}&language=vi`,
+//     `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=vi&region=us`,
 //   ];
 
 //   const [popularData, trendingDayData, trendingWeekData, upcomingData] =
@@ -248,11 +285,12 @@ export default function Home({
 // };
 
 export const getServerSideProps = async () => {
+  const key = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
   const urls = [
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-    `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-    `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi`,
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.NEXT_PUBLIC_API_KEY_MOVIE}&language=vi&region=us`,
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=vi`,
+    `https://api.themoviedb.org/3/trending/movie/day?api_key=${key}&language=vi`,
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}&language=vi`,
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${key}&language=vi&region=us`,
   ];
 
   const [popularData, trendingDayData, trendingWeekData, upcomingData] =

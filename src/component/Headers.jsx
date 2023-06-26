@@ -59,7 +59,7 @@ export default function Headers() {
   const { user } = useAuthContext();
   const [headerStyle, setHeaderStyle] = useState({});
 
-  const heightRef = useRef(0);
+  const heightRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,7 +73,7 @@ export default function Headers() {
       } else {
         setHeaderStyle({
           top: 0,
-          background: currentHeight == 80 ? "transparent" : "#131313",
+          background: currentHeight === 80 ? "transparent" : "#131313",
           borderBottom: "thin solid #555",
         });
         heightRef.current = currentHeight;
@@ -94,7 +94,7 @@ export default function Headers() {
 
   return (
     <>
-      <header className={styles.header} style={headerStyle}>
+      <header className={styles.header} ref={heightRef} style={headerStyle}>
         {!user ? (
           <Row
             justify="space-between"
@@ -106,10 +106,20 @@ export default function Headers() {
                 <Link href="/">
                   <Row>
                     <Col span={0} sm={24}>
-                      <Image src={logo} alt="logo" />
+                      <Image
+                        src={logo}
+                        width={"auto"}
+                        height={"auto"}
+                        alt="logo"
+                      />
                     </Col>
                     <Col span={24} sm={0}>
-                      <Image src={logoMin} alt="logo" />
+                      <Image
+                        src={logoMin}
+                        width={"auto"}
+                        height={"auto"}
+                        alt="logo"
+                      />
                     </Col>
                   </Row>
                 </Link>
@@ -137,21 +147,26 @@ export default function Headers() {
                 <Link href="/home">
                   <Row>
                     <Col span={0} sm={24}>
-                      <Image src={logo} alt="logo" />
+                      <Image
+                        src={logo}
+                        width={"auto"}
+                        height={"auto"}
+                        alt="logo"
+                      />
                     </Col>
                     <Col span={24} sm={0}>
-                      <Image src={logoMin} alt="logo" />
+                      <Image
+                        src={logoMin}
+                        width={"auto"}
+                        height={"auto"}
+                        alt="logo"
+                      />
                     </Col>
                   </Row>
                 </Link>
               </div>
             </Col>
             <Col className={styles.header__search}>
-              {/* <Search
-                  onSearch={onSearch}
-                  style={{ width: 350 }}
-                  placeholder="Tìm kiếm ..."
-                /> */}
               <SearchBox />
             </Col>
             <Col>
@@ -165,7 +180,6 @@ export default function Headers() {
                 className={styles.menu__list}
               >
                 <div>
-                  {/* <CustomAvatar /> */}
                   <UserAvatar />
                 </div>
               </Dropdown>

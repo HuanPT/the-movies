@@ -6,6 +6,7 @@ import MovieList from "@/component/movies/MovieList";
 import EmptyData from "@/component/EmptyData";
 import { removeAllMovieFromField } from "@/lib/auth";
 import { fetchData } from "@/lib/common";
+import Spin from "@/component/Spin";
 
 const FetchMoviesData = (
   collections,
@@ -41,6 +42,7 @@ const FetchMoviesData = (
 };
 
 export default function Collection() {
+  const [isLoading, setIsLoading] = useState(true);
   const { user, userData, setUserData } = useAuthContext();
   const [pageCollection, setPageCollection] = useState(1);
   const [pageHistory, setPageHistory] = useState(1);
@@ -53,6 +55,10 @@ export default function Collection() {
     const userId = user?.uid || null;
     return [collections, histories, userId];
   }, [userData, user]);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
   const {
     moviesHistory,
@@ -187,9 +193,13 @@ export default function Collection() {
         <title>Bộ sưu tập phim</title>
       </Head>
       {contextHolder}
-      <div className="container">
-        <Tabs defaultActiveKey="1" centered items={items} />
-      </div>
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <div className="container">
+          <Tabs defaultActiveKey="1" centered items={items} />
+        </div>
+      )}
     </>
   );
 }

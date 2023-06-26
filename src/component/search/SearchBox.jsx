@@ -40,7 +40,7 @@ const fetchData = (value, callback) => {
 };
 export default function SearchBox(props) {
   const [data, setData] = useState([]);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(null);
 
   const router = useRouter();
   const handleSearch = (newValue) => {

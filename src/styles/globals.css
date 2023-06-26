@@ -1,6 +1,7 @@
 :root {
   --orange-color: #ffa001;
   --white-color: #fff;
+  --blue-color: #4096ff;
   --black-color: #000;
   --333-color: #333;
   --888-color: #888;
@@ -47,8 +48,12 @@ video {
   background-color: #ff2631;
 }
 
+:where(.css-10oz5o4).ant-btn {
+  color: var(--blue-color);
+}
+
 #main__layout {
-  padding-top: 70px;
+  padding-top: 60px;
   background: var(--black-color);
 }
 
@@ -255,7 +260,7 @@ video {
 /* pagination */
 :where(.css-10oz5o4).ant-pagination {
   color: var(--white-color);
-  margin-top: 10px;
+  margin-block: 10px;
   text-align: center;
 }
 

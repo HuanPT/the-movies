@@ -1,35 +1,46 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Select } from "antd";
 import { handleParams } from "@/lib/common";
 
-export default function FilterFilm({ title, options, paramItem }) {
+export default function FilterFilm({ options, paramItem }) {
   const router = useRouter();
   const params = router.query;
-  console.log("keyword: ", params);
+  const [value, setValue] = useState(null);
+  useEffect(() => {
+    params[paramItem] ? setValue(params[paramItem]) : setValue("");
+  }, [params]);
 
-  const defaultValue = params[paramItem] ? params[paramItem] : undefined;
-
-  const onChange = (value) => {
-    const pathName = router.pathname;
-    // Đảm bảo giá trị mặc định cho trường "page" là 1
-    params.page = "1";
-    const updatedParams = { ...params };
-    updatedParams[paramItem] = value;
-    router.push(`${pathName}?${handleParams(updatedParams)}`);
-  };
+  const onChange = useCallback(
+    (value) => {
+      if (value !== "") {
+        const pathName = router.pathname;
+        params.page = "1";
+        if (params.q) {
+          const updatedParams = { ...params };
+          updatedParams[paramItem] = encodeURIComponent(value);
+          console.log(updatedParams);
+          router.push(`${pathName}?${handleParams(updatedParams)}`);
+        } else {
+          const newParams = { [paramItem]: encodeURIComponent(value) };
+          console.log(newParams);
+          router.push(`${pathName}?${handleParams(newParams)}`);
+        }
+      } else return;
+    },
+    [router, paramItem]
+  );
 
   return (
     <Select
       showSearch
-      placeholder={title}
       optionFilterProp="children"
       onChange={onChange}
+      value={value}
       filterOption={(input, option) =>
         (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
       }
       options={options}
-      defaultValue={defaultValue}
       style={{ textAlign: "center" }}
     />
   );

@@ -11,13 +11,13 @@ export const genres = [
 
   { id: 878, name: "Phim Khoa Học Viễn Tưởng" },
 
-  { id: 10751, name: "Phim Gia Đình" },
+  // { id: 10751, name: "Phim Gia Đình" },
 
-  { id: 14, name: "Phim Giả Tưởng" },
+  // { id: 14, name: "Phim Giả Tưởng" },
 
-  { id: 36, name: "Phim Lịch Sử" },
+  // { id: 36, name: "Phim Lịch Sử" },
 
-  { id: 9648, name: "Phim Bí Ẩn" },
+  // { id: 9648, name: "Phim Bí Ẩn" },
 ];
 
 export const srcImgOriginal = "https://image.tmdb.org/t/p/original";
@@ -38,11 +38,11 @@ export const fetchMovies = async (url) => {
   return data.results;
 };
 
-export const fetchGenres = async (genres) => {
-  function randomNum() {
-    return Math.floor(Math.random() * 3) + 1;
-  }
+function randomNum() {
+  return Math.floor(Math.random() * 3) + 1;
+}
 
+export const fetchGenres = async (genres) => {
   const promises = genres.map(async (genre) => {
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${
       process.env.NEXT_PUBLIC_API_KEY_MOVIE

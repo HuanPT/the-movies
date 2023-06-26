@@ -13,7 +13,7 @@ export default function SectionImage({
   return (
     <div className={styles.section__img}>
       <div className={styles.section__wrapImg}>
-        <Image src={srcImg} fill alt={alt} />
+        <Image src={srcImg} fill alt={alt} sizes="auto" />
         <div className={styles.card__animation} style={customStyle}>
           {video && <video src={video} autoPlay muted loop></video>}
           {imgAnimated && (

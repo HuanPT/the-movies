@@ -1,5 +1,9 @@
 export const countries = [
   {
+    value: "",
+    label: "--- Quốc gia ---",
+  },
+  {
     value: "AD",
     label: "Andorra",
   },
@@ -1007,6 +1011,10 @@ export const countries = [
 
 export const genreOptions = [
   {
+    value: "",
+    label: "--- Thể loại phim ---",
+  },
+  {
     value: "28",
     label: "Phim Hành Động",
   },
@@ -1085,6 +1093,10 @@ export const genreOptions = [
 ];
 
 export const years = [
+  {
+    value: "",
+    label: "--- Năm phát hành ---",
+  },
   {
     value: "2023",
     label: 2023,

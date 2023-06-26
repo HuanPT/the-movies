@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Button, List } from "antd";
-import { FaComments, FaEllipsisH } from "react-icons/fa";
+import { Button, List, Popover } from "antd";
+import { FaComments, FaEdit, FaEllipsisH, FaTrash } from "react-icons/fa";
 import { useAuthContext } from "@/context/Auth.context";
 import styles from "@/styles/comment/CommentList.module.css";
+import CommentItem from "./CommentItem";
 
-const CommentList = ({ comments }) => {
+const CommentList = ({ comments, onCommentEdit, onDeleteComment }) => {
   const { user } = useAuthContext();
   const userId = useMemo(() => user?.uid, [user]);
 
@@ -23,31 +24,13 @@ const CommentList = ({ comments }) => {
             key={comment.id}
             style={{ justifyContent: userId == comment.userId && "right" }}
           >
-            <div
-              style={{
-                border: userId == comment.userId && "1px solid #71beff",
-                background: userId == comment.userId && "#d8edff",
-              }}
-              className={styles.list__item}
-            >
-              <p>
-                <strong>{comment.username}</strong>
-              </p>
-              <p
-                // style={{ paddingInline: 6, overflowWrap: "anywhere" }}
-                className={styles.overview}
-              >
-                {comment.overview}
-              </p>
-              <p className={styles.timestamp}>{comment.timestamp}</p>
-              {userId === comment.userId && (
-                <Button
-                  size="small"
-                  icon={<FaEllipsisH />}
-                  className={styles.btnMore}
-                ></Button>
-              )}
-            </div>
+            <CommentItem
+              comment={comment}
+              userId={userId}
+              styles={styles}
+              editComment={onCommentEdit}
+              deleteComment={onDeleteComment}
+            />
           </List.Item>
         )}
       />

@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { Form, Input, Button } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
 import { nanoid } from "nanoid";
+import { FaTelegramPlane } from "react-icons/fa";
 
 const { TextArea } = Input;
 
@@ -40,21 +41,26 @@ const CommentForm = ({ onCommentSubmit }) => {
     <Form
       layout="inline"
       onFinish={handleSubmit}
-      style={{ alignItems: "center" }}
+      style={{ alignItems: "center", position: "relative" }}
     >
-      <Form.Item style={{ flex: 1 }}>
+      <Form.Item style={{ flex: 1, margin: 0 }}>
         <TextArea
-          rows={4}
           value={overview}
+          placeholder="Bình luận..."
           onChange={(e) => setOverview(e.target.value)}
           required
-          style={{ borderRadius: 0 }}
+          style={{ borderRadius: 0, paddingRight: 44, minHeight: 44 }}
+          autoSize
         />
       </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+      <Form.Item style={{ position: "absolute", right: 6, marginInlineEnd: 0 }}>
+        <Button
+          htmlType="submit"
+          type={"text"}
+          size="middle"
+          icon={<FaTelegramPlane size={26} />}
+          disabled={overview !== "" ? false : true}
+        />
       </Form.Item>
     </Form>
   );
