@@ -48,13 +48,18 @@ video {
   background-color: #ff2631;
 }
 
-:where(.css-10oz5o4).ant-btn {
-  color: var(--blue-color);
+#main__layout {
+  padding-top: 70px;
+  background: var(--black-color);
 }
 
-#main__layout {
-  padding-top: 60px;
-  background: var(--black-color);
+/* Grid */
+@media (min-width: 992px) {
+  :where(.css-10oz5o4).ant-col-lg-5 {
+    display: block;
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
 }
 
 /* title */

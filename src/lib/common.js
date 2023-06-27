@@ -108,7 +108,7 @@ export const dataMovies = async (arr) => {
 export const fetchData = async (option, setState, isBtnX = false) => {
   const datas = await dataMovies(option);
   const list = datas.map((data) => (
-    <Col key={data.data.id} xs={12} sm={8} md={6} lg={4}>
+    <Col key={data.data.id} xs={12} sm={8} md={6} lg={5}>
       <CardFilm
         key={data.data.id}
         id={data.data.id}
@@ -155,4 +155,3 @@ export const handleTime = (number, id) => {
     };
   }
 };
-

@@ -7,6 +7,8 @@ import CommentItem from "./CommentItem";
 
 const CommentList = ({ comments, onCommentEdit, onDeleteComment }) => {
   const { user } = useAuthContext();
+
+  const [editId, setEditId] = useState(null);
   const userId = useMemo(() => user?.uid, [user]);
 
   return (
@@ -30,6 +32,8 @@ const CommentList = ({ comments, onCommentEdit, onDeleteComment }) => {
               styles={styles}
               editComment={onCommentEdit}
               deleteComment={onDeleteComment}
+              editId={editId}
+              setEditId={setEditId}
             />
           </List.Item>
         )}

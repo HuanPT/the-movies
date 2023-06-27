@@ -50,14 +50,14 @@ export default function Search({ datas, q, p, otherQueries }) {
 
   const handlePageChange = (page) => {
     if (q) {
-      router.push(
+      return router.push(
         `/search?q=${encodeURIComponent(q)}&page=${page}&${handleParams(
           otherQueries
         )}`
       );
     }
     if (otherQueries) {
-      router.push(`/search?${handleParams(otherQueries)}&page=${page}`);
+      return router.push(`/search?${handleParams(otherQueries)}&page=${page}`);
     }
   };
 
@@ -75,19 +75,19 @@ export default function Search({ datas, q, p, otherQueries }) {
       return <a onClick={() => handlePageChange(p + 1)}>Next</a>;
     return originalElement;
   };
-
+  console.log(datas);
   const customPagination = {
-    total: datas.total_results,
+    total: datas.total_results > 10000 ? 10000 : datas.total_results,
     pageSize: 20,
     showQuickJumper: true,
     showSizeChanger: false,
-    defaultCurrent: p,
+    current: p,
     itemRender,
     onChange: handleQuickJumperChange,
   };
 
   const listMovies = datas.results.map((data, index) => (
-    <Col key={data.id} xs={12} sm={8} md={6} lg={4}>
+    <Col key={data.id} xs={12} sm={8} md={6} lg={5}>
       <CardFilm
         key={data.id}
         id={data.id}

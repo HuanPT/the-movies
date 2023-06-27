@@ -11,7 +11,7 @@ export const genres = [
 
   { id: 878, name: "Phim Khoa Học Viễn Tưởng" },
 
-  // { id: 10751, name: "Phim Gia Đình" },
+  { id: 10751, name: "Phim Gia Đình" },
 
   // { id: 14, name: "Phim Giả Tưởng" },
 
@@ -44,9 +44,8 @@ function randomNum() {
 
 export const fetchGenres = async (genres) => {
   const promises = genres.map(async (genre) => {
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${
-      process.env.NEXT_PUBLIC_API_KEY_MOVIE
-    }&with_genres=${genre.id}&language=vi&page=${randomNum()}`;
+    const key = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&with_genres=${genre.id}&language=vi&page=1`;
     const data = await fetchMovies(url);
     return { id: genre.id, name: genre.name, data };
   });

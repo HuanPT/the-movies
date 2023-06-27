@@ -3,6 +3,7 @@ import { Form, Input, Button } from "antd";
 import { useAuthContext } from "@/context/Auth.context";
 import { nanoid } from "nanoid";
 import { FaTelegramPlane } from "react-icons/fa";
+import styles from "@/styles/comment/CommentList.module.css";
 
 const { TextArea } = Input;
 
@@ -58,6 +59,7 @@ const CommentForm = ({ onCommentSubmit }) => {
           htmlType="submit"
           type={"text"}
           size="middle"
+          className={styles.btnSubmit}
           icon={<FaTelegramPlane size={26} />}
           disabled={overview !== "" ? false : true}
         />

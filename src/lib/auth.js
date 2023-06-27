@@ -8,6 +8,7 @@ import {
   updatePassword,
   EmailAuthProvider,
   reauthenticateWithCredential,
+  sendEmailVerification,
 } from "firebase/auth";
 import {
   arrayRemove,
@@ -70,6 +71,7 @@ export const register = async (email, password, username) => {
       collections: [],
       createOnTime,
     };
+    await sendEmailVerification(user);
     await setDoc(doc(userRef, user.uid), createDataUser, { merge: true });
   } catch (err) {
     error = err;
@@ -184,11 +186,11 @@ export const updateRentMovie = async (
   }
 };
 
-export const updateField = async (userId, coins, fieldDoc) => {
+export const updateField = async (userId, fieldValue, fieldDoc) => {
   try {
     const userRef = doc(db, "users", userId);
     const updateObjField = {
-      [fieldDoc]: coins,
+      [fieldDoc]: fieldValue,
     };
     await updateDoc(userRef, updateObjField);
   } catch (err) {

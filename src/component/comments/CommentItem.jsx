@@ -8,8 +8,9 @@ export default function CommentItem({
   styles,
   editComment,
   deleteComment,
+  editId,
+  setEditId,
 }) {
-  const [editId, setEditId] = useState(null);
   const [overview, setOverview] = useState(comment.overview);
 
   const handleEdit = () => {
@@ -64,12 +65,7 @@ export default function CommentItem({
           <p>
             <strong>{comment.username}</strong>
           </p>
-          <p
-            // style={{ paddingInline: 6, overflowWrap: "anywhere" }}
-            className={styles.overview}
-          >
-            {overview}
-          </p>
+          <p className={styles.overview}>{comment.overview}</p>
           <p className={styles.timestamp}>{comment.timestamp}</p>
           {userId === comment.userId && (
             <div className={styles.btnMore}>

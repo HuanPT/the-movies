@@ -79,6 +79,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
           id={movie.id}
           title={movie.title}
           subtitle={movie.original_title}
+          priority={true}
         ></MovieDetailImage>
         <MovieList category="Thông tin phim">
           <MovieInfo

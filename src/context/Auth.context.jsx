@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
   }, [user]); // thêm user vào danh sách dependencies để useEffect được gọi lại khi user thay đổi
 
   return (
-    <AuthContext.Provider value={{ user, userData, setUserData }}>
+    <AuthContext.Provider value={{ user, userData, setUserData, setUser }}>
       {children}
     </AuthContext.Provider>
   );

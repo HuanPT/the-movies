@@ -77,3 +77,7 @@
 .btnMore>span:hover {
     color: var(--orange-color);
 }
+
+.btnSubmit {
+    color: var(--blue-color);
+}

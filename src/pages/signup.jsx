@@ -6,10 +6,12 @@ import { register } from "@/lib/auth";
 import { authErrors } from "@/lib/firebase";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { useAuthContext } from "@/context/Auth.context";
 
 export default function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [initialValue, setInitialValue] = useState({});
+  const { setUser } = useAuthContext();
 
   const router = useRouter();
   const [form] = Form.useForm();
@@ -40,6 +42,7 @@ export default function SignUp() {
       router.push("/home");
       form.resetFields();
       setIsLoading(false);
+      setUser(user);
       setTimeout(() => {
         message.success("Đăng ký thành công");
       }, 1000);

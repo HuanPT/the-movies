@@ -63,10 +63,8 @@ export default function WatchId({ movie, recommend }) {
           <Col span={24}>
             <div className={styles.watch}>
               <iframe
-                src="//ok.ru/videoembed/5136274950761"
-                frameBorder="0"
-                allow="autoplay"
-                allowFullScreen
+                src="//ok.ru/videoembed/5285875092073?autoplay=1"
+                frameborder="0"
               ></iframe>
             </div>
           </Col>
