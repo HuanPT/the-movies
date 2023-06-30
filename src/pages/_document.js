@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charset="UTF-8" />
-        <link rel="icon" type="image/svg+xml" href="/public/faviconLogo.png" />
+        <link rel="icon" href="/favicon.ico" sizes="any" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           property="og:url"

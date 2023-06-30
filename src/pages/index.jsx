@@ -104,7 +104,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>theMovies - Trải nghiệm phim trực tuyến không giới hạn</title>
+        <title>TheMovies - Trải nghiệm phim trực tuyến không giới hạn</title>
         <meta
           name="description"
           content="TheMovies - Mang cả thế giới đến với bạn!"
