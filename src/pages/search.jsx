@@ -75,7 +75,6 @@ export default function Search({ datas, q, p, otherQueries }) {
       return <a onClick={() => handlePageChange(p + 1)}>Next</a>;
     return originalElement;
   };
-  console.log(datas);
   const customPagination = {
     total: datas.total_results > 10000 ? 10000 : datas.total_results,
     pageSize: 20,

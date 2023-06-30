@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "@/styles/ButtonChangeAvatar.module.css";
+import styles from "@/styles/button/ButtonChangeAvatar.module.css";
 import { FaCamera } from "react-icons/fa";
 import { useAuthContext } from "@/context/Auth.context";
 import { updateAvatar } from "@/lib/auth";
@@ -17,7 +17,6 @@ export default function ButtonUpdateAvatar({ onFileChange }) {
   const handleFileChange = async (e) => {
     try {
       const file = e.target.files[0];
-      console.log(file);
       if (!file) {
         return;
       } else {

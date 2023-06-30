@@ -2,12 +2,9 @@ import Head from "next/head";
 import React from "react";
 import styles from "@/styles/Donate.module.css";
 import { Col, Row } from "antd";
-import { useAuthContext } from "@/context/Auth.context";
 import QrCode from "@/component/QrCode";
 
 export default function Donate() {
-  const { user } = useAuthContext();
-
   return (
     <>
       <Head>
@@ -17,9 +14,7 @@ export default function Donate() {
         <div className={styles.main}>
           <div>
             <h3 className={styles.title}>Nạp coin</h3>
-            <p>
-              Để ủng hộ website & xem phim, hãy nạp coin theo cách bên dưới
-            </p>
+            <p>Để ủng hộ website & xem phim, hãy nạp coin theo cách bên dưới</p>
           </div>
 
           <Row>
@@ -45,7 +40,7 @@ export default function Donate() {
                 tương ứng.
               </p>
 
-              <QrCode uid={user ? user.uid : ""} />
+              <QrCode />
             </Col>
           </Row>
         </div>

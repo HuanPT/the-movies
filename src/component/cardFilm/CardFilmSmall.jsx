@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Image from "next/image";
-import styles from "@/styles/CardFilmSmall.module.css";
+import styles from "@/styles/cardFilm/CardFilmSmall.module.css";
 
 import Link from "next/link";
 import { FaStar } from "react-icons/fa";

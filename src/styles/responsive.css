@@ -25,9 +25,22 @@
 
 }
 
+/* Grid */
+@media (min-width: 992px) {
+    :where(.css-10oz5o4).ant-col-lg-5 {
+        display: block;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}
+
 @media screen and (max-width:992px) {
     .wrap__genres {
         margin-right: 0;
+    }
+
+    .wrap__section {
+        margin: 0;
     }
 }
 

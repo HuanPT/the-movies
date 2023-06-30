@@ -1,4 +1,4 @@
-import { changePassword, forgotPassword } from "@/lib/auth";
+import {  forgotPassword } from "@/lib/auth";
 import { authErrors } from "@/lib/firebase";
 import { Button, Form, Input, Modal, message } from "antd";
 import { MailOutlined } from "@ant-design/icons";

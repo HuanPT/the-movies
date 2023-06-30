@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Button, List, Popover } from "antd";
-import { FaComments, FaEdit, FaEllipsisH, FaTrash } from "react-icons/fa";
+import React, {  useMemo, useState } from "react";
+import { List } from "antd";
+import { FaComments} from "react-icons/fa";
 import { useAuthContext } from "@/context/Auth.context";
 import styles from "@/styles/comment/CommentList.module.css";
 import CommentItem from "./CommentItem";

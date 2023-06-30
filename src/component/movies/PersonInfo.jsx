@@ -1,7 +1,7 @@
 import { srcH632 } from "@/lib/api.service";
 import Image from "next/image";
 import React from "react";
-import styles from "@/styles/PersonInfo.module.css";
+import styles from "@/styles/movies/PersonInfo.module.css";
 
 export default function PersonInfo({
   name,

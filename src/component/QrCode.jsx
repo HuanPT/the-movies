@@ -1,13 +1,33 @@
-import { Button, InputNumber } from "antd";
+import { Button, InputNumber, message } from "antd";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/QrCode.module.css";
+import { useAuthContext } from "@/context/Auth.context";
+import { updateField } from "@/lib/auth";
 
-export default function QrCode({ uid = "" }) {
+export default function QrCode() {
+  const { userData, setUserData, user } = useAuthContext();
   const [show, setShow] = useState(false);
   const [amount, setAmount] = useState(null);
-
+  const [userInfo, setUserInfo] = useState(null);
+  useEffect(() => {
+    if (userData) setUserInfo(userData.email);
+  }, [userData]);
   const title = show ? "Xong" : "Nạp";
+
+  const handlePlusMoney = async () => {
+    if (show) {
+      const newCoins = userData.coins + amount;
+      await updateField(user.uid, newCoins, "coins");
+      setUserData((prevData) => ({
+        ...prevData,
+        coins: newCoins,
+      }));
+      message.success("Nạp thành công!");
+      setAmount(null);
+    }
+    setShow(!show);
+  };
 
   const onChange = (value) => {
     setAmount(value);
@@ -30,7 +50,7 @@ export default function QrCode({ uid = "" }) {
           size="large"
           disabled={show}
         />
-        <Button size="large" onClick={() => setShow(!show)}>
+        <Button size="large" onClick={handlePlusMoney}>
           {title}
         </Button>
       </div>
@@ -39,7 +59,7 @@ export default function QrCode({ uid = "" }) {
         <>
           <div className={styles.qrImg}>
             <Image
-              src={`https://img.vietqr.io/image/BIDV-12410003672251-compact2.png?amount=${amount}&addInfo=${uid} ${amount}`}
+              src={`https://img.vietqr.io/image/BIDV-12410003672251-compact2.png?amount=${amount}&addInfo=${userInfo} ${amount}`}
               fill
               alt="qr code"
             />

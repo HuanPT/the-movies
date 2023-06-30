@@ -19,11 +19,9 @@ export default function FilterFilm({ options, paramItem }) {
         if (params.q) {
           const updatedParams = { ...params };
           updatedParams[paramItem] = encodeURIComponent(value);
-          console.log(updatedParams);
           router.push(`${pathName}?${handleParams(updatedParams)}`);
         } else {
           const newParams = { [paramItem]: encodeURIComponent(value) };
-          console.log(newParams);
           router.push(`${pathName}?${handleParams(newParams)}`);
         }
       } else return;

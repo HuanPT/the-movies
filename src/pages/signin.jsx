@@ -17,7 +17,7 @@ export default function SignIn() {
   useEffect(() => {
     const encryptedEmail = localStorage.email || "";
     const encryptedPassword = localStorage.password || "";
-    const encryptedRemember = localStorage.remember || "false";
+    const encryptedRemember = localStorage.remember || "";
 
     const email = encryptedEmail === "" ? "" : decryptData(encryptedEmail);
 
@@ -55,14 +55,13 @@ export default function SignIn() {
       message.error(authErrors[error.code]);
     } else {
       if (isRemember) {
-        console.log(encryptedRemember);
-        localStorage.setItem("email", encryptedEmail, { expires: 7 });
-        localStorage.setItem("password", encryptedPassword, { expires: 7 });
-        localStorage.setItem("remember", encryptedRemember, { expires: 7 });
+        localStorage.setItem("email", encryptedEmail);
+        localStorage.setItem("password", encryptedPassword);
+        localStorage.setItem("remember", encryptedRemember);
       } else {
-        localStorage.setItem("email", encryptData(""), { expires: 7 });
-        localStorage.setItem("password", encryptData(""), { expires: 7 });
-        localStorage.setItem("remember", false, { expires: 7 });
+        localStorage.setItem("email", encryptData(""));
+        localStorage.setItem("password", encryptData(""));
+        localStorage.setItem("remember", encryptedRemember);
       }
       router.push("/home");
 
@@ -77,7 +76,6 @@ export default function SignIn() {
       </Head>
       <div className="wrap__form">
         <h1 className="title__form">Đăng Nhập</h1>
-
         <Form
           name="normal_login"
           className="login-form"
@@ -98,10 +96,7 @@ export default function SignIn() {
               },
             ]}
           >
-            <Input
-              prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="Email"
-            />
+            <Input prefix={<MailOutlined />} placeholder="Email" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -117,19 +112,13 @@ export default function SignIn() {
             ]}
           >
             <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
+              prefix={<LockOutlined />}
               type="password"
               placeholder="Password"
             />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              danger
-              block
-            >
+            <Button type="primary" htmlType="submit" danger block>
               Đăng nhập
             </Button>
           </Form.Item>
@@ -139,8 +128,6 @@ export default function SignIn() {
                 <Checkbox>Ghi nhớ tôi</Checkbox>
               </Form.Item>
 
-              {/* <Link href="/forgot">Quên mật khẩu?</Link>
-               */}
               <ForgotPassword />
             </div>
           </Form.Item>
@@ -154,22 +141,3 @@ export default function SignIn() {
     </>
   );
 }
-
-// export const getServerSideProps = async (context) => {
-//   console.log("getServerSideProps");
-
-//   const encryptedEmail = context.req.cookies.email;
-//   const encryptedPassword = context.req.cookies.password;
-//   const encryptedRemember = context.req.cookies.remember;
-
-//   const email = encryptedEmail === "" ? "" : decryptData(encryptedEmail);
-
-//   const password =
-//     encryptedPassword === "" ? "" : decryptData(encryptedPassword);
-//   const remember =
-//     encryptedRemember === ""
-//       ? false
-//       : decryptData(encryptedRemember) === "true";
-
-//   return { props: { email, password, remember } };
-// };

@@ -26,7 +26,6 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   const handleChangePassword = async (values) => {
     const { oldPassword, newPassword } = values;
     const { error } = await changePassword(oldPassword, newPassword);
-    console.log(values);
     if (error) {
       message.error(authErrors[error.code]);
     } else {
@@ -38,13 +37,16 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
   return (
     <Modal
       open={open}
-      title="Đổi Mật Khẩu"
-      okText="OK"
-      cancelText="Cancel"
+      title={<h1 className="title__form">Đổi mật khẩu</h1>}
+      footer={false}
       onCancel={handleCancel}
-      onOk={handleForSubmit}
     >
-      <Form form={form} layout="vertical" name="form_change_password">
+      <Form
+        form={form}
+        layout="vertical"
+        onFinish={handleForSubmit}
+        name="form_change_password"
+      >
         <Form.Item
           name="oldPassword"
           label="Mật khẩu cũ"
@@ -109,6 +111,11 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
         >
           <Input.Password />
         </Form.Item>
+        <Form.Item style={{ marginTop: 30 }}>
+          <Button type="primary" size="large" htmlType="submit" danger block>
+            Đổi mật khẩu
+          </Button>
+        </Form.Item>
       </Form>
     </Modal>
   );
@@ -116,7 +123,7 @@ const CollectionCreateForm = ({ open, onCreate, onCancel }) => {
 
 export default function ChangePassword() {
   const [open, setOpen] = useState(false);
-  const onChange = (values) => {
+  const onChange = () => {
     setOpen(false);
   };
 

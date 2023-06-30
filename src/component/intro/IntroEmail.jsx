@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Form, Input, Button, message } from "antd";
+import { Form, Input, Button } from "antd";
 import { MailOutlined } from "@ant-design/icons";
-import { register } from "@/lib/auth";
-import { authErrors } from "@/lib/firebase";
 import { useRouter } from "next/router";
 import styles from "@/styles/intro/IntroEmail.module.css";
 
@@ -22,13 +20,6 @@ export default function IntroEmail() {
       sessionStorage.setItem("registerEmail", email);
       form.resetFields();
     }
-    // if (error) {
-    //   console.log(error);
-    //   message.error(authErrors[error.code]);
-    // } else {
-    //   setIsLoading(false);
-    //   message.success("Đăng ký thành công");
-    // }
   };
 
   return (

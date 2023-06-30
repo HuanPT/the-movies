@@ -5,7 +5,7 @@ import { Col, Row, Space } from "antd";
 import React, { useState, useEffect } from "react";
 import { fetchGenres, fetchMovies, genres } from "../lib/api.service";
 import Head from "next/head";
-import TabsRight from "@/component/TabsRight";
+import CustomTabs from "@/component/CustomTabs";
 import CardFilmSmall from "@/component/cardFilm/CardFilmSmall";
 import { FaHotjar } from "react-icons/fa";
 import Spin from "@/component/Spin";
@@ -143,7 +143,7 @@ export default function Home({
                   }
                   style={styleH1}
                 >
-                  <TabsRight items={items} />
+                  <CustomTabs items={items} />
                 </MovieList>
 
                 <MovieList category={upcoming.name} style={styleH1}>

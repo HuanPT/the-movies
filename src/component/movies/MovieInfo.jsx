@@ -1,7 +1,7 @@
 import { formatString, numberTofixed, runtime } from "@/lib/common";
 import Link from "next/link";
 import React from "react";
-import styles from "@/styles/MovieInfo.module.css";
+import styles from "@/styles/movies/MovieInfo.module.css";
 
 export default function MovieInfo({
   year,

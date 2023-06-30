@@ -3,7 +3,6 @@ import CommentForm from "./CommentForm";
 import CommentList from "./CommentList";
 import { Divider } from "antd";
 import {
-  editCommentById,
   getCommentsById,
   postCommentById,
   updateCommentById,
@@ -44,8 +43,6 @@ export default function Comments({ id }) {
     setComments(updatedComments);
     updateCommentById(id, updatedComments);
   };
-
-  console.log(comments);
 
   return (
     <div style={{ maxWidth: 800, margin: "0 auto" }}>

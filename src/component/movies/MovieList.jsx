@@ -1,8 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { FaAngleDoubleRight } from "react-icons/fa";
-import Styles from "@/styles/MovieList.module.css";
-import { Button, Col, Row } from "antd";
+import Styles from "@/styles/movies/MovieList.module.css";
+import { Col, Row } from "antd";
 import ButtonRemoveAll from "../button/ButtonRemoveAll";
 
 export default function MovieList({

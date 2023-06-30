@@ -1,6 +1,6 @@
 import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext({});
@@ -14,22 +14,30 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, setUser);
 
-    if (user) {
-      const userRef = collection(db, "users");
+    const fetchUser = async () => {
+      if (user) {
+        try {
+          const userRef = collection(db, "users");
+          const docRef = doc(userRef, user.uid);
 
-      const docRef = doc(userRef, user.uid);
+          const userSnapshot = onSnapshot(docRef, (docSnapshot) => {
+            if (docSnapshot.exists()) {
+              const userData = docSnapshot.data();
+              setUserData(userData);
+            } else {
+              setUserData(null);
+            }
+          });
 
-      getDoc(docRef)
-        .then((doc) => doc.data())
-        .then((data) => {
-          setUserData(data);
-        })
-        .catch((error) => {
+          return userSnapshot; // Trả về hàm userSnapshot để hủy lắng nghe khi cần thiết
+        } catch (error) {
           console.error(error);
-        });
-    } else {
-      setUserData(null);
-    }
+        }
+      } else {
+        setUserData(null);
+      }
+    };
+    fetchUser();
 
     return () => unsubcribe();
   }, [user]); // thêm user vào danh sách dependencies để useEffect được gọi lại khi user thay đổi

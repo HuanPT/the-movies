@@ -1,15 +1,11 @@
-import { auth, db } from "./firebase";
+import { db } from "./firebase";
 import {
   getDoc,
-  getDocs,
   setDoc,
-  addDoc,
   collection,
   doc,
   updateDoc,
   arrayUnion,
-  arrayRemove,
-  FieldValue,
 } from "firebase/firestore";
 
 export const getCommentsById = async (id) => {

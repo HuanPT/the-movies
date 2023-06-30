@@ -1,14 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import styles from "@/styles/CardCast.module.css";
+import styles from "@/styles/cardFilm/CardCast.module.css";
 import { srcW300 } from "@/lib/api.service";
 
 export default function CardCast({ id, pathImg, name, character }) {
   return (
     <Link href={`/person/${id}`} className={styles.actor}>
       <div className={styles.actor__img}>
-        <Image src={srcW300 + pathImg} width={140} height={140} alt={name} />
+        <Image
+          src={srcW300 + pathImg}
+          width={140}
+          height={140}
+          loading="lazy"
+          alt={name}
+        />
       </div>
       <span className={styles.name}>
         {name} <br />

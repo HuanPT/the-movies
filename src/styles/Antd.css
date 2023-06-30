@@ -1,0 +1,178 @@
+/* Preview Image */
+:where(.css-10oz5o4).ant-image-preview-root .ant-image-preview-img {
+    object-fit: none;
+}
+
+/* Dropdown */
+:where(.css-10oz5o4).ant-dropdown .ant-dropdown-menu,
+:where(.css-10oz5o4).ant-dropdown-menu-submenu .ant-dropdown-menu {
+    background: var(--333-color);
+}
+
+:where(.css-10oz5o4).ant-dropdown .ant-dropdown-arrow:before {
+    background-color: var(--333-color);
+}
+
+/* TABS CSS */
+/* tabs normal */
+:where(.css-10oz5o4).ant-tabs-card>.ant-tabs-nav .ant-tabs-tab,
+:where(.css-10oz5o4).ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab {
+    border: 1px solid transparent;
+}
+
+:where(.css-10oz5o4).ant-tabs .ant-tabs-tab-btn:focus:not(:focus-visible) {
+    color: var(--orange-color);
+}
+
+:where(.css-10oz5o4).ant-tabs .ant-tabs-tab:hover {
+    color: var(--orange-color);
+}
+
+:where(.css-10oz5o4).ant-tabs .ant-tabs-tab {
+    font-size: 16px;
+}
+
+/* Tabs active */
+:where(.css-10oz5o4).ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active,
+:where(.css-10oz5o4).ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab-active {
+    background: var(--black-color);
+    border: 1px solid var(--orange-color);
+    color: var(--orange-color);
+}
+
+:where(.css-10oz5o4).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: var(--orange-color);
+}
+
+/* Form */
+:where(.css-10oz5o4).ant-result .ant-result-title,
+:where(.css-10oz5o4).ant-result .ant-result-subtitle,
+:where(.css-10oz5o4).ant-checkbox-wrapper,
+:where(.css-10oz5o4).ant-form-item {
+    color: var(--white-color);
+}
+
+/* Avatar */
+:where(.css-10oz5o4).ant-avatar-lg .ant-avatar-string {
+    transform: scale(1.5) translateX(-50%) !important;
+}
+
+/* Modal */
+
+:where(.css-10oz5o4).ant-modal .ant-modal-content,
+:where(.css-10oz5o4).ant-modal .ant-modal-header {
+    background: #272727;
+}
+
+:where(.css-10oz5o4).ant-modal .ant-modal-title,
+:where(.css-10oz5o4).ant-form-item .ant-form-item-label>label {
+    color: var(--white-color);
+}
+
+:where(.css-10oz5o4).ant-modal .ant-modal-close {
+    top: 10px;
+    color: var(--white-color);
+    inset-inline-end: 10px;
+    transition: all .3s;
+}
+
+:where(.css-10oz5o4).ant-btn-link:hover,
+:where(.css-10oz5o4).ant-btn-link:not(:disabled):hover,
+:where(.css-10oz5o4).ant-modal .ant-modal-close:hover {
+    color: #ffbe00;
+}
+
+/* Tabs Collection */
+:where(.css-10oz5o4).ant-tabs {
+    color: var(--white-color);
+}
+
+:where(.css-10oz5o4).ant-tabs .ant-tabs-ink-bar {
+    background-color: var(--orange-color);
+}
+
+/* disabled input*/
+:where(.css-10oz5o4).ant-input-number-affix-wrapper-disabled,
+:where(.css-10oz5o4).ant-input-number-affix-wrapper[disabled] {
+    color: var(--white-color);
+    background-color: rgb(192 192 192 / 57%);
+}
+
+/* pagination */
+:where(.css-10oz5o4).ant-pagination {
+    color: var(--white-color);
+    margin-block: 10px;
+    text-align: center;
+}
+
+:where(.css-10oz5o4).ant-pagination .ant-pagination-item a {
+    color: var(--white-color);
+}
+
+:where(.css-10oz5o4).ant-pagination .ant-pagination-item-active {
+    background-color: var(--333-color);
+}
+
+:where(.css-10oz5o4).ant-pagination .ant-pagination-item-active a {
+    color: var(--orange-color);
+}
+
+:where(.css-10oz5o4).ant-pagination .ant-pagination-item a:hover {
+    color: var(--orange-color);
+}
+
+:where(.css-10oz5o4) a[disabled] {
+    color: #555;
+}
+
+:where(.css-10oz5o4).ant-pagination .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis,
+:where(.css-10oz5o4).ant-pagination .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
+    color: var(--white-color);
+}
+
+:where(.css-10oz5o4) a {
+    color: var(--white-color);
+}
+
+:where(.css-10oz5o4) a:hover:not(a[disabled]) {
+    color: var(--orange-color);
+}
+
+/* Search */
+:where(.css-10oz5o4).ant-select-single {
+    width: 100%
+}
+
+:where(.css-10oz5o4).ant-select-single.ant-select-lg:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+    padding-inline: 6px;
+}
+
+/* Placeholder Filter */
+:where(.css-10oz5o4).ant-select .ant-select-selection-placeholder {
+    color: var(--888-color);
+}
+
+:where(.css-10oz5o4).ant-select-dropdown {
+    text-align: center;
+}
+
+/* Rate Star */
+:where(.css-10oz5o4).ant-rate .ant-rate-star-first,
+:where(.css-10oz5o4).ant-rate .ant-rate-star-second {
+    color: #ffffff33;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+/* Collapse */
+:where(.css-10oz5o4).ant-collapse>.ant-collapse-item>.ant-collapse-header {
+    color: var(--white-color);
+    align-items: center;
+}
+
+:where(.css-10oz5o4).ant-collapse .ant-collapse-content {
+    color: var(--white-color);
+    background: transparent;
+}
+
+/*  */

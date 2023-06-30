@@ -1,81 +1,69 @@
 import React, { useMemo } from "react";
-import { Button, Card, Col, Popconfirm, Row, message } from "antd";
+import { Button, Card, Col, Popconfirm, Row } from "antd";
 import { cost, handleTime, numberWithCommas } from "@/lib/common";
 
-import styles from "@/styles/ChooseToBuy.module.css";
+import styles from "@/styles/button/ChooseToBuy.module.css";
 import { useAuthContext } from "@/context/Auth.context";
 import { addMovieToField, updateField } from "@/lib/auth";
 
-export default function ChooseToBuy({ id, setOpen }) {
+export default function ChooseToBuy({ id, setOpen, openNotification }) {
   const { vipMovie, vipMonth } = cost;
   const { user, userData, setUserData } = useAuthContext();
   const userCoin = useMemo(() => userData?.coins, [userData]);
 
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = "ChooseToBuy";
-
   const handleRentFilm = async (e, price, id) => {
     e.preventDefault();
-    if (price <= userCoin) {
-      const newCoin = userCoin - price;
-      const userId = user.uid;
-      if (id) {
-        const rent = handleTime(10, id);
-        await addMovieToField(userId, rent, "rentMovies");
-        await updateField(userId, newCoin, "coins");
-        setOpen(false);
-        setTimeout(() => {
+    if (user.emailVerified) {
+      if (price <= userCoin) {
+        const newCoin = userCoin - price;
+        const userId = user.uid;
+        if (id) {
+          const rent = handleTime(10, id);
+          await addMovieToField(userId, rent, "rentMovies");
+          await updateField(userId, newCoin, "coins");
+          setOpen(false);
           setUserData((prevData) => ({
             ...prevData,
             coins: newCoin,
             rentMovies: [...prevData.rentMovies, rent],
           }));
-        }, 1000);
-        messageApi.success(
-          {
-            key,
-            content: "kích hoạt thành công!",
-            duration: 2,
-          },
-          1000
-        );
-      } else {
-        const rent = handleTime(30);
-        await updateField(userId, rent, "vipStatus");
-        await updateField(userId, newCoin, "coins");
-        setOpen(false);
-        setTimeout(() => {
+          openNotification(
+            "success",
+            "Thành công",
+            "Kích hoạt phim thành công!"
+          );
+        } else {
+          const rent = handleTime(30);
+          await updateField(userId, rent, "vipStatus");
+          await updateField(userId, newCoin, "coins");
+          setOpen(false);
           setUserData((prevData) => ({
             ...prevData,
             coins: newCoin,
             vipStatus: rent,
           }));
-        }, 1000);
-        messageApi.success(
-          {
-            key,
-            content: "kích hoạt thành công!",
-            duration: 2,
-          },
-          1000
+          openNotification(
+            "success",
+            "Thành công",
+            "Kích hoạt VIP thành công!"
+          );
+        }
+      } else {
+        setOpen(false);
+        return openNotification(
+          "error",
+          "Thất bại",
+          "Số coin của bạn không đủ để kích hoạt!"
         );
       }
     } else {
-      messageApi.error(
-        {
-          key,
-          content: "Số coin của bạn không đủ để thực hiện giao dịch",
-          duration: 2,
-        },
-        1000
-      );
+      setOpen(false);
+      return openNotification("error", "Thất bại", "Bạn cần xác thực mail!");
     }
   };
 
   return (
     <>
-      {contextHolder}
-
       <Row gutter={16}>
         <Col span={12}>
           <Card

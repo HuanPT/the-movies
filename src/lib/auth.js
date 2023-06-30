@@ -15,8 +15,6 @@ import {
   arrayUnion,
   collection,
   doc,
-  getDoc,
-  getDocs,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
@@ -102,8 +100,6 @@ export const changePassword = async (oldPass, newPass) => {
 
       // Thay đổi mật khẩu mới
       await updatePassword(user, newPass);
-
-      console.log("Thay đổi mật khẩu thành công");
     } catch (err) {
       console.log("Thay đổi mật khẩu thất bại", err);
       error = err;

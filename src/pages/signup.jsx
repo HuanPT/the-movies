@@ -6,12 +6,10 @@ import { register } from "@/lib/auth";
 import { authErrors } from "@/lib/firebase";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useAuthContext } from "@/context/Auth.context";
+import { encryptData } from "@/lib/common";
 
 export default function SignUp() {
-  const [isLoading, setIsLoading] = useState(false);
   const [initialValue, setInitialValue] = useState({});
-  const { setUser } = useAuthContext();
 
   const router = useRouter();
   const [form] = Form.useForm();
@@ -28,21 +26,22 @@ export default function SignUp() {
   }, [initialValue]);
 
   const onSignUp = async (values) => {
-    setIsLoading(true);
     const email = values.email;
     const password = values.password;
     const username = values.username;
     const { user, error } = await register(email, password, username);
+    const encryptedEmail = encryptData(email);
+    const encryptedPassword = encryptData(password);
+    const encryptedRemember = encryptData("true");
 
     if (error) {
-      console.log(error);
       message.error(authErrors[error.code]);
-      setIsLoading(false);
     } else {
       router.push("/home");
       form.resetFields();
-      setIsLoading(false);
-      setUser(user);
+      localStorage.setItem("email", encryptedEmail);
+      localStorage.setItem("password", encryptedPassword);
+      localStorage.setItem("remember", encryptedRemember);
       setTimeout(() => {
         message.success("Đăng ký thành công");
       }, 1000);
@@ -74,10 +73,7 @@ export default function SignUp() {
             ]}
             hasFeedback
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Tên của bạn"
-            />
+            <Input prefix={<UserOutlined />} placeholder="Tên của bạn" />
           </Form.Item>
 
           <Form.Item
@@ -94,10 +90,7 @@ export default function SignUp() {
             ]}
             hasFeedback
           >
-            <Input
-              prefix={<MailOutlined className="site-form-item-icon" />}
-              placeholder="Email của bạn"
-            />
+            <Input prefix={<MailOutlined />} placeholder="Email của bạn" />
           </Form.Item>
 
           <Form.Item
@@ -114,10 +107,7 @@ export default function SignUp() {
             ]}
             hasFeedback
           >
-            <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              placeholder="Mật khẩu"
-            />
+            <Input.Password prefix={<LockOutlined />} placeholder="Mật khẩu" />
           </Form.Item>
 
           <Form.Item
@@ -147,13 +137,7 @@ export default function SignUp() {
             />
           </Form.Item>
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={isLoading}
-              danger
-              block
-            >
+            <Button type="primary" htmlType="submit" danger block>
               Đăng ký
             </Button>
           </Form.Item>

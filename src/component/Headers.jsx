@@ -58,7 +58,6 @@ const items = [
 export default function Headers() {
   const { user } = useAuthContext();
   const [headerStyle, setHeaderStyle] = useState({});
-
   const heightRef = useRef(null);
 
   useEffect(() => {

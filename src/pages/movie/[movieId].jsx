@@ -1,3 +1,4 @@
+import ButtonVeriEmail from "@/component/button/ButtonVeriEmail";
 import CardCast from "@/component/cardFilm/CardCast";
 import CardFilm from "@/component/cardFilm/CardFilm";
 import MovieDetailImage from "@/component/movies/MovieDetailImage";
@@ -6,11 +7,28 @@ import MovieList from "@/component/movies/MovieList";
 import SetupCarousel from "@/component/SetupCarousel";
 import TrailerIframe from "@/component/TrailerIframe";
 import { getOverview } from "@/lib/common";
-import { Col, Row } from "antd";
+import { Col, Row, notification } from "antd";
 import Head from "next/head";
 import React from "react";
+const key = "notiMovieId";
 
 export default function MovieId({ movie, credits, similar, trailer }) {
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (type, mes, des) => {
+    api[type]({
+      key,
+      message: mes,
+      description:
+        type == "error" ? (
+          <div>
+            {des} <ButtonVeriEmail title={"Xác thực email ngay"} />
+          </div>
+        ) : (
+          des
+        ),
+    });
+  };
+
   const { results } = trailer;
   const { cast, crew } = credits;
   const { results: similarResults } = similar;
@@ -21,7 +39,6 @@ export default function MovieId({ movie, credits, similar, trailer }) {
 
   const listSimilar = (results) => {
     if (results.length === 0) return <p>Chưa có đề xuất cho bạn.</p>;
-
     const list = results.map((item) => {
       return (
         <CardFilm
@@ -69,6 +86,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
 
   return (
     <>
+      {contextHolder}
       <Head>
         <title>{movie.title}</title>
       </Head>
@@ -80,7 +98,8 @@ export default function MovieId({ movie, credits, similar, trailer }) {
           title={movie.title}
           subtitle={movie.original_title}
           priority={true}
-        ></MovieDetailImage>
+          openNotification={openNotification}
+        />
         <MovieList category="Thông tin phim">
           <MovieInfo
             year={movie.release_date}
@@ -93,6 +112,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
             {listCast}
           </MovieInfo>
         </MovieList>
+
         <MovieList category="Nội dung phim">
           <p>
             <span style={{ fontWeight: "bold" }}>{movie.title}</span>.{" "}
@@ -120,12 +140,13 @@ export const getServerSideProps = async ({ query }) => {
   const similarUrl = `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${apiKey}&language=vi`;
   const trailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${apiKey}`;
 
-  const [movieRes, creditsRes, similarRes, trailerRes] = await Promise.all([
-    fetch(movieUrl),
-    fetch(creditsUrl),
-    fetch(similarUrl),
-    fetch(trailerUrl),
-  ]);
+  const [movieRes, creditsRes, similarRes, trailerRes, imagesRes] =
+    await Promise.all([
+      fetch(movieUrl),
+      fetch(creditsUrl),
+      fetch(similarUrl),
+      fetch(trailerUrl),
+    ]);
 
   if (!movieRes.ok) {
     return {
