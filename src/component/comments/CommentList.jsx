@@ -1,6 +1,6 @@
-import React, {  useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { List } from "antd";
-import { FaComments} from "react-icons/fa";
+import { FaComments } from "react-icons/fa";
 import { useAuthContext } from "@/context/Auth.context";
 import styles from "@/styles/comment/CommentList.module.css";
 import CommentItem from "./CommentItem";
@@ -22,10 +22,7 @@ const CommentList = ({ comments, onCommentEdit, onDeleteComment }) => {
         className={styles.list}
         dataSource={comments}
         renderItem={(comment) => (
-          <List.Item
-            key={comment.id}
-            style={{ justifyContent: userId == comment.userId && "right" }}
-          >
+          <List.Item key={comment.id}>
             <CommentItem
               comment={comment}
               userId={userId}

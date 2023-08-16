@@ -13,7 +13,7 @@
 
 .card__movie img {
     object-fit: cover;
-    transition: all .2s;
+    transition: all .5s;
     border-radius: 5px;
 }
 

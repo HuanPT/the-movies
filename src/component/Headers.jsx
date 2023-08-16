@@ -11,6 +11,7 @@ import { Button, Dropdown, Row, Col } from "antd";
 import { logout } from "@/lib/auth";
 import SearchBox from "./search/SearchBox";
 import UserAvatar from "./UserAvatar";
+import { useRouter } from "next/router";
 
 const items = [
   {
@@ -56,6 +57,7 @@ const items = [
 ];
 
 export default function Headers() {
+  const router = useRouter();
   const { user } = useAuthContext();
   const [headerStyle, setHeaderStyle] = useState({});
   const heightRef = useRef(null);
@@ -94,7 +96,10 @@ export default function Headers() {
   return (
     <>
       <header className={styles.header} ref={heightRef} style={headerStyle}>
-        {!user ? (
+        {!user ||
+        router.pathname === "/" ||
+        router.pathname === "/signin" ||
+        router.pathname === "/signup" ? (
           <Row
             justify="space-between"
             align="middle"

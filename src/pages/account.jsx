@@ -16,17 +16,18 @@ const key = "notiMovieId";
 
 export default function Account() {
   const [api, contextHolder] = notification.useNotification();
-  const openNotification = (type, mes, des) => {
+  const openNotification = (type, mes, desc) => {
     api[type]({
       key,
       message: mes,
       description:
         type == "error" ? (
           <div>
-            {des} <ButtonVeriEmail title={"Xác thực email ngay!"} />
+            {desc}{" "}
+            {!isVeriEmail && <ButtonVeriEmail title={"Xác thực email"} />}
           </div>
         ) : (
-          des
+          desc
         ),
     });
   };
@@ -89,8 +90,6 @@ export default function Account() {
     }
     fetchDataAndCheckVipStatus();
   }, [userData]);
-
-  const handleSendVeriEmail = () => {};
 
   return (
     <>

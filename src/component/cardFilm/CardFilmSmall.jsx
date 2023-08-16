@@ -24,13 +24,14 @@ export default function CardFilmSmall({
   return (
     <Link href={link} title={title}>
       <div className={styles.card__movie}>
-        <Image
-          src={srcCardSmall + pathImg}
-          width={88}
-          height={132}
-          alt={title}
-          className={styles.img}
-        />
+        <div className={styles.img}>
+          <Image
+            src={srcCardSmall + pathImg}
+            width={88}
+            height={132}
+            alt={title}
+          />
+        </div>
         <Row className={styles.wrap__des}>
           <Col span={24}>
             <p className={styles.title}>{title}</p>

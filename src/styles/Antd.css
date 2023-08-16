@@ -175,4 +175,11 @@
     background: transparent;
 }
 
-/*  */
+/* Grid */
+@media (min-width: 992px) {
+    :where(.css-10oz5o4).ant-col-lg-5 {
+        display: block;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+}

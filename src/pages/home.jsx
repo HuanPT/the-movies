@@ -158,7 +158,7 @@ export default function Home({
   );
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const key = process.env.NEXT_PUBLIC_API_KEY_MOVIE;
   const urls = [
     `https://api.themoviedb.org/3/movie/now_playing?api_key=${key}&language=vi`,
@@ -194,5 +194,6 @@ export const getServerSideProps = async () => {
 
   return {
     props: { popular, listGenres, trendingDay, trendingWeek, upcoming },
+    revalidate: 86400,
   };
 };

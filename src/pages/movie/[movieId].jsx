@@ -14,6 +14,7 @@ const key = "notiMovieId";
 
 export default function MovieId({ movie, credits, similar, trailer }) {
   const [api, contextHolder] = notification.useNotification();
+
   const openNotification = (type, mes, des) => {
     api[type]({
       key,
@@ -56,6 +57,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
     return <SetupCarousel>{list}</SetupCarousel>;
   };
 
+
   const listTrailer = (results) => {
     if (results.length === 0)
       return (
@@ -90,6 +92,7 @@ export default function MovieId({ movie, credits, similar, trailer }) {
       <Head>
         <title>{movie.title}</title>
       </Head>
+
       <div>
         <MovieDetailImage
           pathImg={movie.backdrop_path}

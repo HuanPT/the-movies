@@ -11,8 +11,13 @@
 }
 
 .img {
+    overflow: hidden;
     max-width: 80px;
     border-radius: 5px;
+}
+
+.img>img {
+    transition: all .3s;
 }
 
 .title {
@@ -30,6 +35,10 @@
 .card__movie:hover {
     box-shadow: 0 0 3px 3px rgba(255, 255, 255, 0.2);
     background: #333;
+}
+
+.card__movie:hover img {
+    transform: scale(1.1);
 }
 
 .wrap__des {

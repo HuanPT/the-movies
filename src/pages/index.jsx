@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Section from "@/component/intro/Section";
 import IntroEmail from "@/component/intro/IntroEmail";
@@ -16,10 +16,19 @@ import imgKid from "/public/img-kid.png";
 import imgApp from "/public/downloadApp.jpg";
 import { FaAngleRight } from "react-icons/fa";
 import { faqList } from "@/lib/api.context";
+import { useAuthContext } from "@/context/Auth.context";
+import { useRouter } from "next/router";
 
-export default function Home() {
+export default function Page() {
+  const router = useRouter();
   const [messageApi, contextHolder] = message.useMessage();
   const key = "downloadApp";
+
+  const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (user) router.push("/home");
+  }, [user]);
 
   // Accordion
   const { Panel } = Collapse;
@@ -121,9 +130,9 @@ export default function Home() {
           <Row gutter={[12, 12]}>
             <Col span={24} md={12}>
               <SectionText
-                title={"Thưởng thức trên TV của bạn."}
+                title={"Thưởng thức trên TV của bạn"}
                 subTitle={
-                  "Xem trên TV thông minh, Playstation, Xbox, Chromecast, Apple TV, đầu phát Blu-ray và nhiều thiết bị khác."
+                  "Xem trên TV thông minh, Playstation, Xbox, Chromecast, Apple TV, đầu phát Blu-ray và nhiều thiết bị khác"
                 }
               />
             </Col>
@@ -138,9 +147,9 @@ export default function Home() {
           <Row gutter={[12, 12]}>
             <Col span={24} md={{ order: 2, span: 12 }}>
               <SectionText
-                title={"Tải xuống nội dung để xem ngoại tuyến."}
+                title={"Tải xuống nội dung để xem ngoại tuyến"}
                 subTitle={
-                  "Lưu lại những nội dung yêu thích một cách dễ dàng và luôn có thứ để xem."
+                  "Lưu lại những nội dung yêu thích một cách dễ dàng và luôn có thứ để xem"
                 }
               />
             </Col>
@@ -159,7 +168,7 @@ export default function Home() {
               <SectionText
                 title={"Xem ở mọi nơi."}
                 subTitle={
-                  "Phát trực tuyến không giới hạn phim và chương trình truyền hình trên điện thoại, máy tính bảng, máy tính xách tay và TV."
+                  "Phát trực tuyến không giới hạn phim và chương trình truyền hình trên điện thoại, máy tính bảng, máy tính xách tay và TV"
                 }
               />
             </Col>
@@ -179,9 +188,9 @@ export default function Home() {
           <Row gutter={[12, 12]}>
             <Col span={24} md={{ order: 2, span: 12 }}>
               <SectionText
-                title={"Tải xuống nội dung để xem ngoại tuyến."}
+                title={"Tải xuống nội dung để xem ngoại tuyến"}
                 subTitle={
-                  "Lưu lại những nội dung yêu thích một cách dễ dàng và luôn có thứ để xem."
+                  "Lưu lại những nội dung yêu thích một cách dễ dàng và luôn có thứ để xem"
                 }
               />
             </Col>

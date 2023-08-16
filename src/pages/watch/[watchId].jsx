@@ -27,8 +27,6 @@ export default function WatchId({ movie, recommend }) {
   }, []);
 
   const { results: recommendResults } = recommend;
-  // const id = movie.id;
-  // console.log(useGetCommentsByIdQuery(id));
 
   const listRecommend = (results) => {
     if (results.length === 0) return <p>Chưa có đề xuất cho bạn.</p>;
@@ -63,8 +61,10 @@ export default function WatchId({ movie, recommend }) {
           <Col span={24}>
             <div className={styles.watch}>
               <iframe
-                src="//ok.ru/videoembed/5285875092073?autoplay=1"
+                src="//ok.ru/videoembed/6231095249513?autoplay=1"
                 frameborder="0"
+                allow="autoplay"
+                allowfullscreen
               ></iframe>
             </div>
           </Col>

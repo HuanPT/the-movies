@@ -66,15 +66,24 @@ export default function Search({ datas, q, p, otherQueries }) {
   };
 
   const handleQuickJumperChange = (page) => {
-    if (page >= 1) handlePageChange(page);
+    if (page >= 1 && page <= datas.total_pages) handlePageChange(page);
   };
 
   const itemRender = (_, type, originalElement) => {
     if (type === "prev") return <a onClick={handlePrevClick}>Prev</a>;
     if (type === "next")
-      return <a onClick={() => handlePageChange(p + 1)}>Next</a>;
+      return (
+        <a
+          onClick={() => {
+            if (p < datas.total_pages && p < 500) handlePageChange(p + 1);
+          }}
+        >
+          Next
+        </a>
+      );
     return originalElement;
   };
+
   const customPagination = {
     total: datas.total_results > 10000 ? 10000 : datas.total_results,
     pageSize: 20,
@@ -98,6 +107,11 @@ export default function Search({ datas, q, p, otherQueries }) {
       />
     </Col>
   ));
+
+  const cancelFilterHandler = (e) => {
+    e.preventDefault();
+    if (q) return router.push(`/search?q=${encodeURIComponent(q)}&page=1`);
+  };
 
   return (
     <>
@@ -132,6 +146,7 @@ export default function Search({ datas, q, p, otherQueries }) {
                     alignItems: "center",
                     gap: 5,
                   }}
+                  onClick={cancelFilterHandler}
                 >
                   Bỏ lọc
                 </Button>
