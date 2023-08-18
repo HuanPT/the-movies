@@ -47,7 +47,7 @@ export default function Collection() {
   const [pageCollection, setPageCollection] = useState(1);
   const [pageHistory, setPageHistory] = useState(1);
   const [messageApi, contextHolder] = message.useMessage();
-  const key = "remove all";
+  const key = "removeAll";
 
   const [collections, histories, userId] = useMemo(() => {
     const collections = userData?.collections || [];
@@ -78,10 +78,10 @@ export default function Collection() {
       },
       1000
     );
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      [field]: [],
-    }));
+    // setUserData((prevUserData) => ({
+    //   ...prevUserData,
+    //   [field]: [],
+    // }));
   };
 
   const items = [

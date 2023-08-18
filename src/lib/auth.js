@@ -1,4 +1,4 @@
-import { auth, db, storage } from "./firebase";
+import { auth, db, googleProvider, storage } from "./firebase";
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -9,25 +9,47 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
   sendEmailVerification,
+  signInWithPopup,
 } from "firebase/auth";
 import {
   arrayRemove,
   arrayUnion,
   collection,
   doc,
+  getDoc,
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import { formatNumberToDateTime } from "./common";
+import { createUserData, formatNumberToDateTime } from "./common";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 export const login = async (email, password) => {
   let user = null;
   let error = null;
   try {
-    user = await signInWithEmailAndPassword(auth, email, password);
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+    user = credential.user;
   } catch (e) {
     error = e;
+  }
+  return { user, error };
+};
+
+export const signInWithGoogle = async () => {
+  let user = null;
+  let error = null;
+  try {
+    const credential = await signInWithPopup(auth, googleProvider);
+    user = credential.user;
+
+    const userRef = collection(db, "users");
+    const userSnap = await getDoc(doc(userRef, user.uid));
+    if (!userSnap.exists()) {
+      const createUser = createUserData(user, user.email, user.displayName);
+      await setDoc(doc(userRef, user.uid), createUser, { merge: true });
+    }
+  } catch (err) {
+    error = err;
   }
   return { user, error };
 };
@@ -49,28 +71,9 @@ export const register = async (email, password, username) => {
 
     const userRef = collection(db, "users");
 
-    const date = user.metadata.createdAt;
-
-    const createOnTime = formatNumberToDateTime(date);
-
-    const createDataUser = {
-      email,
-      username,
-      coins: 50000,
-      histories: [],
-      vipStatus: {
-        end: 0,
-        start: 0,
-        isVip: false,
-        startTime: "",
-        expirationTime: "",
-      },
-      rentMovies: [],
-      collections: [],
-      createOnTime,
-    };
-    await sendEmailVerification(user);
-    await setDoc(doc(userRef, user.uid), createDataUser, { merge: true });
+    const createUser = createUserData(user, email, username);
+    // await sendEmailVerification(user);
+    await setDoc(doc(userRef, user.uid), createUser, { merge: true });
   } catch (err) {
     error = err;
   }

@@ -9,7 +9,7 @@ export default function ButtonAddToCollection({
   className,
   id,
 }) {
-  const { userData, user, setUserData } = useAuthContext();
+  const { userData, user } = useAuthContext();
   const collections = useMemo(() => userData?.collections || [], [userData]);
   const [isInCollection, setIsInCollection] = useState(false);
 
@@ -18,12 +18,11 @@ export default function ButtonAddToCollection({
   }, [collections, id]);
 
   const [messageApi, contextHolder] = message.useMessage();
-  const keyAdd = "add to collections";
-  const keyRemove = "remove from collections";
-  const handleCollection = (e) => {
+  const keyAdd = "addToCollections";
+  const keyRemove = "removeFromCollections";
+  const handleCollection = async (e) => {
     e.preventDefault();
     if (isInCollection) {
-      removeMovieFromField(user.uid, id, "collections");
       messageApi.success(
         {
           key: keyRemove,
@@ -33,8 +32,11 @@ export default function ButtonAddToCollection({
         },
         1000
       );
+      setTimeout(async () => {
+        await removeMovieFromField(user.uid, id, "collections");
+      }, 600);
     } else {
-      addMovieToField(user.uid, id, "collections");
+      await addMovieToField(user.uid, id, "collections");
       messageApi.success(
         {
           key: keyAdd,
@@ -45,14 +47,14 @@ export default function ButtonAddToCollection({
         1000
       );
     }
-    setTimeout(() => {
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        collections: isInCollection
-          ? prevUserData.collections.filter((item) => item !== id)
-          : [...prevUserData.collections, id],
-      }));
-    }, 500);
+    // setTimeout(() => {
+    //   setUserData((prevUserData) => ({
+    //     ...prevUserData,
+    //     collections: isInCollection
+    //       ? prevUserData.collections.filter((item) => item !== id)
+    //       : [...prevUserData.collections, id],
+    //   }));
+    // }, 500);
     setIsInCollection(!isInCollection);
   };
 

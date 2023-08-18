@@ -77,7 +77,7 @@ export default function Home({
   ));
 
   const GenreCategory = listGenres.map((genre) => {
-    const film = genre.data.slice(0, 8).map((item) => (
+    const film = genre.data.slice(0, 12).map((item) => (
       <Col key={item.id} xs={12} sm={8} md={6}>
         <CardFilm
           key={item.id}
@@ -110,7 +110,7 @@ export default function Home({
         <title>Trang chủ</title>
         <meta
           name="description"
-          content="TheMovies - Mang cả thế giới đến với bạn!"
+          content="TheMovies - Mang cả thế giới phim đến với bạn!"
         />
       </Head>
 

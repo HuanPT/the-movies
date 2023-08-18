@@ -158,3 +158,19 @@ video {
 .section__wrap {
   padding-inline: 24px;
 }
+
+/* Google Social */
+.google__social {
+  font-weight: bolder;
+  font-size: 20px;
+  color: transparent;
+  background: conic-gradient(at 45% 48%,
+      red 0deg 63deg,
+      #4285f4 63deg 138deg,
+      #34a853 138deg 225deg,
+      #fbbc05 225deg 300deg,
+      red 300deg);
+  border-radius: 50%;
+  background-clip: text;
+  -webkit-background-clip: text;
+}

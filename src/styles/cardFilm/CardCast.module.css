@@ -13,11 +13,11 @@
     transition: all .2s;
 }
 
-.actor__img img {
+/* .actor__img img {
     width: 150px;
     height: 150px;
     object-fit: cover;
-}
+} */
 
 .name {
     font-weight: bold;

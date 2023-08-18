@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Divider, Form, Input, message } from "antd";
 import Link from "next/link";
-import { login } from "@/lib/auth";
+import { login, signInWithGoogle } from "@/lib/auth";
 import { useRouter } from "next/router";
 import { authErrors } from "@/lib/firebase";
 import { decryptData, encryptData } from "@/lib/common";
@@ -63,10 +63,26 @@ export default function SignIn() {
         localStorage.setItem("password", encryptData(""));
         localStorage.setItem("remember", encryptedRemember);
       }
+
       router.push("/home");
 
-      message.success(`Chào mừng trở lại, ${user.user.displayName}`);
+      message.success(`Chào mừng trở lại, ${user.displayName}!`);
     }
+  };
+
+  const onSignInWithGoogle = async (e) => {
+    e.preventDefault();
+    try {
+      const { user, error } = await signInWithGoogle();
+      if (error) message.error(authErrors[error.code]);
+      else {
+        localStorage.setItem("email", encryptData(""));
+        localStorage.setItem("password", encryptData(""));
+        message.success(`Đăng nhập thành công, xin chào ${user.displayName}!`);
+
+        router.push("/home");
+      }
+    } catch (err) {}
   };
 
   return (
@@ -120,6 +136,27 @@ export default function SignIn() {
           <Form.Item>
             <Button type="primary" htmlType="submit" danger block>
               Đăng nhập
+            </Button>
+          </Form.Item>
+
+          <Divider
+            style={{ marginBlock: 20, color: "#bbb", borderBlockColor: "#ddd" }}
+          >
+            Hoặc
+          </Divider>
+
+          <Form.Item>
+            <Button
+              htmlType="button"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              ghost
+              onClick={onSignInWithGoogle}
+            >
+              <span className="google__social">G</span>oogle
             </Button>
           </Form.Item>
           <Form.Item>
