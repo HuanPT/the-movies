@@ -256,5 +256,5 @@ export const convertCurrencyToWords = (number) => {
   temp = temp.trim();
   const result =
     temp.substring(0, 1).toUpperCase() + temp.substring(1).toLowerCase();
-  return (result == "" ? "Không" : result) + " đồng";
+  return (result == "" ? "Không" : result) + " Việt Nam đồng";
 };

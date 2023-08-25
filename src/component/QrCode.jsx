@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "@/styles/QrCode.module.css";
 import { useAuthContext } from "@/context/Auth.context";
 import { updateField } from "@/lib/auth";
+import { convertCurrencyToWords } from "@/lib/common";
 
 export default function QrCode() {
   const { userData, setUserData, user } = useAuthContext();
@@ -47,19 +48,25 @@ export default function QrCode() {
             width: "100%",
             maxWidth: 200,
           }}
+          max={999999999999999}
           size="large"
           disabled={show}
         />
         <Button size="large" onClick={handlePlusMoney}>
           {title}
         </Button>
+        {show && (
+          <Button size="large" onClick={() => setShow(false)}>
+            Hủy
+          </Button>
+        )}
       </div>
-
+      <p style={{ fontSize: 16 }}>{convertCurrencyToWords(amount)}</p>
       {show && (
         <>
           <div className={styles.qrImg}>
             <Image
-              src={`https://img.vietqr.io/image/BIDV-12410003672251-compact2.png?amount=${amount}&addInfo=${userInfo} ${amount}`}
+              src={`https://img.vietqr.io/image/BIDV-12410003672251-compact2.png?amount=${amount}&addInfo=${userInfo}-${amount}`}
               fill
               alt="qr code"
             />

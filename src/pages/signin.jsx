@@ -152,11 +152,12 @@ export default function SignIn() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                margin: "0 auto",
               }}
               ghost
               onClick={onSignInWithGoogle}
             >
-              <span className="google__social">G</span>oogle
+              <span className="google__social">G</span> Đăng nhập với google
             </Button>
           </Form.Item>
           <Form.Item>
